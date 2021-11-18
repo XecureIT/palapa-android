@@ -562,7 +562,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">நீங்கள் குறிப்பிட்ட 
 எண் (%s) செல்லாது.</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play சேவைகளைக் காணவில்லை</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">இந்த சாதனத்தில்  Google Play சேவைகள் இல்லை . இருந்தும் நீங்கள் Signal ஐ பயன்படுத்தலாம் , ஆனால் இந்த உள்ளமைவு நம்பகத்தன்மை அல்லது செயல்திறனைக் குறைக்கலாம். \n\n நீங்கள் ஒரு மேம்பட்ட பயனராக இல்லாவிட்டால், சந்தைக்குப்பிறகான அண்ட்ராய்டு ROM ஐ இயக்கவில்லை அல்லது இதை பிழையாகப் பார்க்கிறீர்கள் என்று நம்பினால், தயவுசெய்து ஆதரவைத் தொடர்பு கொள்ளவும் @ சிக்கல்  support@signal.org.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">இந்த சாதனத்தில்  Google Play சேவைகள் இல்லை . இருந்தும் நீங்கள் Signal ஐ பயன்படுத்தலாம் , ஆனால் இந்த உள்ளமைவு நம்பகத்தன்மை அல்லது செயல்திறனைக் குறைக்கலாம். \n\n நீங்கள் ஒரு மேம்பட்ட பயனராக இல்லாவிட்டால், சந்தைக்குப்பிறகான அண்ட்ராய்டு ROM ஐ இயக்கவில்லை அல்லது இதை பிழையாகப் பார்க்கிறீர்கள் என்று நம்பினால், தயவுசெய்து ஆதரவைத் தொடர்பு கொள்ளவும் @ சிக்கல்  support@xecureit.id.</string>
   <string name="RegistrationActivity_i_understand">எனக்கு புரிகிறது</string>
   <string name="RegistrationActivity_play_services_error">சேவைகளில் பிழை</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play சேவைகள் புதுப்பித்தல் அல்லது தற்காலிகமாக கிடைக்கவில்லை. தயவு செய்து மீண்டும் முயற்சிக்கவும்.</string>
@@ -1028,7 +1028,7 @@
   <string name="unknown_sender_view__add_to_contacts">தொடர்பு பட்டியலில் சேர்க்க</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">சேர்க்க வேண்டாம், ஆனால் எனது சுயவிவரத்தை காணக்கூடியதாக மாற்றவும்</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[உங்கள் குறியாக்கத்தின் பாதுகாப்பை %s உடன் சரிபார்க்க விரும்பினால், மேலே உள்ள எண்ணை அவற்றின் சாதனத்தில் உள்ள எண்ணுடன் ஒப்பிடுக. மாற்றாக, நீங்கள் அவர்களின் தொலைபேசியில் குறியீட்டை ஸ்கேன் செய்யலாம் அல்லது உங்கள் குறியீட்டை ஸ்கேன் செய்யுமாறு அவர்களிடம் கேட்கலாம்.<a href="https://signal.org/redirect/safety-numbers">மேலும் அறிக .</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[உங்கள் குறியாக்கத்தின் பாதுகாப்பை %s உடன் சரிபார்க்க விரும்பினால், மேலே உள்ள எண்ணை அவற்றின் சாதனத்தில் உள்ள எண்ணுடன் ஒப்பிடுக. மாற்றாக, நீங்கள் அவர்களின் தொலைபேசியில் குறியீட்டை ஸ்கேன் செய்யலாம் அல்லது உங்கள் குறியீட்டை ஸ்கேன் செய்யுமாறு அவர்களிடம் கேட்கலாம்.]]></string>
   <string name="verify_display_fragment__tap_to_scan">ஸ்கேன் செய்ய தட்டவும்</string>
   <string name="verify_display_fragment__loading">ஏற்றுதல் …</string>
   <string name="verify_display_fragment__verified">சரிபார்க்கப்பட்ட</string>

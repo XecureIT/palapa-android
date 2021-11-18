@@ -560,7 +560,7 @@ telefona</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Broj koji ste unijeli
 (%s) je neispravan.</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services nije dostupan</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Na ovom uređaju Google Play Services nisu dostupne. I dalje možete koristiti Signal, ali ovo može rezultirati umanjenim performansama i pouzdanosti u radu.\n\nUkoliko niste napredni korisnik, ne koristite prilagođeni Android sustav ili mislite da vam se ovo upozorenje pojavljuje greškom, kontaktirajte support@signal.org kako bismo vam pokušali pomoći.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Na ovom uređaju Google Play Services nisu dostupne. I dalje možete koristiti Signal, ali ovo može rezultirati umanjenim performansama i pouzdanosti u radu.\n\nUkoliko niste napredni korisnik, ne koristite prilagođeni Android sustav ili mislite da vam se ovo upozorenje pojavljuje greškom, kontaktirajte support@xecureit.id kako bismo vam pokušali pomoći.</string>
   <string name="RegistrationActivity_i_understand">Razumijem</string>
   <string name="RegistrationActivity_play_services_error">Play Services greška</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services se trenutno ažurira ili je nedostupno. Pokušajte ponovno kasnije.</string>
@@ -1021,7 +1021,7 @@ Uvezi nekriptiranu kopiju. Kompatibilno s \'SMSBackup And Restore\'.</string>
   <string name="unknown_sender_view__add_to_contacts">DODAJ U KONTAKTE</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NEMOJ DODATI, ALI UČINI VIDLJIVIM MOJ PROFIL</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ukoliko želite provjeriti sigurnost vašeg kriptiranja s%s, usporedite brojeve koje vidite iznad s brojevima na drugom uređaju. Ili možete skenirati kod s drugog telefona ili drugog zamoliti da skenira kod s vašeg telefona. <a href="https://signal.org/redirect/safety-numbers">Saznajte više.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ukoliko želite provjeriti sigurnost vašeg kriptiranja s%s, usporedite brojeve koje vidite iznad s brojevima na drugom uređaju. Ili možete skenirati kod s drugog telefona ili drugog zamoliti da skenira kod s vašeg telefona.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Pritisnite za skeniranje</string>
   <string name="verify_display_fragment__loading">Učitavanje…</string>
   <string name="verify_display_fragment__verified">Provjereno</string>

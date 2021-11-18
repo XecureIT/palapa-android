@@ -561,7 +561,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">आपण निर्दिष्ट केलेला नंबर (%s) अवैध आहे.
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Google प्ले सेवा नाहीत</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ह्या डिव्हाईस मध्ये Google प्ले सेवा नाही. तरीही आपण Signal वापरू शकता, पण ह्या कॉन्फिगरेशनमुळे  विश्वसनीयता किंवा कार्यक्षमता कमी होऊ शकते.\n\nजर आपण प्रगत वापरकर्ते नसाल, आफ्टरमार्केट Android ROM वापरत नसाल, किंवा आपल्याला हे त्रुटी म्हणून दिसत आहे असे वाटत असेल, तर ट्रबलशूट करण्यात मदतीसाठी कृपया support@signal.org वर संपर्क करा.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ह्या डिव्हाईस मध्ये Google प्ले सेवा नाही. तरीही आपण Signal वापरू शकता, पण ह्या कॉन्फिगरेशनमुळे  विश्वसनीयता किंवा कार्यक्षमता कमी होऊ शकते.\n\nजर आपण प्रगत वापरकर्ते नसाल, आफ्टरमार्केट Android ROM वापरत नसाल, किंवा आपल्याला हे त्रुटी म्हणून दिसत आहे असे वाटत असेल, तर ट्रबलशूट करण्यात मदतीसाठी कृपया support@xecureit.id वर संपर्क करा.</string>
   <string name="RegistrationActivity_i_understand">मला समजले</string>
   <string name="RegistrationActivity_play_services_error">प्ले सेवा त्रुटी</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google प्ले सेवा अद्ययावत होत आहे किंवा तात्पुर्ते अनुपलब्ध आहे. कृपया पुन्हा प्रयत्न करा.</string>
@@ -1027,7 +1027,7 @@
   <string name="unknown_sender_view__add_to_contacts">संपर्कात जोडा</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">जोडू नका, पण माझी प्रोफाईल दृश्यमान करा</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[जर आपल्याला %s सोबत आपल्या एन्क्रिप्शनची सुरक्षा सत्यापित करायची असेल, तर त्यांचा डिव्हाईस वरील नंबरची तुलना करा. पर्यायीरीत्या, आपण त्यांच्या फोन वरील कोड स्कॅन करू शकता, किंवा त्यांना आपला कोड स्कॅन करण्यास विचारू शकता. <a href="https://signal.org/redirect/safety-numbers">अधिक जाणा</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[जर आपल्याला %s सोबत आपल्या एन्क्रिप्शनची सुरक्षा सत्यापित करायची असेल, तर त्यांचा डिव्हाईस वरील नंबरची तुलना करा. पर्यायीरीत्या, आपण त्यांच्या फोन वरील कोड स्कॅन करू शकता, किंवा त्यांना आपला कोड स्कॅन करण्यास विचारू शकता.]]></string>
   <string name="verify_display_fragment__tap_to_scan">स्कॅन करण्यासाठी टॅप करा</string>
   <string name="verify_display_fragment__loading">लोड होत आहे…</string>
   <string name="verify_display_fragment__verified">सत्यापित</string>

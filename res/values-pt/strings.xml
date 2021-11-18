@@ -559,7 +559,7 @@ número de telefone</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">O número que
 especificou (%s) é inválido.</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services em falta</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Este dispositivo tem o Google Play Services em falta. Vai conseguir usar o Signal na mesma, mas esta configuração poderá resultar em fiabilidade ou performance reduzidas.\n\nSe não é um utilizador avançado, não está a correr uma ROM Android personalizada ou acha que isto é um erro, por favor contacte support@signal.org para obter ajuda.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Este dispositivo tem o Google Play Services em falta. Vai conseguir usar o Signal na mesma, mas esta configuração poderá resultar em fiabilidade ou performance reduzidas.\n\nSe não é um utilizador avançado, não está a correr uma ROM Android personalizada ou acha que isto é um erro, por favor contacte support@xecureit.id para obter ajuda.</string>
   <string name="RegistrationActivity_i_understand">Eu compreendo</string>
   <string name="RegistrationActivity_play_services_error">Erro do Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">O Google Play Services está a ser atualizado ou está temporariamente indisponível. Por favor, tente novamente.</string>
@@ -1026,7 +1026,7 @@ Mensagem de troca de chaves inválida para esta versão do protocolo.
   <string name="unknown_sender_view__add_to_contacts">ADICIONAR AOS CONTACTOS</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NÃO ADICIONAR, MAS TORNAR O MEU PERFIL VISÍVEL</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se pretende verificar a segurança da sua encriptação ponta-a-ponta com o contacto %s, compare o número acima com o equivalente no dispositivo do seu contacto. Em alternativa, poderá fazer a digitalização do código QR exibido no outro dispositivo ou pedir que façam digitalização do seu código. <a href="https://signal.org/redirect/safety-numbers">Saber mais</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se pretende verificar a segurança da sua encriptação ponta-a-ponta com o contacto %s, compare o número acima com o equivalente no dispositivo do seu contacto. Em alternativa, poderá fazer a digitalização do código QR exibido no outro dispositivo ou pedir que façam digitalização do seu código.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Toque para digitalizar</string>
   <string name="verify_display_fragment__loading">A carregar…</string>
   <string name="verify_display_fragment__verified">Verificado</string>

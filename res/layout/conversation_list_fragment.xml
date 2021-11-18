@@ -173,6 +173,19 @@
       tools:visibility="gone"/>
 
   <org.thoughtcrime.securesms.components.registration.PulsingFloatingActionButton
+          android:id="@+id/vicon_fab"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="20dp"
+          android:contentDescription="@string/conversation_list_fragment__open_vicon_description"
+          android:focusable="true"
+          android:tint="?conversation_list_vicon_icon_tint"
+          app:backgroundTint="?conversation_list_vicon_button_background"
+          app:layout_constraintBottom_toTopOf="@id/camera_fab"
+          app:layout_constraintEnd_toEndOf="@id/camera_fab"
+          app:srcCompat="@drawable/ic_video_solid_24"/>
+
+  <org.thoughtcrime.securesms.components.registration.PulsingFloatingActionButton
       android:id="@+id/camera_fab"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

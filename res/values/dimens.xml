@@ -59,6 +59,11 @@
     <dimen name="media_keyboard_provider_icon_padding">5dp</dimen>
     <dimen name="media_keyboard_provider_icon_margin">4dp</dimen>
 
+    <dimen name="list_room_padding_right">15dp</dimen>
+    <dimen name="list_room_margin_top">5dp</dimen>
+    <dimen name="list_room_margin_buttom">5dp</dimen>
+    <dimen name="list_room_text">18dp</dimen>
+
     <dimen name="progress_dialog_size">120dp</dimen>
 
     <dimen name="thumbnail_default_radius">4dp</dimen>

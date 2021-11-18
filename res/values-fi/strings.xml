@@ -559,7 +559,7 @@ puhelinnumero</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Antamasi puhelinnumero
 (%s) on virheellinen.</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services puuttuu</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Tästä laitteesta puuttuu Google Play Services. Signal toimii myös ilman sitä, mutta kaikki ominaisuudet eivät välttämättä toimi yhtä hyvin tai luotettavasti.\n\nJos et ole edistyneempi käyttäjä, et käytä kolmannen osapuolen Android ROM:ia tai uskot, että näet tämän ilmoituksen virheellisesti, ota yhteyttä support@signal.org saadaksesi apua.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Tästä laitteesta puuttuu Google Play Services. Signal toimii myös ilman sitä, mutta kaikki ominaisuudet eivät välttämättä toimi yhtä hyvin tai luotettavasti.\n\nJos et ole edistyneempi käyttäjä, et käytä kolmannen osapuolen Android ROM:ia tai uskot, että näet tämän ilmoituksen virheellisesti, ota yhteyttä support@xecureit.id saadaksesi apua.</string>
   <string name="RegistrationActivity_i_understand">Ymmärrän</string>
   <string name="RegistrationActivity_play_services_error">Play Services -virhe</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Servicesiä päivitetään tai se ei ole juuri nyt saavutettavissa. Yritä myöhemmin uudelleen.</string>
@@ -1024,7 +1024,7 @@ Vastaanotetiin avaintenvaihtoviesti, joka kuuluu väärälle protokollaversiolle
   <string name="unknown_sender_view__add_to_contacts">LISÄÄ YHTEYSTIETOIHIN</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">ÄLÄ LISÄÄ, MUTTA TEE PROFIILINI NÄKYVÄKSI</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Jos haluat varmentaa sinun ja yhteystiedon %s välisen salauksen tietoturvan, vertaa ylläolevia numeroita hänen laitteessaan näkyviin vastaaviin numeroihin. Vaihtoehtoisesti voit skannata koodin hänen puhelimestaan, tai pyytä häntä skannaamaan sinun koodisi. <a href="https://signal.org/redirect/safety-numbers">Lue lisää.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Jos haluat varmentaa sinun ja yhteystiedon %s välisen salauksen tietoturvan, vertaa ylläolevia numeroita hänen laitteessaan näkyviin vastaaviin numeroihin. Vaihtoehtoisesti voit skannata koodin hänen puhelimestaan, tai pyytä häntä skannaamaan sinun koodisi.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Skannaa napauttamalla</string>
   <string name="verify_display_fragment__loading">Ladataan…</string>
   <string name="verify_display_fragment__verified">Varmennettu</string>

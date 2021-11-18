@@ -502,7 +502,7 @@
   <string name="RegistrationActivity_invalid_number">전화번호가 잘못됨</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">입력한 전화번호가 (%s) 잘못되었습니다.</string>
   <string name="RegistrationActivity_missing_google_play_services">구글 play services 가 설치되어 있지 않음</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">이 기기는 Google Play Servies가 없습니다. Signal을 사용할 수는 있으나 안정성이나 성능이 떨어질 수 있습니다.\n\n커스텀 안드로이드 ROM을 사용하는 고급 사용자가 아니거나 이 메시지가 오류라고 생각되는 경우 문제 해결을 위해 support@signal.org 이메일로 연락해주세요.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">이 기기는 Google Play Servies가 없습니다. Signal을 사용할 수는 있으나 안정성이나 성능이 떨어질 수 있습니다.\n\n커스텀 안드로이드 ROM을 사용하는 고급 사용자가 아니거나 이 메시지가 오류라고 생각되는 경우 문제 해결을 위해 support@xecureit.id 이메일로 연락해주세요.</string>
   <string name="RegistrationActivity_i_understand">본인은 이해하였습니다</string>
   <string name="RegistrationActivity_play_services_error">구글 play services 에러</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">구글 play services 가 수정중이거나 잠시 제공되지 않고 있습니다. 다시 시도해 주십시오</string>
@@ -939,7 +939,7 @@
   <string name="unknown_sender_view__add_to_contacts">연락처에 추가</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">추가하지 않되 프로필은 보이기</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s와의 암호화 보안을 확인하고 싶다면 위에 표시되는 번호를 확인하세요. 또는 QR 코드를 스캔할 수 있습니다. <a href="https://signal.org/redirect/safety-numbers">자세히 알아보기</a>.]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s와의 암호화 보안을 확인하고 싶다면 위에 표시되는 번호를 확인하세요. 또는 QR 코드를 스캔할 수 있습니다. ]]></string>
   <string name="verify_display_fragment__tap_to_scan">탭하여 스캔</string>
   <string name="verify_display_fragment__loading">불러오는 중</string>
   <string name="verify_display_fragment__verified">검증됨</string>

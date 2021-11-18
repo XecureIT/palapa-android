@@ -542,7 +542,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">您所指定的号码
 (%s) 无效。</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play 服务缺失</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">此设备缺少 Google Play 服务框架。您仍能使用 Signal，但是 Signal 的功能与稳定性会因此受到影响。\n\n如果您不是高级用户，并且运行的是原厂安卓系统，或者您觉得此错误信息不正确，请使用英文联系 support@signal.org 我们会尝试帮助您解决此问题。</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">此设备缺少 Google Play 服务框架。您仍能使用 Signal，但是 Signal 的功能与稳定性会因此受到影响。\n\n如果您不是高级用户，并且运行的是原厂安卓系统，或者您觉得此错误信息不正确，请使用英文联系 support@xecureit.id 我们会尝试帮助您解决此问题。</string>
   <string name="RegistrationActivity_i_understand">了解</string>
   <string name="RegistrationActivity_play_services_error">Google Play 服务错误</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服务正在更新或者暂时不可用。请稍后再试。</string>
@@ -1000,7 +1000,7 @@
   <string name="unknown_sender_view__add_to_contacts">添加到通讯录</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">不添加，但使我的信息可见</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[如果您希望验证和 %s之间通信加密的安全性 ，请将上方数字与对方设备上的对比。您还可以扫描对方手机上的二维码，或让对方扫描你的二维码。<a href="https://signal.org/redirect/safety-numbers">了解更多</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[如果您希望验证和 %s之间通信加密的安全性 ，请将上方数字与对方设备上的对比。您还可以扫描对方手机上的二维码，或让对方扫描你的二维码。]]></string>
   <string name="verify_display_fragment__tap_to_scan">点击扫码</string>
   <string name="verify_display_fragment__loading">加载中…</string>
   <string name="verify_display_fragment__verified">已验证</string>

@@ -88,6 +88,15 @@
         <item name="elevation">4dp</item>
     </style>
 
+    <style name="TextSecure.LightActionBar.ListRoom" parent="@style/Widget.AppCompat.ActionBar.TabBar">
+        <item name="android:background">@color/textsecure_primary</item>
+        <item name="background">@color/textsecure_primary</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_left_conversation_24</item>
+        <item name="elevation">4dp</item>
+    </style>
+
     <style name="TextSecure.Conversation.TabBar" parent="@style/Widget.AppCompat.ActionBar.TabBar">
         <item name="android:textColorPrimary">?conversation_title_color</item>
         <item name="android:textColorSecondary">?conversation_subtitle_color</item>

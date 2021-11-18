@@ -25,6 +25,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.permissions.Permissions;
@@ -56,6 +57,8 @@ public class AttachmentTypeSelector extends PopupWindow {
   private final @NonNull ImageView           gifButton;
   private final @NonNull ImageView           closeButton;
 
+  private final @NonNull  TextView gifText;
+
   private @Nullable View                      currentAnchor;
   private @Nullable AttachmentClickedListener listener;
 
@@ -76,6 +79,8 @@ public class AttachmentTypeSelector extends PopupWindow {
     this.locationButton = ViewUtil.findById(layout, R.id.location_button);
     this.gifButton      = ViewUtil.findById(layout, R.id.giphy_button);
     this.closeButton    = ViewUtil.findById(layout, R.id.close_button);
+
+    this.gifText   = ViewUtil.findById(layout, R.id.giphy_text);
 
     this.imageButton.setOnClickListener(new PropagatingClickListener(ADD_GALLERY));
     this.audioButton.setOnClickListener(new PropagatingClickListener(ADD_SOUND));
@@ -99,7 +104,8 @@ public class AttachmentTypeSelector extends PopupWindow {
     loaderManager.initLoader(1, null, recentRail);
   }
 
-  public void show(@NonNull Activity activity, final @NonNull View anchor) {
+  public void show(@NonNull Activity activity, final @NonNull View anchor , Boolean singleConversation) {
+    if(singleConversation){  gifButton.setVisibility(View.INVISIBLE); gifText.setVisibility(View.INVISIBLE);}
     if (Permissions.hasAll(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
       recentRail.setVisibility(View.VISIBLE);
       loaderManager.restartLoader(1, null, recentRail);
@@ -131,7 +137,12 @@ public class AttachmentTypeSelector extends PopupWindow {
       animateButtonIn(audioButton, ANIMATION_DURATION / 3);
       animateButtonIn(locationButton, ANIMATION_DURATION / 3);
       animateButtonIn(documentButton, ANIMATION_DURATION / 4);
-      animateButtonIn(gifButton, ANIMATION_DURATION / 4);
+//      animateButtonIn(gifButton, ANIMATION_DURATION / 4);
+       if(singleConversation) {
+         gifButton.setVisibility(View.INVISIBLE); gifText.setVisibility(View.INVISIBLE);
+       }else{
+         animateButtonIn(gifButton, ANIMATION_DURATION / 4);
+       }
       animateButtonIn(contactButton, 0);
       animateButtonIn(closeButton, 0);
     }

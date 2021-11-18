@@ -974,7 +974,7 @@
   <string name="unknown_sender_view__add_to_contacts">ДОДАТИ ДО ТЕЛЕФОННОЇ КНИГИ</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">НЕ ДОДАВАТИ, АЛЕ ПОКАЗАТИ МІЙ ПРОФІЛЬ</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Якщо ви хочете перевірити безпеку вашого шифрування із %s, порівняйте номер вище із номером на його/її пристрої. Інший спосіб: ви можете сканувати код на його/її телефоні, або попросити його/її сканувати ваш код. <a href="https://signal.org/redirect/safety-numbers">Дізнатися більше про перевірку номерів безпеки</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Якщо ви хочете перевірити безпеку вашого шифрування із %s, порівняйте номер вище із номером на його/її пристрої. Інший спосіб: ви можете сканувати код на його/її телефоні, або попросити його/її сканувати ваш код.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Натисніть, щоб сканувати</string>
   <string name="verify_display_fragment__loading">Завантаження…</string>
   <string name="verify_display_fragment__verified">Перевірено</string>

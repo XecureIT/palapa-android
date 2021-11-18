@@ -545,7 +545,7 @@
   <string name="ProfileEditOverviewFragment_username">Nom d\'usuari</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Creeu un nom de perfil</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Creeu un nom d\'usuari</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">El nom del perfil el poden veure els contactes i altres usuaris o grups quan inicieu una conversa o accepteu una petició de conversa. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Toqueu aquí per saber-ne més</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">El nom del perfil el poden veure els contactes i altres usuaris o grups quan inicieu una conversa o accepteu una petició de conversa.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Valoreu l\'aplicació</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Si gaudiu usant aquesta aplicació, podeu ajudar-nos valorant-la.</string>
@@ -593,7 +593,7 @@ número de telèfon</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">El número que heu
 especificat (%s) no és vàlid.</string>
   <string name="RegistrationActivity_missing_google_play_services">No hi ha el Google Play Services.</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Aquest dispositiu no té el Google Play Services. Encara podeu usar el Signal, però aquesta configuració pot resultar en una fiabilitat o un rendiment reduïts.\n\nSi no sou un usuari avançat, si no esteu fent servir una ROM d\'Android de mercat secundari o si creieu que esteu veient això com a error, si us plau, poseu-vos en contacte amb support@signal.org per a la resolució de problemes.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Aquest dispositiu no té el Google Play Services. Encara podeu usar el Signal, però aquesta configuració pot resultar en una fiabilitat o un rendiment reduïts.\n\nSi no sou un usuari avançat, si no esteu fent servir una ROM d\'Android de mercat secundari o si creieu que esteu veient això com a error, si us plau, poseu-vos en contacte amb support@xecureit.id per a la resolució de problemes.</string>
   <string name="RegistrationActivity_i_understand">Ho entenc</string>
   <string name="RegistrationActivity_play_services_error">Error amb el Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">El Google Play Services s\'està actualitzant o no està disponible. Torneu a provar-ho.</string>
@@ -1078,7 +1078,7 @@ S\'ha rebut un missatge d\'intercanvi de claus per a una versió del protocol no
   <string name="unknown_sender_view__add_to_contacts">AFEGEIX ALS CONTACTES</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NO L\'AFEGEIXIS, PERÒ FES QUE EL PERFIL SIGUI VISIBLE</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Si voleu verificar la seguretat de l\'encriptació amb %s, compareu el número anterior amb el del seu dispositiu. Altrament, podeu escanejar el codi al seu telèfon o demanar-los que escanegin el vostre. <a href="https://signal.org/redirect/safety-numbers">Més informació.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Si voleu verificar la seguretat de l\'encriptació amb %s, compareu el número anterior amb el del seu dispositiu. Altrament, podeu escanejar el codi al seu telèfon o demanar-los que escanegin el vostre.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Feu un toc per escanejar</string>
   <string name="verify_display_fragment__loading">Es carrega…</string>
   <string name="verify_display_fragment__verified">Verificat</string>

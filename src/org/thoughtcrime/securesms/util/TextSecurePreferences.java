@@ -20,6 +20,7 @@ import org.thoughtcrime.securesms.jobmanager.impl.SqlCipherMigrationConstraintOb
 import org.thoughtcrime.securesms.lock.RegistrationLockReminders;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.preferences.widgets.NotificationPrivacyPreference;
+import org.thoughtcrime.securesms.security.HmacSignatureProvider;
 import org.whispersystems.libsignal.util.Medium;
 import org.whispersystems.signalservice.api.RegistrationLockData;
 import org.whispersystems.signalservice.api.util.UuidUtil;
@@ -216,7 +217,7 @@ public class TextSecurePreferences {
   private static final String STORAGE_MANIFEST_VERSION = "pref_storage_manifest_version";
 
   public static boolean isScreenLockEnabled(@NonNull Context context) {
-    return getBooleanPreference(context, SCREEN_LOCK, false);
+    return getBooleanPreference(context, SCREEN_LOCK, true);
   }
 
   public static void setScreenLockEnabled(@NonNull Context context, boolean value) {
@@ -224,7 +225,7 @@ public class TextSecurePreferences {
   }
 
   public static long getScreenLockTimeout(@NonNull Context context) {
-    return getLongPreference(context, SCREEN_LOCK_TIMEOUT, 0);
+    return getLongPreference(context, SCREEN_LOCK_TIMEOUT, 3600);
   }
 
   public static void setScreenLockTimeout(@NonNull Context context, long value) {
@@ -264,6 +265,9 @@ public class TextSecurePreferences {
    */
   @Deprecated
   public static void setDeprecatedRegistrationLockPin(@NonNull Context context, String pin) {
+    if (!TextUtils.isEmpty(pin)) {
+      pin = new HmacSignatureProvider(pin).generateAuthToken(getLocalNumber(context));
+    }
     setStringPreference(context, REGISTRATION_LOCK_PIN_PREF, pin);
   }
 

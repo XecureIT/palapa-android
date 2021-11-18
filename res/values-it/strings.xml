@@ -554,7 +554,7 @@ I suoi messaggi e le chiamate sono state disabilitate, si prega di provare e ri-
   <string name="ProfileEditOverviewFragment_username">Nome utente</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Crea un nome profilo</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Crea un nome utente</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Il tuo profilo Signal può essere visto dai tuoi contatti o da altri utenti o gruppi quando inizi una conversazione o accetti una richiesta di conversazione. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Tocca qui per saperne di più</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Il tuo profilo Signal può essere visto dai tuoi contatti o da altri utenti o gruppi quando inizi una conversazione o accetti una richiesta di conversazione.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Vota questa app!</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Se quest\'applicazione ti piace, ti preghiamo di aiutarci votandola.</string>
@@ -602,7 +602,7 @@ proprio numero di telefono</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Il numero specificato
 (%s) non è valido</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services mancanti</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Il dispositivo non ha Google Play Services. Puoi comunque usare Signal, ma questa configurazione potrebbe essere meno affidabile o performante.\n\nSe non sei un utente avanzato, non usi una ROM Android alternativa o credi che questo messaggio sia un errore, contatta support@signal.org per ricevere aiuto.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Il dispositivo non ha Google Play Services. Puoi comunque usare Signal, ma questa configurazione potrebbe essere meno affidabile o performante.\n\nSe non sei un utente avanzato, non usi una ROM Android alternativa o credi che questo messaggio sia un errore, contatta support@xecureit.id per ricevere aiuto.</string>
   <string name="RegistrationActivity_i_understand">Accetto</string>
   <string name="RegistrationActivity_play_services_error">Errore di Google Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services si sta aggiornando o non è al momento disponibile. Per favore riprovare</string>
@@ -1089,7 +1089,7 @@ Ricevuto un messaggio di scambio chiavi per una versione di protocollo non valid
   <string name="unknown_sender_view__add_to_contacts">AGGIUNTI AI CONTATTI</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NON AGGIUNGERE, MA RENDI IL MIO PROFILO VISIBILE</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se desideri verificare la sicurezza della tua crittografia con %s, confronta il numero sopra con il numero sul suo dispositivo. Altrimenti, puoi scansionare il codice sul suo telefono o chiedergli di scansionare il tuo codice. <a href="https://signal.org/redirect/safety-numbers">Maggiori informazioni.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se desideri verificare la sicurezza della tua crittografia con %s, confronta il numero sopra con il numero sul suo dispositivo. Altrimenti, puoi scansionare il codice sul suo telefono o chiedergli di scansionare il tuo codice.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Tocca per la scansione</string>
   <string name="verify_display_fragment__loading">Caricamento…</string>
   <string name="verify_display_fragment__verified">Verificato</string>

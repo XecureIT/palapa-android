@@ -53,12 +53,12 @@ repositories {
             includeGroupByRegex "org\\.signal.*"
         }
     }
-    maven { // textdrawable
-        url 'https://dl.bintray.com/amulyakhare/maven'
-        content {
-            includeGroupByRegex "com\\.amulyakhare.*"
-        }
-    }
+//    maven { // textdrawable
+//        url 'https://dl.bintray.com/amulyakhare/maven'
+//        content {
+//            includeGroupByRegex "com\\.amulyakhare.*"
+//        }
+//    }
     google()
     mavenCentral()
     jcenter()
@@ -189,14 +189,17 @@ dependencies {
     }
     testImplementation 'org.robolectric:robolectric:4.2'
     testImplementation 'org.robolectric:shadows-multidex:4.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
 }
 
 dependencyVerification {
     configuration = '(play|website)(Debug|Release)RuntimeClasspath'
 }
 
-def canonicalVersionCode = 592
-def canonicalVersionName = "2.1.2"
+def canonicalVersionCode = 595
+def canonicalVersionName = "2.2.2"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -207,8 +210,8 @@ def abiPostFix = ['universal'   : 0,
 
 android {
     flavorDimensions "none"
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
     useLibrary 'org.apache.http.legacy'
 
     dexOptions {
@@ -225,8 +228,8 @@ android {
         versionCode canonicalVersionCode * postFixSize
         versionName canonicalVersionName
 
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion 21
+        targetSdkVersion 30
         multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
@@ -234,7 +237,7 @@ android {
 
         // Disable build expiration
         // buildConfigField "long", "BUILD_TIMESTAMP", getLastCommitTimestamp() + "L"
-        
+
         // Make sure that you update certificate authority in whisper.store
         // SIGNAL_URL is the Signal Server location
         buildConfigField "String", "SIGNAL_URL", "\"https://palapa.xecure.world\""

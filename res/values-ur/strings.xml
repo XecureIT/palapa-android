@@ -557,7 +557,7 @@
   <string name="RegistrationActivity_invalid_number">غلط نمبر</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">آپ نے جو نمبر واضع کیا ہے (%s) غلط ہے۔</string>
   <string name="RegistrationActivity_missing_google_play_services">غائب گوگل پلے سروسز</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">یہ ڈیوائس Google Play خدمات کو حاصل کرنے سے قاصر ہے۔ اب بھی آپ Signal استعمال کر سکتے ہیں لیکن اس کنفگریشن سے کارکردگی میں فرق آسکتا ہے۔ n/n/اگر آپ ماہر صارف نہیں ہیں، اور کوئی aftermarket سے لیا ہوا Android ROM نہیں چلا رہے، یا اگر آپ اس کو غلطی کے طور پر دیکھ رہے ہیں تو براہِ کرم ٹربل شوٹنگ مدد حاصل کرنے کیلئے support@signal.org پر رابطہ کریں۔</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">یہ ڈیوائس Google Play خدمات کو حاصل کرنے سے قاصر ہے۔ اب بھی آپ Signal استعمال کر سکتے ہیں لیکن اس کنفگریشن سے کارکردگی میں فرق آسکتا ہے۔ n/n/اگر آپ ماہر صارف نہیں ہیں، اور کوئی aftermarket سے لیا ہوا Android ROM نہیں چلا رہے، یا اگر آپ اس کو غلطی کے طور پر دیکھ رہے ہیں تو براہِ کرم ٹربل شوٹنگ مدد حاصل کرنے کیلئے support@xecureit.id پر رابطہ کریں۔</string>
   <string name="RegistrationActivity_i_understand">میں سمجھ گیا</string>
   <string name="RegistrationActivity_play_services_error">گوگل پلے سروسز خرابی</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">گوگل پلے سروسز تجدید ہو رہی ہیں یا عارضی طور پر دستیاب نہیں۔ براہ کرم دوبارہ کوشش کریں۔</string>
@@ -1022,7 +1022,7 @@
   <string name="unknown_sender_view__add_to_contacts">رابطوں میں شامل کریں</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">جمح نہ کریں، لیکن میری پروفائل نمودار بنائیں</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[ اگر آپ اپنی خفیہ کاری کی حفاظت کی تصدیق کرنا چاہتے ہیں تو %s ، مندرجہ بالا نمبر کو ان کے آلے کے نمبر سے موازنہ کریں۔ متبادل کے طور پر ، آپ ان کے فون پر کوڈ اسکین کرسکتے ہیں ، یا ان سے اپنا کوڈ اسکین کرنے کے لئے کہہ سکتے ہیں۔ <a href="https://signal.org/redirect/safety-numbers">مزید معلومات حاصل کریں۔</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[ اگر آپ اپنی خفیہ کاری کی حفاظت کی تصدیق کرنا چاہتے ہیں تو %s ، مندرجہ بالا نمبر کو ان کے آلے کے نمبر سے موازنہ کریں۔ متبادل کے طور پر ، آپ ان کے فون پر کوڈ اسکین کرسکتے ہیں ، یا ان سے اپنا کوڈ اسکین کرنے کے لئے کہہ سکتے ہیں۔ ]]></string>
   <string name="verify_display_fragment__tap_to_scan">اسکین کرنے کے لیے کلک کریں</string>
   <string name="verify_display_fragment__loading">لوڈ ہو رہا ہے۔۔۔</string>
   <string name="verify_display_fragment__verified">تصدیق شدہ</string>

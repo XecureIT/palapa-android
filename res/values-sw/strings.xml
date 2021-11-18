@@ -494,7 +494,7 @@ nambari yako ya simu</string>
   <string name="RegistrationActivity_invalid_number">namba si sahihi</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">namba  uliyotaja (1%s) sio sahihi</string>
   <string name="RegistrationActivity_missing_google_play_services">haipo huduma ya Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kifaa hiki kimekosa huduma za Google Play. Bado unaweza kutumia Signal, lakini usanidi huu unaweza kusababisha uaminifu mdogo au utendaji. \ N \ Kama wewe si mtumiaji wa juu, sio kutekeleza ROM ya Android, au uamini kwamba unaona hili kwa kosa, tafadhali wasiliana na support@signal.org kwa usaidizi wa matatizo.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kifaa hiki kimekosa huduma za Google Play. Bado unaweza kutumia Signal, lakini usanidi huu unaweza kusababisha uaminifu mdogo au utendaji. \ N \ Kama wewe si mtumiaji wa juu, sio kutekeleza ROM ya Android, au uamini kwamba unaona hili kwa kosa, tafadhali wasiliana na support@xecureit.id kwa usaidizi wa matatizo.</string>
   <string name="RegistrationActivity_i_understand">nimeelewa</string>
   <string name="RegistrationActivity_play_services_error">kosa katika huduma za play</string>
   <string name="RegistrationActivity_terms_and_privacy">Vigezo &amp; masharti: sera ya faragha</string>

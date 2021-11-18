@@ -552,7 +552,7 @@
   <string name="ProfileEditOverviewFragment_username">Benutzername</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Erstelle einen Profilnamen</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Erstelle einen Benutzernamen</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Dein Signal-Profil kann von deinen Kontakten und anderen Nutzern oder Gruppen gesehen werden, wenn du eine Unterhaltung beginnst oder einer Unterhaltungsanfrage zustimmst. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Hier antippen für mehr Informationen</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Dein Signal-Profil kann von deinen Kontakten und anderen Nutzern oder Gruppen gesehen werden, wenn du eine Unterhaltung beginnst oder einer Unterhaltungsanfrage zustimmst.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Bewerte diese App</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Hilf uns durch deine Bewertung, falls dir die App gefällt.</string>
@@ -597,7 +597,7 @@
   <string name="RegistrationActivity_invalid_number">Ungültige Rufnummer</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Die angegebene Rufummer (%s) ist ungültig.</string>
   <string name="RegistrationActivity_missing_google_play_services">Fehlende Google-Play-Dienste</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Auf diesem Gerät fehlen die Google-Play-Dienste. Signal kann immer noch verwendet werden, allerdings führt diese Konfiguration eventuell zu verringerter Zuverlässigkeit oder Leistung.\n\nFalls du kein erfahrener Benutzer bist, kein Custom-ROM verwendest oder glaubst, diese Meldung irrtümlich angezeigt zu bekommen, kontaktiere bitte support@signal.org für Hilfe bei der Problembehandlung.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Auf diesem Gerät fehlen die Google-Play-Dienste. Signal kann immer noch verwendet werden, allerdings führt diese Konfiguration eventuell zu verringerter Zuverlässigkeit oder Leistung.\n\nFalls du kein erfahrener Benutzer bist, kein Custom-ROM verwendest oder glaubst, diese Meldung irrtümlich angezeigt zu bekommen, kontaktiere bitte support@xecureit.id für Hilfe bei der Problembehandlung.</string>
   <string name="RegistrationActivity_i_understand">Verstanden</string>
   <string name="RegistrationActivity_play_services_error">Fehler bei den Google-Play-Diensten</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google-Play-Dienste werden aktualisiert oder sind vorübergehend nicht verfügbar. Bitte erneut versuchen.</string>
@@ -1081,7 +1081,7 @@ Schlüsselaustausch-Nachricht für eine ungültige Protokollversion empfangen</s
   <string name="unknown_sender_view__add_to_contacts">ZU KONTAKTEN HINZUFÜGEN</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NICHT HINZUFÜGEN, ABER MEIN PROFIL SICHTBAR MACHEN</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Falls du die Sicherheit deiner Verschlüsselung mit %s verifizieren möchtest, vergleiche bitte die oben dargestellte Nummer mit der Nummer auf dem Gerät deines Kontakts. Alternativ kannst du den Code deines Kontakts einscannen oder ihn deinen eigenen Code einscannen lassen. <a href="https://signal.org/redirect/safety-numbers">Mehr erfahren</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Falls du die Sicherheit deiner Verschlüsselung mit %s verifizieren möchtest, vergleiche bitte die oben dargestellte Nummer mit der Nummer auf dem Gerät deines Kontakts. Alternativ kannst du den Code deines Kontakts einscannen oder ihn deinen eigenen Code einscannen lassen.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Zum Scannen antippen</string>
   <string name="verify_display_fragment__loading">Wird geladen …</string>
   <string name="verify_display_fragment__verified">Verifiziert</string>

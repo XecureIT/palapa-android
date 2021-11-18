@@ -546,7 +546,7 @@
   <string name="ProfileEditOverviewFragment_username">Uzantnomo</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Krei profilnomon</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Krei uzantnomon</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Via Signal-profilo videblas de viaj kontaktoj kaj aliaj uzantoj aŭ grupoj, kiam vi komencas interparolon aŭ akceptas peton por interparoli. <a href="https://support.signal.org/hc/articles/360007459591-Signal-Profiles">Tuŝetu tie por scii pli</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Via Signal-profilo videblas de viaj kontaktoj kaj aliaj uzantoj aŭ grupoj, kiam vi komencas interparolon aŭ akceptas peton por interparoli.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Pritaksi tiun aplikaĵon</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Se vi ŝatas uzi tiun aplikaĵon, bv. helpi nin per via pritakso.</string>
@@ -597,7 +597,7 @@
         (%s) ne validas.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Mankantaj „Play Services“ de Google</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Al tiu ĉi aparato mankas la servoj „Play“ el Google. Vi tamen povas uzi Signal-on, sed tio eble rezultigos kelkajn problemojn.\n\nSe vi ne estas spertulo, se vi ne uzas alian Androidan nurlegan memoron („ROM“), aŭ se vi opinias tion erara, bv. kontakti support@signal.org por ricevi helpon.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Al tiu ĉi aparato mankas la servoj „Play“ el Google. Vi tamen povas uzi Signal-on, sed tio eble rezultigos kelkajn problemojn.\n\nSe vi ne estas spertulo, se vi ne uzas alian Androidan nurlegan memoron („ROM“), aŭ se vi opinias tion erara, bv. kontakti support@xecureit.id por ricevi helpon.</string>
   <string name="RegistrationActivity_i_understand">Mi komprenas</string>
   <string name="RegistrationActivity_play_services_error">Eraro de servoj „Play“</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">La servoj „Play“ el Google ĝisdatiĝas aŭ provizore ne disponeblas. Bv. re-provi.</string>
@@ -1083,7 +1083,7 @@ Ricevis mesaĝon pri interŝanĝo de ŝlosiloj por nevalida protokola versio.
   <string name="unknown_sender_view__add_to_contacts">ALDONI AL KONTAKTOJ</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NE ALDONI, SED VIDEBLIGI MIAN PROFILON</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se vi volas kontroli la ĉifran sekurecon kun %s, komparu la supran numeron kun la numero en lia aŭ ŝia aparato. Aliokaze, skanu la kodon el lia aŭ ŝia poŝtelefono, aŭ inverse. <a href="https://signal.org/redirect/safety-numbers">Lernu pli.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se vi volas kontroli la ĉifran sekurecon kun %s, komparu la supran numeron kun la numero en lia aŭ ŝia aparato. Aliokaze, skanu la kodon el lia aŭ ŝia poŝtelefono, aŭ inverse.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Tuŝetu por skani</string>
   <string name="verify_display_fragment__loading">Ŝargado…</string>
   <string name="verify_display_fragment__verified">Konfirmita</string>

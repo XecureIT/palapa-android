@@ -22,6 +22,8 @@ import org.whispersystems.signalservice.api.crypto.UnidentifiedAccess;
 import org.whispersystems.signalservice.api.messages.SignalServiceAttachment.ProgressListener;
 import org.whispersystems.signalservice.api.messages.calls.TurnServerInfo;
 import org.whispersystems.signalservice.api.messages.multidevice.DeviceInfo;
+import org.whispersystems.signalservice.api.profiles.AccountTestToken;
+import org.whispersystems.signalservice.api.profiles.ProfileTokenAndEndPoint;
 import org.whispersystems.signalservice.api.profiles.SignalServiceProfile;
 import org.whispersystems.signalservice.api.push.ContactTokenDetails;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
@@ -158,6 +160,8 @@ public class PushServiceSocket {
 
   private static final String STICKER_MANIFEST_PATH     = "stickers/%s/manifest.proto";
   private static final String STICKER_PATH              = "stickers/%s/full/%d";
+  private static final String END_POINT_PALAPA          = "/v1/module/%s/endpoint";
+  private static final String TOKEN_PALAPA              = "/v1/module/%s/token";
 
   private static final Map<String, String> NO_HEADERS = Collections.emptyMap();
   private static final ResponseCodeHandler NO_HANDLER = new EmptyResponseCodeHandler();
@@ -244,7 +248,7 @@ public class PushServiceSocket {
                                 byte[] unidentifiedAccessKey, boolean unrestrictedUnidentifiedAccess)
       throws IOException
   {
-    AccountAttributes     signalingKeyEntity = new AccountAttributes(signalingKey, registrationId, fetchesMessages, pin, registrationLock, unidentifiedAccessKey, unrestrictedUnidentifiedAccess);
+    AccountAttributes     signalingKeyEntity = new AccountAttributes(signalingKey, registrationId, fetchesMessages, pin, registrationLock, null, unidentifiedAccessKey, unrestrictedUnidentifiedAccess);
     String                requestBody        = JsonUtil.toJson(signalingKeyEntity);
     String                responseBody       = makeServiceRequest(String.format(VERIFY_ACCOUNT_CODE_PATH, verificationCode), "PUT", requestBody);
     VerifyAccountResponse response           = JsonUtil.fromJson(responseBody, VerifyAccountResponse.class);
@@ -266,7 +270,7 @@ public class PushServiceSocket {
       throw new AssertionError("Pin should be null if registrationLock is set.");
     }
 
-    AccountAttributes accountAttributes = new AccountAttributes(signalingKey, registrationId, fetchesMessages, pin, registrationLock,
+    AccountAttributes accountAttributes = new AccountAttributes(signalingKey, registrationId, fetchesMessages, null, registrationLock, pin,
                                                                 unidentifiedAccessKey, unrestrictedUnidentifiedAccess);
     makeServiceRequest(SET_ACCOUNT_ATTRIBUTES, "PUT", JsonUtil.toJson(accountAttributes));
   }
@@ -649,6 +653,25 @@ public class PushServiceSocket {
         }
       }
     }, Optional.<UnidentifiedAccess>absent());
+  }
+
+  public ProfileTokenAndEndPoint getEndPoint(String moduleid) throws IOException {
+    String response = makeServiceRequest(String.format(END_POINT_PALAPA,moduleid), "GET", null);
+    try {
+      return JsonUtil.fromJson(response, ProfileTokenAndEndPoint.class);
+    } catch (IOException e) {
+      Log.w(TAG, e);
+      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+    }
+  }
+  public AccountTestToken getToken(String moduleid) throws IOException {
+    String response = makeServiceRequest(String.format(TOKEN_PALAPA,moduleid), "GET", null);
+    try {
+      return JsonUtil.fromJson(response, AccountTestToken.class);
+    } catch (IOException e) {
+      Log.w(TAG, e);
+      throw new NonSuccessfulResponseCodeException("Unable to parse entity");
+    }
   }
 
   public void deleteUsername() throws IOException {

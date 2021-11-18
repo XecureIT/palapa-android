@@ -564,7 +564,7 @@
         (%s) geçersiz.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Hizmetleri eksik</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Hizmetleri bulunmamakta. Signal\'i kullanmaya devam edebilirsiniz ancak bu yapılandırma şekli azaltılmış güvenirlik veya performans gibi sonuçları doğurabilir. \n\nEğer ileri düzey kullanıcı değilseniz, alternatif Android ROM kullanmıyorsanız, veya bunu bir hata olarak görüyorsanız, lütfen sorun giderme konusunda yardım almak için support@signal.org adresinden iletişime geçiniz</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Hizmetleri bulunmamakta. Signal\'i kullanmaya devam edebilirsiniz ancak bu yapılandırma şekli azaltılmış güvenirlik veya performans gibi sonuçları doğurabilir. \n\nEğer ileri düzey kullanıcı değilseniz, alternatif Android ROM kullanmıyorsanız, veya bunu bir hata olarak görüyorsanız, lütfen sorun giderme konusunda yardım almak için support@xecureit.id adresinden iletişime geçiniz</string>
   <string name="RegistrationActivity_i_understand">Anladım</string>
   <string name="RegistrationActivity_play_services_error">Play Hizmetleri Hatası</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Hizmetleri güncelleniyor veya geçiçi olarak kullanılamaz durumda. Lütfen tekrar deneyiniz.</string>
@@ -1029,7 +1029,7 @@ Geçersiz protokol sürümünde anahtar değişim iletisi alındı.</string>
   <string name="unknown_sender_view__add_to_contacts">KİŞİLERE EKLE</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">KİŞİLERE EKLEME AMA PROFİLİMİ GÖRÜNÜR YAP</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s ile şifreleme güvenliğini doğrulamak isterseniz,  yukarıdaki sayıları kişinin cihazındaki numaralar ile karşılaştırın. Alternatif olarak, kişinin telefonundaki kodu kendiniz tarayabilirsiniz, ya da kendisinin taramasını isteyebilirsiniz. <a href="https://signal.org/redirect/safety-numbers">Dahasını öğrenin.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s ile şifreleme güvenliğini doğrulamak isterseniz,  yukarıdaki sayıları kişinin cihazındaki numaralar ile karşılaştırın. Alternatif olarak, kişinin telefonundaki kodu kendiniz tarayabilirsiniz, ya da kendisinin taramasını isteyebilirsiniz.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Taramak için dokunun</string>
   <string name="verify_display_fragment__loading">Yükleniyor…</string>
   <string name="verify_display_fragment__verified">Doğrulandı</string>

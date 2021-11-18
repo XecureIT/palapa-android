@@ -544,7 +544,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Ο αριθμός που καθορίσατε (%s)
 δεν είναι έγκυρος.</string>
   <string name="RegistrationActivity_missing_google_play_services">Υπηρεσίες Google Play που λείπουν</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Αυτή η συσκευή δεν έχει τις Υπηρεσίες Google Play. Μπορείτε και πάλι να χρησιμοποιήσετε το Signal, αλλά αυτή η διαμόρφωση μπορεί να οδηγήσει σε μειωμένη αξιοπιστία και επιδόσεις.\n\nΑν δεν είστε προηγμένος/η χρήστης/τρια, αν δεν έχετε εγκαταστήσει κάποιο εναλλακτικό Android ROM, ή αν πιστεύετε πως βλέπετε αυτό το μήνυμα από λάθος, παρακαλώ επικοινωνήστε με το support@signal.org για να σας βοηθήσουμε με την αποσφαλμάτωση.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Αυτή η συσκευή δεν έχει τις Υπηρεσίες Google Play. Μπορείτε και πάλι να χρησιμοποιήσετε το Signal, αλλά αυτή η διαμόρφωση μπορεί να οδηγήσει σε μειωμένη αξιοπιστία και επιδόσεις.\n\nΑν δεν είστε προηγμένος/η χρήστης/τρια, αν δεν έχετε εγκαταστήσει κάποιο εναλλακτικό Android ROM, ή αν πιστεύετε πως βλέπετε αυτό το μήνυμα από λάθος, παρακαλώ επικοινωνήστε με το support@xecureit.id για να σας βοηθήσουμε με την αποσφαλμάτωση.</string>
   <string name="RegistrationActivity_i_understand">Καταλαβαίνω</string>
   <string name="RegistrationActivity_play_services_error">Πρόβλημα υπηρεσιών Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Οι υπηρεσίες Google Play αναβαθμίζονται ή είναι προσωρινά μη διαθέσιμες. Παρακαλώ προσπαθήστε ξανά.</string>
@@ -997,7 +997,7 @@
   <string name="unknown_sender_view__add_to_contacts">ΠΡΟΣΘΗΚΗ ΣΤΙΣ ΕΠΑΦΕΣ</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">ΝΑ ΜΗΝ ΠΡΟΣΤΕΘΕΙ, ΑΛΛΑ ΝΑ ΓΙΝΕΙ ΤΟ ΠΡΟΦΙΛ ΜΟΥ ΟΡΑΤΟ</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Αν θέλετε να επιβεβαιώσετε την ασφάλεια της κρυπτογράφησης με τον/την %s, συγκρίνετε τον παραπάνω αριθμό με τον αριθμό στη συσκευή του/της. Εναλλακτικά, μπορείτε να σκανάρετε τον κωδικο στο τηλέφωνό του/της, ή να του/της ζητήσετε να σκανάρει τον δικό σας κωδικό. <a href="https://signal.org/redirect/safety-numbers">Μάθετε περισσότερα.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Αν θέλετε να επιβεβαιώσετε την ασφάλεια της κρυπτογράφησης με τον/την %s, συγκρίνετε τον παραπάνω αριθμό με τον αριθμό στη συσκευή του/της. Εναλλακτικά, μπορείτε να σκανάρετε τον κωδικο στο τηλέφωνό του/της, ή να του/της ζητήσετε να σκανάρει τον δικό σας κωδικό.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Πατήστε για σκανάρισμα</string>
   <string name="verify_display_fragment__loading">Φόρτωση…</string>
   <string name="verify_display_fragment__verified">Επιβεβαιωμένο</string>

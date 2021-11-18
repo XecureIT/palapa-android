@@ -45,12 +45,13 @@ public class CommunicationActions {
         if (resultCode == 1) {
           startCallInternal(activity, recipient, false);
         } else {
-          new AlertDialog.Builder(activity)
-                         .setMessage(R.string.CommunicationActions_start_voice_call)
-                         .setPositiveButton(R.string.CommunicationActions_call, (d, w) -> startCallInternal(activity, recipient, false))
-                         .setNegativeButton(R.string.CommunicationActions_cancel, (d, w) -> d.dismiss())
-                         .setCancelable(true)
-                         .show();
+          startCallInternal(activity, recipient, false);
+     //     new AlertDialog.Builder(activity)
+     //                    .setMessage(R.string.CommunicationActions_start_voice_call)
+     //                    .setPositiveButton(R.string.CommunicationActions_call, (d, w) -> startCallInternal(activity, recipient, false))
+     //                    .setNegativeButton(R.string.CommunicationActions_cancel, (d, w) -> d.dismiss())
+     //                    .setCancelable(true)
+     //                    .show();
         }
       }
     });
@@ -71,12 +72,13 @@ public class CommunicationActions {
         if (resultCode == 1) {
           startCallInternal(activity, recipient, false);
         } else {
-          new AlertDialog.Builder(activity)
-                         .setMessage(R.string.CommunicationActions_start_video_call)
-                         .setPositiveButton(R.string.CommunicationActions_call, (d, w) -> startCallInternal(activity, recipient, true))
-                         .setNegativeButton(R.string.CommunicationActions_cancel, (d, w) -> d.dismiss())
-                         .setCancelable(true)
-                         .show();
+          startCallInternal(activity, recipient, true);
+         // new AlertDialog.Builder(activity)
+         //                .setMessage(R.string.CommunicationActions_start_video_call)
+         //                .setPositiveButton(R.string.CommunicationActions_call, (d, w) -> startCallInternal(activity, recipient, true))
+         //                .setNegativeButton(R.string.CommunicationActions_cancel, (d, w) -> d.dismiss())
+         //                .setCancelable(true)
+         //                .show();
         }
       }
     });

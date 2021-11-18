@@ -587,7 +587,7 @@ telefónne číslo
 (%s) je neplatné.
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Chýba služba Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">V tomto zariadení chýba služba Google Play. Signal môžete používať aj tak, ale táto konfigurácia môže mať za následok nespoľahlivosť a nižší výkon.\n\nAk nie ste pokročilý užívateľ, nepoužívate neoficiálny ROM telefónu alebo si myslíte, že sa vám toto hlásenie nemalo zobrazovať, kontaktujte nás na support@signal.org pre vyriešenie problému.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">V tomto zariadení chýba služba Google Play. Signal môžete používať aj tak, ale táto konfigurácia môže mať za následok nespoľahlivosť a nižší výkon.\n\nAk nie ste pokročilý užívateľ, nepoužívate neoficiálny ROM telefónu alebo si myslíte, že sa vám toto hlásenie nemalo zobrazovať, kontaktujte nás na support@xecureit.id pre vyriešenie problému.</string>
   <string name="RegistrationActivity_i_understand">Rozumiem</string>
   <string name="RegistrationActivity_play_services_error">Chyba služby Google Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Služba Google Play sa aktualizuje, alebo je dočasne nedostupná. Prosím, skúste to znova.</string>
@@ -1066,7 +1066,7 @@ Bola prijatá správa výmeny kľúčov s neplatnou verziou protokolu.
   <string name="unknown_sender_view__add_to_contacts">PRIDAŤ KU KONTAKTOM</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NEPRIDÁVAŤ, ALE UROBIŤ PROFIL VIDITEĽNÝM</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ak si chcete overiť zabezpečenie vášho šifrovania s %s, porovnajte číslo vyššie s číslom na druhom zariadení. Môžete tiež naskenovať kód na ich zariadení alebo ich požiadať o naskenovanie vášho kódu. <a href="https://signal.org/redirect/safety-numbers">Zistiť viac.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ak si chcete overiť zabezpečenie vášho šifrovania s %s, porovnajte číslo vyššie s číslom na druhom zariadení. Môžete tiež naskenovať kód na ich zariadení alebo ich požiadať o naskenovanie vášho kódu.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Ťuknutím naskenujte</string>
   <string name="verify_display_fragment__loading">Načítava sa…</string>
   <string name="verify_display_fragment__verified">Overené</string>

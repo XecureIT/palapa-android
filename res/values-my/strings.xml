@@ -484,7 +484,7 @@
   <string name="RegistrationActivity_missing_google_play_services">Google Play မရှိပါ</string>
   <string name="RegistrationActivity_this_device_is_missing_google_play_services">သင့်ဖုန်းတွင် Google Play Services လိုအပ်နေပါသည်။ သင် Signal ကို အသုံးပြုနိုင်ပါတယ် 
 ဒီဖွဲ့စည်းပုံအကျိုးရလဒ်ကယုံကြည်ဖို့အတွက် ဒါမှမဟုတ် စွမ်းဆောင်ရည် ကောင်းဖို့အတွက်ဖြစ်နိုင်ပါတယ်။
-\n\n သင်က  ကျွမ်းကျင်အဆင့် မဟုတ်လျှင် Android Rom market ကို သွားရန် မလိုပါ။ သို့မဟုတ် အမှားတစ်ခုခုဟု ထင်ပါက ဖြေရှင်းပေးနိုင်ဖို့အတွက် support@signal.org သို့ ဆက်သွယ်ပေးပါ။</string>
+\n\n သင်က  ကျွမ်းကျင်အဆင့် မဟုတ်လျှင် Android Rom market ကို သွားရန် မလိုပါ။ သို့မဟုတ် အမှားတစ်ခုခုဟု ထင်ပါက ဖြေရှင်းပေးနိုင်ဖို့အတွက် support@xecureit.id သို့ ဆက်သွယ်ပေးပါ။</string>
   <string name="RegistrationActivity_i_understand">နားလည် လက်ခံပါသည်</string>
   <string name="RegistrationActivity_play_services_error">Google Play အသုံးပြု၍မရပါ</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Serivice ကို အဆင့်မြှင့်တင်နေခြင်း၊ သို့၊ အသုံးပြု၍ မရခြင်းဖြစ်နေပါသည်။ ပြန်လည် စမ်းသပ်ကြည့်ပါ။</string>
@@ -870,7 +870,7 @@
   <string name="unknown_sender_view__add_to_contacts">လိပ်စာစာရင်းထဲကို ထည့်ပါ</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">မထည့်ပါနဲ့။ အချက်အလက်တွေကို ကြည့်လို့ရအောင်တော့ ထားပါ။</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[အကယ်၍ သင်၏ လုံခြုံရေးကို %sနှင့် တိုက်ဆိုင်စစ်ဆေးလိုပါက အထက်ပါ နံပါတ်ကို သူတို့၏ ဖုန်းပေါ်တွင်ရှိသော နံပါတ်ဖြင့် တိုက်ဆိုင်စစ်ဆေးပါ။ တခြားနည်းအနေဖြင့် သူတို့၏ ဖုန်းပေါ်တွင်ရှိသော ကုတ်နံပါတ်ကို scan ဖတ်နိုင်ပါသည် သို့မဟုတ် သင်၏ ကုတ်နံပါတ်ကို သူတို့ကို scan ဖတ်ခိုင်းပါ။ <a href="https://signal.org/redirect/safety-numbers">ထပ်မံသိရှိလိုပါက </a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[အကယ်၍ သင်၏ လုံခြုံရေးကို %sနှင့် တိုက်ဆိုင်စစ်ဆေးလိုပါက အထက်ပါ နံပါတ်ကို သူတို့၏ ဖုန်းပေါ်တွင်ရှိသော နံပါတ်ဖြင့် တိုက်ဆိုင်စစ်ဆေးပါ။ တခြားနည်းအနေဖြင့် သူတို့၏ ဖုန်းပေါ်တွင်ရှိသော ကုတ်နံပါတ်ကို scan ဖတ်နိုင်ပါသည် သို့မဟုတ် သင်၏ ကုတ်နံပါတ်ကို သူတို့ကို scan ဖတ်ခိုင်းပါ။ ]]></string>
   <string name="verify_display_fragment__tap_to_scan">စကန်ဖတ်ရန်နှိပ်ပါ</string>
   <string name="verify_display_fragment__loading">လုပ်ဆောင်နေသည်…</string>
   <string name="verify_display_fragment__verified">အသိအမှတ်ပြုပြီးပြီ</string>

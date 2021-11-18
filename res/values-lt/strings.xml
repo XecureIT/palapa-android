@@ -603,7 +603,7 @@
         nurodėte (%s) yra neteisingas.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Trūksta „Google Play“ paslaugų</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šiame įrenginyje nėra „Google Play“ paslaugų. Jūs vis tiek galite naudoti Signal, tačiau tokia konfigūracija gali sąlygoti mažesnį patikimumą ir našumą.\n\nJeigu jūs nesate pažengęs naudotojas, nenaudojate atsarginių dalių Android ROM ar manote, jog matote tai per klaidą, tuomet pagalbai ir nesklandumų šalinimui susisiekite su support@signal.org.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šiame įrenginyje nėra „Google Play“ paslaugų. Jūs vis tiek galite naudoti Signal, tačiau tokia konfigūracija gali sąlygoti mažesnį patikimumą ir našumą.\n\nJeigu jūs nesate pažengęs naudotojas, nenaudojate atsarginių dalių Android ROM ar manote, jog matote tai per klaidą, tuomet pagalbai ir nesklandumų šalinimui susisiekite su support@xecureit.id.</string>
   <string name="RegistrationActivity_i_understand">Aš suprantu</string>
   <string name="RegistrationActivity_play_services_error">„Play“ paslaugų klaida</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">„Google Play“ paslaugos yra atnaujinamos arba laikinai neprieinamos. Prašome bandyti dar kartą.</string>
@@ -1097,7 +1097,7 @@
   <string name="unknown_sender_view__add_to_contacts">ĮTRAUKTI Į ADRESATUS</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NEPRIDĖTI, TAČIAU PADARYTI MANO PROFILĮ MATOMĄ</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Jeigu norite patvirtinti savo šifravimo su %s saugumą, palyginkite aukščiau esantį numerį su numeriu šio kontakto įrenginyje. Arba kitu atveju, galite nuskenuoti kodą jo telefone arba paprašyti kontakto, kad nuskenuotų jūsų kodą. <a href="https://signal.org/redirect/safety-numbers">Sužinokite daugiau.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Jeigu norite patvirtinti savo šifravimo su %s saugumą, palyginkite aukščiau esantį numerį su numeriu šio kontakto įrenginyje. Arba kitu atveju, galite nuskenuoti kodą jo telefone arba paprašyti kontakto, kad nuskenuotų jūsų kodą.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Bakstelėkite, norėdami nuskenuoti</string>
   <string name="verify_display_fragment__loading">Įkeliama…</string>
   <string name="verify_display_fragment__verified">Patvirtinta(-s)</string>

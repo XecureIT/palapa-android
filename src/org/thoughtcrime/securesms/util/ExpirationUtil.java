@@ -22,9 +22,15 @@ public class ExpirationUtil {
     } else if (expirationTime < TimeUnit.DAYS.toSeconds(7)) {
       int days = expirationTime / (int)TimeUnit.DAYS.toSeconds(1);
       return context.getResources().getQuantityString(R.plurals.expiration_days, days, days);
-    } else {
+    } else if (expirationTime < (int)TimeUnit.DAYS.toSeconds(30)) {
       int weeks = expirationTime / (int)TimeUnit.DAYS.toSeconds(7);
       return context.getResources().getQuantityString(R.plurals.expiration_weeks, weeks, weeks);
+    } else if(expirationTime < (int) TimeUnit.DAYS.toSeconds(365)) {
+      int months = expirationTime / (int)TimeUnit.DAYS.toSeconds(30);
+      return context.getResources().getQuantityString(R.plurals.expiration_months, months, months);
+    } else {
+      int years = expirationTime / (int)TimeUnit.DAYS.toSeconds(365);
+      return context.getResources().getQuantityString(R.plurals.expiration_years, years, years);
     }
   }
 
@@ -40,9 +46,15 @@ public class ExpirationUtil {
     } else if (expirationTime < TimeUnit.DAYS.toSeconds(7)) {
       int days = expirationTime / (int)TimeUnit.DAYS.toSeconds(1);
       return context.getResources().getString(R.string.expiration_days_abbreviated, days);
-    } else {
+    } else if (expirationTime < TimeUnit.DAYS.toSeconds(30)) {
       int weeks = expirationTime / (int)TimeUnit.DAYS.toSeconds(7);
       return context.getResources().getString(R.string.expiration_weeks_abbreviated, weeks);
+    } else if (expirationTime < TimeUnit.DAYS.toSeconds(365)) {
+      int months = expirationTime / (int)TimeUnit.DAYS.toSeconds(30);
+      return context.getResources().getString(R.string.expiration_months_abbreviated, months);
+    } else {
+      int years = expirationTime / (int) TimeUnit.DAYS.toSeconds(365);
+      return context.getResources().getString(R.string.expiration_years_abbreviated, years);
     }
   }
 

@@ -14,10 +14,14 @@ import org.thoughtcrime.securesms.conversationlist.ConversationListArchiveFragme
 import org.thoughtcrime.securesms.conversationlist.ConversationListFragment;
 import org.thoughtcrime.securesms.insights.InsightsLauncher;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.vicon.ConversationListRoomFragment;
+import org.whispersystems.signalservice.api.profiles.AccountTestToken;
+import org.whispersystems.signalservice.api.profiles.ProfileTokenAndEndPoint;
 
 public class MainNavigator {
 
   private final MainActivity activity;
+  private int statusBarColorListFragment;
 
   public MainNavigator(@NonNull MainActivity activity) {
     this.activity = activity;
@@ -47,7 +51,7 @@ public class MainNavigator {
    */
   public boolean onBackPressed() {
     Fragment fragment = getFragmentManager().findFragmentById(R.id.fragment_container);
-
+    activity.setStatusBarColor(statusBarColorListFragment);
     if (fragment instanceof BackHandler) {
       return ((BackHandler) fragment).onBackPressed();
     }
@@ -65,6 +69,33 @@ public class MainNavigator {
   public void goToAppSettings() {
     Intent intent = new Intent(activity, ApplicationPreferencesActivity.class);
     activity.startActivity(intent);
+  }
+  public void setStatusBarColorListFragment(int statusBarColorListFragment) {        this.statusBarColorListFragment = statusBarColorListFragment;    }
+  public void goToAppListRoom(ProfileTokenAndEndPoint profileTokenAndEndPoint , AccountTestToken accountTestToken, int statusBarColor) {
+    setStatusBarColorListFragment(statusBarColor);
+    activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+              ConversationListRoomFragment fragmentbundle = new ConversationListRoomFragment();
+              Bundle bundlefragment = new Bundle();
+              bundlefragment.putString(ConversationListRoomFragment.END_POINT, profileTokenAndEndPoint.getEndpointUrl());
+              bundlefragment.putString(ConversationListRoomFragment.RESULT_END_POINT, String.valueOf(profileTokenAndEndPoint.isResult()));
+              bundlefragment.putString(ConversationListRoomFragment.ERROR_MESSAGE_END_POINT, profileTokenAndEndPoint.getErrorMessage());
+              bundlefragment.putString(ConversationListRoomFragment.AUTH_TOKEN, accountTestToken.getAuthToken());
+              bundlefragment.putString(ConversationListRoomFragment.USER_TIME, accountTestToken.getUserTime());
+              bundlefragment.putString(ConversationListRoomFragment.RESULT_TOKEN, String.valueOf(accountTestToken.isResult()));
+              bundlefragment.putString(ConversationListRoomFragment.ERROR_MESSAGE_TOKEN, accountTestToken.getErrorMessage());
+              fragmentbundle.setArguments(bundlefragment);
+
+              fragmentbundle.setStatusBarColor(statusBarColor);
+
+              getFragmentManager().beginTransaction()
+                      .setCustomAnimations(R.anim.slide_from_end, R.anim.slide_to_start, R.anim.slide_from_start, R.anim.slide_to_end)
+                      .replace(R.id.fragment_container, fragmentbundle)
+                      .addToBackStack(null)
+                      .commit();
+            }
+    });
   }
 
 

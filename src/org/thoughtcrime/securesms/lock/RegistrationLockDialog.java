@@ -34,6 +34,7 @@ import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
+import org.thoughtcrime.securesms.security.HmacSignatureProvider;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.ServiceUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -67,6 +68,7 @@ public final class RegistrationLockDialog {
     AlertDialog dialog = new AlertDialog.Builder(context, ThemeUtil.isDarkTheme(context) ? R.style.RationaleDialogDark : R.style.RationaleDialogLight)
                                         .setView(R.layout.registration_lock_reminder_view)
                                         .setCancelable(true)
+                                        .setPositiveButton(R.string.RegistrationLockDialog_confirm, null)
                                         .setOnCancelListener(d -> RegistrationLockReminders.scheduleReminder(context, false))
                                         .create();
 
@@ -107,9 +109,52 @@ public final class RegistrationLockDialog {
     reminder.setText(new SpannableStringBuilder(reminderIntro).append(" ").append(reminderText).append(" ").append(forgotText));
     reminder.setMovementMethod(LinkMovementMethod.getInstance());
 
-    pinEditText.addTextChangedListener(TextSecurePreferences.hasOldRegistrationLockPin(context)
-                                       ? getV1PinWatcher(context, dialog)
-                                       : getV2PinWatcher(context, dialog));
+    Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    button.setOnClickListener(v -> {
+      String pinValue = pinEditText.getText().toString().replace(" ", "");
+
+      if (pinValue.length() < 4) {
+        Toast.makeText(context, R.string.RegistrationLockDialog_the_registration_lock_pin_must_be_at_least_four_digits, Toast.LENGTH_SHORT).show();
+        return;
+      }
+
+      if (TextSecurePreferences.hasOldRegistrationLockPin(context)) {
+        String pin = TextSecurePreferences.getDeprecatedRegistrationLockPin(context);
+
+        if (new HmacSignatureProvider(pinValue).generateAuthToken(TextSecurePreferences.getLocalNumber(context)).equals(pin)) {
+          dialog.dismiss();
+          Toast.makeText(context, R.string.RegistrationLockDialog_pin_successfully_confirmed, Toast.LENGTH_SHORT).show();
+          RegistrationLockReminders.scheduleReminder(context, true);
+
+          if (FeatureFlags.KBS) {
+            Log.i(TAG, "Pin V1 successfully remembered, scheduling a migration to V2");
+            ApplicationDependencies.getJobManager().add(new RegistrationPinV2MigrationJob());
+          }
+        } else {
+          Toast.makeText(context, R.string.RegistrationLockDialog_incorrect_pin_try_again, Toast.LENGTH_SHORT).show();
+        }
+      } else {
+        String        registrationLockToken         = TextSecurePreferences.getRegistrationLockToken(context);
+        byte[]        pinKey2                       = TextSecurePreferences.getRegistrationLockPinKey2(context);
+        TokenResponse registrationLockTokenResponse = TextSecurePreferences.getRegistrationLockTokenResponse(context);
+
+        if (registrationLockToken == null) throw new AssertionError("No V2 reg lock token set at time of reminder");
+        if (pinKey2 == null) throw new AssertionError("No pin key2 set at time of reminder");
+        if (registrationLockTokenResponse == null) throw new AssertionError("No registrationLockTokenResponse set at time of reminder");
+
+        try {
+          if (registrationLockToken.equals(PinStretcher.stretchPin(pinValue).withPinKey2(pinKey2).getRegistrationLock())) {
+            dialog.dismiss();
+            Toast.makeText(context, R.string.RegistrationLockDialog_pin_successfully_confirmed, Toast.LENGTH_SHORT).show();
+            RegistrationLockReminders.scheduleReminder(context, true);
+          } else {
+            Toast.makeText(context, R.string.RegistrationLockDialog_incorrect_pin_try_again, Toast.LENGTH_SHORT).show();
+          }
+        } catch (InvalidPinException e) {
+          Log.w(TAG, e);
+        }
+      }
+    });
   }
 
   private static TextWatcher getV1PinWatcher(@NonNull Context context, AlertDialog dialog) {
@@ -125,7 +170,7 @@ public final class RegistrationLockDialog {
 
       @Override
       public void afterTextChanged(Editable s) {
-        if (s != null && s.toString().replace(" ", "").equals(pin)) {
+        if (s != null && new HmacSignatureProvider(s.toString().replace(" ", "")).generateAuthToken(TextSecurePreferences.getLocalNumber(context)).equals(pin)) {
           dialog.dismiss();
           RegistrationLockReminders.scheduleReminder(context, true);
 

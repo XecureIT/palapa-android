@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/layout_linier_list_room"
+    >
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/core_red_highlight">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/TextSecure.LightActionBar.ListRoom"
+                app:contentInsetStartWithNavigation="0dp"
+                app:contentInsetStart="46dp">
+                <include layout="@layout/conversation_title_view" />
+            </androidx.appcompat.widget.Toolbar>
+            <include  layout="@layout/conversation_reaction_listroom" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/layout_listroom_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/core_red_highlight"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/text_listroom_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="left"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:padding="@dimen/list_room_margin_top"
+            android:text="@string/MessageRequestViconInformationRoom_daftar_ruangan"
+            android:textColor="@color/core_white"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/conversation_reaction_toolbar_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@color/transparent_black_80">
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/simpleListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="1dp" />
+</LinearLayout>

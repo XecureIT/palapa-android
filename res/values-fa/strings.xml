@@ -553,7 +553,7 @@
   <string name="ProfileEditOverviewFragment_username">نام کاربری</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">ایجاد نام نمایه</string>
   <string name="ProfileEditOverviewFragment_create_a_username">ایجاد نام کاربری</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">نام نمایهٔ شما برای مخاطبین‌تان و همچنین برای دیگر کاربران و گروه‌هایی که با آنان گفتگویی آغاز می‌کنید یا درخواست گفتگویشان را می‌پذیرید، قابل رؤیت است. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">برای اطلاعات بیشتر اینجا ضربه بزنید</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">نام نمایهٔ شما برای مخاطبین‌تان و همچنین برای دیگر کاربران و گروه‌هایی که با آنان گفتگویی آغاز می‌کنید یا درخواست گفتگویشان را می‌پذیرید، قابل رؤیت است.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">امتیاز به این برنامه</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">اگر شما از این برنامه لذت بردید،لطفا یک لحظه به ما کمک کنید و امتیاز دهید.</string>
@@ -601,7 +601,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">شماره‌ای که شما
 مشخص کرده‌اید (%s) معتبر نیست.</string>
   <string name="RegistrationActivity_missing_google_play_services">سرویس‌های Google Play یافت نشدند</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه دارای Google Play Services نمی باشد. شما میتوانید به استفاده از Signal ادامه دهید &gt;  اما این پیکربندی باعث کاهش قابل اطمینان بودن یا عملکرد میتواند بشود. .\n\n اگر شما یک کاربر پیشرفته نیستید، در حال اجرا یک رام اندروید کاستوم هستید، یا فکر میکنید که دیدن این پیام به دلیل یک خطا بیشتر نیست، لطفا برای کمک در عیب یابی با support@signal.org تماس بگیرید.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">این دستگاه دارای Google Play Services نمی باشد. شما میتوانید به استفاده از Signal ادامه دهید &gt;  اما این پیکربندی باعث کاهش قابل اطمینان بودن یا عملکرد میتواند بشود. .\n\n اگر شما یک کاربر پیشرفته نیستید، در حال اجرا یک رام اندروید کاستوم هستید، یا فکر میکنید که دیدن این پیام به دلیل یک خطا بیشتر نیست، لطفا برای کمک در عیب یابی با support@xecureit.id تماس بگیرید.</string>
   <string name="RegistrationActivity_i_understand">قبول می کنم</string>
   <string name="RegistrationActivity_play_services_error">خطای Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services در حال بروزرسانی است یا موقتا از دسترس خارج شده است. لطفا دوباره تلاش کنید.</string>
@@ -1086,7 +1086,7 @@
   <string name="unknown_sender_view__add_to_contacts">به مخاطبین اضافه کن</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">اضافه نکن، اما پروفایلم قابل مشاهده باشد</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[ اگر مایل هستید تا امنیت رمزنگاری خود را با %s تایید کنید، عدد آمده در بالا را با عدد در دستگاه آن ها مقایسه کنید. در غیر این صورت، شما میتوانید کد روی گوشی آن ها را اسکن کرده، یا از آن ها بخواهید تا کد شما را اسکن کنند. <a href="https://signal.org/redirect/safety-numbers">بیشتر یاد بگیرید.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[ اگر مایل هستید تا امنیت رمزنگاری خود را با %s تایید کنید، عدد آمده در بالا را با عدد در دستگاه آن ها مقایسه کنید. در غیر این صورت، شما میتوانید کد روی گوشی آن ها را اسکن کرده، یا از آن ها بخواهید تا کد شما را اسکن کنند.]]></string>
   <string name="verify_display_fragment__tap_to_scan">برای جستجو ضربه بزنید</string>
   <string name="verify_display_fragment__loading">در حال بارگزاری…</string>
   <string name="verify_display_fragment__verified">تایید شده</string>

@@ -551,7 +551,7 @@
   <string name="ProfileEditOverviewFragment_username">Emër përdoruesi</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Krijoni emër profili</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Krijoni emër përdoruesi</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Profili juaj Signal mund të shihet nga kontakte tuaja dhe nga përdorues ose grupe të tjerë, kur filloni një bisedë ose pranoni një kërkesë për bisedë. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Prekni këtu që të mësoni më tepër</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Profili juaj Signal mund të shihet nga kontakte tuaja dhe nga përdorues ose grupe të tjerë, kur filloni një bisedë ose pranoni një kërkesë për bisedë.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Vlerësojeni këtë aplikacion</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Nëse ju pëlqen ta përdorni këtë aplikacion, ju lutemi, ndaluni një çast të na ndihmoni duke e vlerësuar atë.</string>
@@ -601,7 +601,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Numri që specifikuat
          (%s) është i pavlefshëm.</string>
   <string name="RegistrationActivity_missing_google_play_services">Mungojnë Shërbimet Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Në këtë pajisje mungojnë Shërbimet Google Play. Mundeni prapëseprapë ta përdorni Signal-in, por ky formësim mund të sjellë qëndrueshmëri ose funksionim të reduktuar.\n\nNëse s\’jeni përdorues i përparuar, s\’po përdorni një ROM Android të modifikuar, ose besoni se po  e shihni gabimisht këtë, ju lutemi, lidhuni me support@signal.org për ndihmë në diagnostikikim.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Në këtë pajisje mungojnë Shërbimet Google Play. Mundeni prapëseprapë ta përdorni Signal-in, por ky formësim mund të sjellë qëndrueshmëri ose funksionim të reduktuar.\n\nNëse s\’jeni përdorues i përparuar, s\’po përdorni një ROM Android të modifikuar, ose besoni se po  e shihni gabimisht këtë, ju lutemi, lidhuni me support@xecureit.id për ndihmë në diagnostikikim.</string>
   <string name="RegistrationActivity_i_understand">E kuptoj</string>
   <string name="RegistrationActivity_play_services_error">Gabim nga Shërbime Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Shërbimet Google Play po përditësohen ose janë përkohësisht jashtë funksionimi. Ju lutemi, riprovoni.</string>
@@ -1085,7 +1085,7 @@
   <string name="unknown_sender_view__add_to_contacts">SHTOJE NË KONTAKTET</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">MOS E SHTO, POR BËJA TË DUKSHËM PROFILIN TIM</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Nëse dëshironi të verifikoni sigurinë e fshehtëzimit tuaj me %s, krahasojeni numrin më sipër me numrin në pajisjen e tyre. Ndryshe, mund të skanoni kodin në telefonin e tyre, ose t\’u kërkoni të skanojnë kodin tuaj. <a href="https://signal.org/redirect/safety-numbers">Mësoni më tepër.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Nëse dëshironi të verifikoni sigurinë e fshehtëzimit tuaj me %s, krahasojeni numrin më sipër me numrin në pajisjen e tyre. Ndryshe, mund të skanoni kodin në telefonin e tyre, ose t\’u kërkoni të skanojnë kodin tuaj.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Prekeni që të skanohet</string>
   <string name="verify_display_fragment__loading">Po ngarkohet…</string>
   <string name="verify_display_fragment__verified">U verifikua</string>

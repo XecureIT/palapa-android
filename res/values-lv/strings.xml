@@ -565,7 +565,7 @@ tālruņa numurs</string>
   <string name="RegistrationActivity_invalid_number">Nepareizs numurs</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Numurs, kuru jūs norādījāt (%s) ir nepareizs</string>
   <string name="RegistrationActivity_missing_google_play_services">Trūkst Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šai ierīcei trūkst Google Play pakalpojumu. Jūs joprojām varat izmantot Signal, bet šī konfigurācija var izraisīt samazinātu uzticamību vai veiktspējau .\n\nja, ko neesat advancēts lietotājs, nedarbināt pēctirgus Android ROM vai arī uzskatāt, ka redzat šo kļūdu, lūdzu, sazinieties ar support@signal.org, lai saņemtu palīdzību problēmu novēršanai.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Šai ierīcei trūkst Google Play pakalpojumu. Jūs joprojām varat izmantot Signal, bet šī konfigurācija var izraisīt samazinātu uzticamību vai veiktspējau .\n\nja, ko neesat advancēts lietotājs, nedarbināt pēctirgus Android ROM vai arī uzskatāt, ka redzat šo kļūdu, lūdzu, sazinieties ar support@xecureit.id, lai saņemtu palīdzību problēmu novēršanai.</string>
   <string name="RegistrationActivity_i_understand">Es saprotu</string>
   <string name="RegistrationActivity_play_services_error">Play Services Kļūda</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play pakalpojumi tiek atjaunināti vai īslaicīgi nav pieejami. Lūdzu, mēģiniet vēlreiz.</string>
@@ -1033,7 +1033,7 @@ Saņemts atslēgas apmaiņas ziņojums par nederīgu protokola versiju. </string
   <string name="unknown_sender_view__add_to_contacts">PIEVIENOT KONTAKTIEM</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NEPIEVIENOT, BET PADARĪT MANU PROFILU REDZEMU</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ja vēlaties pārbaudīt šifrēšanas drošību ar %s, salīdziniet iepriekš norādīto numuru ar numuru ierīcē. Varat noskenēt kodu viņu tālrunī vai palūgt, lai neskenē jūsu kodu.<a href="https://signal.org/redirect/safety-numbers">Lasīt vairāk.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ja vēlaties pārbaudīt šifrēšanas drošību ar %s, salīdziniet iepriekš norādīto numuru ar numuru ierīcē. Varat noskenēt kodu viņu tālrunī vai palūgt, lai neskenē jūsu kodu.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Pieskarieties, lai skenētu</string>
   <string name="verify_display_fragment__loading">Lādē…</string>
   <string name="verify_display_fragment__verified">Pārbaudīts</string>

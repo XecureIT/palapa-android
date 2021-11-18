@@ -556,7 +556,7 @@ Kérlek telepítsd újra a Google Play Szolgáltatásokat, majd próbáld újra!
   <string name="ProfileEditOverviewFragment_username">Felhasználónév</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Profilnév létrehozása</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Felhasználónév létrehozása</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Profilnevedet kontaktjaidon kívül azok a felhasználok és csoportok is megtekinthetik, akikkel beszélgetést kezdeményezel, vagy akiktől elfogadsz ilyen meghívást. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Koppints további információért</a></string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Profilnevedet kontaktjaidon kívül azok a felhasználok és csoportok is megtekinthetik, akikkel beszélgetést kezdeményezel, vagy akiktől elfogadsz ilyen meghívást.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Értékeld az alkalmazást</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Ha szívesen használod ezt az alkalmazást, akkor kérlek szánj rá egy percet, hogy segíts nekünk értékelésed leadásával.</string>
@@ -607,7 +607,7 @@ telefonszámodat!
 szám (%s) érvénytelen.
  </string>
   <string name="RegistrationActivity_missing_google_play_services">Hiányzó Google Play Szolgáltatások</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ezen a készüléken hiányzik a Google Play Szolgáltatások. Továbbra is használhatod a Signal-t, de ez a konfiguráció csökkent megbízhatóságot vagy teljesítményt eredményezhet.\n\nHa nem egy hozzáértő felhasználó vagy, aki egy utángyártott Android ROM-ot futtat, vagy ez egy hibának tűnik neked, akkor kérlek vedd fel a kapcsolatot a probléma megoldása érdekében a support@signal.org -gal.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ezen a készüléken hiányzik a Google Play Szolgáltatások. Továbbra is használhatod a Signal-t, de ez a konfiguráció csökkent megbízhatóságot vagy teljesítményt eredményezhet.\n\nHa nem egy hozzáértő felhasználó vagy, aki egy utángyártott Android ROM-ot futtat, vagy ez egy hibának tűnik neked, akkor kérlek vedd fel a kapcsolatot a probléma megoldása érdekében a support@xecureit.id -gal.</string>
   <string name="RegistrationActivity_i_understand">Megértettem</string>
   <string name="RegistrationActivity_play_services_error">Play Szolgáltatások hiba</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">A Google Play Szolgáltatások épp frissítés alatt áll, vagy átmenetileg nem elérhető. Kérlek próbáld újra.</string>
@@ -1095,7 +1095,7 @@ Kulcs-csere üzenet érkezett érvénytelen protokoll verzióhoz.
   <string name="unknown_sender_view__add_to_contacts">FELVÉTEL A NÉVJEGYZÉKBE</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NE ADJA HOZZÁ, DE TEGYE A PROFILOM LÁTHATÓVÁ</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ha szeretnéd ellenőrizni a titkosítás sértetlenségét %s nevű partnereddel, hasonlítsd össze a fenti számot az ő készülékén megjelenő számmal. Alternatív megoldásként beszkennelheted a kódot telefonja kijelzőjéről, illetve te is megkérheted őt, hogy ő szkennelje be a te kódodat. <a href="https://signal.org/redirect/safety-numbers">További információ</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ha szeretnéd ellenőrizni a titkosítás sértetlenségét %s nevű partnereddel, hasonlítsd össze a fenti számot az ő készülékén megjelenő számmal. Alternatív megoldásként beszkennelheted a kódot telefonja kijelzőjéről, illetve te is megkérheted őt, hogy ő szkennelje be a te kódodat.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Kopp a szkenneléshez</string>
   <string name="verify_display_fragment__loading">Betöltés…</string>
   <string name="verify_display_fragment__verified">Megerősítve</string>

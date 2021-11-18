@@ -210,6 +210,8 @@
         <item name="conversation_list_camera_icon_tint">@color/core_grey_60</item>
         <item name="conversation_list_compose_icon_tint">@color/core_white</item>
         <item name="conversation_list_camera_button_background">@color/core_white</item>
+        <item name="conversation_list_vicon_icon_tint">@color/core_grey_60</item>
+        <item name="conversation_list_vicon_button_background">@color/core_white</item>
 
         <item name="fab_color">@color/textsecure_primary</item>
         <item name="lower_right_divet">@drawable/divet_lower_right_dark</item>
@@ -452,6 +454,8 @@
         <item name="conversation_list_camera_icon_tint">@color/core_white</item>
         <item name="conversation_list_compose_icon_tint">@color/core_white</item>
         <item name="conversation_list_camera_button_background">@color/core_grey_85</item>
+        <item name="conversation_list_vicon_icon_tint">@color/core_white</item>
+        <item name="conversation_list_vicon_button_background">@color/core_grey_85</item>
 
         <item name="conversation_group_member_name">#99ffffff</item>
 

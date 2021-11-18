@@ -526,7 +526,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Избраният номер
 (%s) е невалиден.</string>
   <string name="RegistrationActivity_missing_google_play_services">Липсват Google Play услуги</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">На това устройсто липсваt Google Play Services. Ще може да продължите да използвате Signal, но тази конфигурация може да доведе до намалена надежност или производителност.\n\nАко сте технологичен експерт, не ползвате специализирана версия на Андроид, или смятата, че виждате това съобщение по грешка, моля свържете се със support@signal.org за помощ.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">На това устройсто липсваt Google Play Services. Ще може да продължите да използвате Signal, но тази конфигурация може да доведе до намалена надежност или производителност.\n\nАко сте технологичен експерт, не ползвате специализирана версия на Андроид, или смятата, че виждате това съобщение по грешка, моля свържете се със support@xecureit.id за помощ.</string>
   <string name="RegistrationActivity_i_understand">Разбирам</string>
   <string name="RegistrationActivity_play_services_error">Грешка с Play услуги</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play услуги се обновява или временно не е на разположение. Моля, опитайте отново.</string>
@@ -972,7 +972,7 @@
   <string name="unknown_sender_view__add_to_contacts">ДОБАВЯНЕ В КОНТАКТИ</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">НЕ ДОБАВЯЙ, НО НАПРАВИ ПРОФИЛА ВИДИМ</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ако желаете да потвърдите сигурноста на криптирането с %s,  срванете числото изписано по-горе с числото на тяхното устройство. Алтернативно, може да сканирате кодът на техния телефон или да ги помолите да сканират вашия. <a href="https://signal.org/redirect/safety-numbers">Научете повече.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ако желаете да потвърдите сигурноста на криптирането с %s,  срванете числото изписано по-горе с числото на тяхното устройство. Алтернативно, може да сканирате кодът на техния телефон или да ги помолите да сканират вашия.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Натиснете за сканиране</string>
   <string name="verify_display_fragment__loading">Зареждане…</string>
   <string name="verify_display_fragment__verified">Потвърдено</string>

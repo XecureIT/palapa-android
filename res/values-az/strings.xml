@@ -527,7 +527,7 @@
         nömrə (%s) səhvdir.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Xidməti Çatışmır</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Xidməti yoxdur. Sən yenə də Signal-ı istifadə edə bilərsən, amma o daha az etibarlı olacaq və aşağı performans nümayiş etdirəcək.\n\nƏgər sən qabaqcıl istifadəçi deyilsənsə, ikinci əl Android ROM istifadə etmirsənsə, yaxud da bu xətanı gördüyünü düşünürsənsə, lütfən bizi məlumatlandırmaq üçün support@signal.org ünvanına yaz. </string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Bu cihazda Google Play Xidməti yoxdur. Sən yenə də Signal-ı istifadə edə bilərsən, amma o daha az etibarlı olacaq və aşağı performans nümayiş etdirəcək.\n\nƏgər sən qabaqcıl istifadəçi deyilsənsə, ikinci əl Android ROM istifadə etmirsənsə, yaxud da bu xətanı gördüyünü düşünürsənsə, lütfən bizi məlumatlandırmaq üçün support@xecureit.id ünvanına yaz. </string>
   <string name="RegistrationActivity_i_understand">Anlayıram</string>
   <string name="RegistrationActivity_play_services_error">Play Xidmət Xətası</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Xidməti yenilənir və ya müvəqqəti işləmir: Zəhmət olmasa bir daha sına.</string>
@@ -968,7 +968,7 @@
   <string name="unknown_sender_view__add_to_contacts">ƏLAQƏLƏRƏ ƏLAVƏ ET</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">ƏLAVƏ ETMƏ, LAKİN PROFİLİMİ GÖSTƏR</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s ilə şifrələnmənin təhlükəsizliyini təsdiq etmək isyəyirsənsə, yuxarıdakı nömrə ilə onların cihazındakı nömrəni müqayisə et. Yaxud da, onların cihazındakı şifrəni skan edə bilərsən, ya da onlar sənin cihazındakı şifrəni skan edə bilərlər. <a href="https://signal.org/redirect/safety-numbers">Daha ətraflı.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s ilə şifrələnmənin təhlükəsizliyini təsdiq etmək isyəyirsənsə, yuxarıdakı nömrə ilə onların cihazındakı nömrəni müqayisə et. Yaxud da, onların cihazındakı şifrəni skan edə bilərsən, ya da onlar sənin cihazındakı şifrəni skan edə bilərlər.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Skan üçün kliklə</string>
   <string name="verify_display_fragment__loading">Yüklənir…</string>
   <string name="verify_display_fragment__verified">Təsdiq edildi</string>

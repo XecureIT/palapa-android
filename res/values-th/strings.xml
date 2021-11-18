@@ -468,7 +468,7 @@
         ระบุ (%s) ไม่ถูกต้อง
     </string>
   <string name="RegistrationActivity_missing_google_play_services">ไม่พบ Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">อุปกรณ์นี้ไม่มี Google Play Services คุณยังสามารถใช้งาน Signal ได้แต่อาจจะได้รับเสถียรภาพหรือประสิทธิภาพที่ลดลง\n\nหากคุณไม่ได้เป็นผู้ใช้งานขั้นสูง หรือไม่ได้ใช้ Android ROM จากผู้ผลิตอื่น หรือมั่นใจว่าคุณได้เห็นข้อความนี้เนื่องจากความผิดพลาด โปรดติดต่อ support@signal.org สำหรับความช่วยเหลือในการแก้ปัญหา</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">อุปกรณ์นี้ไม่มี Google Play Services คุณยังสามารถใช้งาน Signal ได้แต่อาจจะได้รับเสถียรภาพหรือประสิทธิภาพที่ลดลง\n\nหากคุณไม่ได้เป็นผู้ใช้งานขั้นสูง หรือไม่ได้ใช้ Android ROM จากผู้ผลิตอื่น หรือมั่นใจว่าคุณได้เห็นข้อความนี้เนื่องจากความผิดพลาด โปรดติดต่อ support@xecureit.id สำหรับความช่วยเหลือในการแก้ปัญหา</string>
   <string name="RegistrationActivity_i_understand">ฉันเข้าใจ</string>
   <string name="RegistrationActivity_play_services_error">ข้อผิดพลาดเกี่ยวกับ Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services กำลังปรับปรุงหรือใช้ไม่ได้ชั่วคราว โปรดลองอีกครั้ง</string>
@@ -871,7 +871,7 @@
   <string name="unknown_sender_view__add_to_contacts">เพิ่มไปที่ผู้ติดต่อ</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">ไม่ต้องเพิ่ม แต่ทำให้โปรไฟล์ของฉันถูกเห็นได้</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[หากคุณต้องการยืนยันความปลอดภัยในการเข้ารหัสระหว่างคุณกับ %s ให้เปรียบเทียบรหัสด้านบนนี้กับรหัสบนอุปกรณ์ของเขาหรืออีกทางหนึ่ง คุณสามารถสแกนรหัสบนโทรศัพท์ของเขา หรือขอให้เขาสแกนรหัสของคุณ <a href="https://signal.org/redirect/safety-numbers">เรียนรู้เพิ่มเติม</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[หากคุณต้องการยืนยันความปลอดภัยในการเข้ารหัสระหว่างคุณกับ %s ให้เปรียบเทียบรหัสด้านบนนี้กับรหัสบนอุปกรณ์ของเขาหรืออีกทางหนึ่ง คุณสามารถสแกนรหัสบนโทรศัพท์ของเขา หรือขอให้เขาสแกนรหัสของคุณ ]]></string>
   <string name="verify_display_fragment__tap_to_scan">แตะเพื่อสแกน</string>
   <string name="verify_display_fragment__loading">กำลังโหลด…</string>
   <string name="verify_display_fragment__verified">ยืนยันแล้ว</string>

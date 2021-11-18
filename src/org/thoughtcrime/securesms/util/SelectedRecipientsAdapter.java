@@ -11,12 +11,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.thoughtcrime.securesms.GroupMembersDialog;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +30,9 @@ public class SelectedRecipientsAdapter extends BaseAdapter {
   @NonNull  private List<RecipientWrapper>     recipients;
   @Nullable private String                     owner;
   @Nullable private Collection<Recipient>      admins;
+  public static Context contexts;
+
+  public void setContexts(Context contexts) {    this.contexts = contexts;  }
 
   public SelectedRecipientsAdapter(@NonNull Context context) {
     this(context, Collections.<Recipient>emptyList(), null, Collections.<Recipient>emptyList());
@@ -117,6 +122,7 @@ public class SelectedRecipientsAdapter extends BaseAdapter {
   public View getView(final int position, View v, final ViewGroup parent) {
     if (v == null) {
       v = LayoutInflater.from(context).inflate(R.layout.selected_recipient_list_item, parent, false);
+      setContexts(context);
     }
 
     final RecipientWrapper rw         = (RecipientWrapper)getItem(position);
@@ -162,6 +168,7 @@ public class SelectedRecipientsAdapter extends BaseAdapter {
       if (admins != null) isAdmin = admins.contains(recipient);
       wrapperList.add(new RecipientWrapper(recipient, false, true, isOwner, isAdmin));
     }
+    Collections.sort(wrapperList, new MyComparatorMamber());
     return wrapperList;
   }
 
@@ -245,6 +252,18 @@ public class SelectedRecipientsAdapter extends BaseAdapter {
 
     public boolean isAdmin() {
       return admin;
+    }
+  }
+  private static class MyComparatorMamber implements Comparator<RecipientWrapper>{
+    @Override
+    public int compare(RecipientWrapper str1, RecipientWrapper str2) {
+      if(str1.getRecipient().toShortString(contexts) == null && str2.getRecipient().toShortString(contexts) ==  null){
+        return -1;
+      }else if(str1.getRecipient().toShortString(contexts) == null){
+        return 1;
+      }else{
+        return str1.getRecipient().toShortString(contexts).compareTo(str2.getRecipient().toShortString(contexts));
+      }
     }
   }
 }

@@ -566,7 +566,7 @@
 మీరు పేర్కొన్న
 సంఖ్య (%s) చెల్లదు.</string>
   <string name="RegistrationActivity_missing_google_play_services">గూగుల్ ఫ్లే సేవలు అందుబాటులో లేవు.</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ఈ పరికరంలో Google Play సేవలు లేవు. మీరు ఇప్పటికీ Signal ఉపయోగించవచ్చు, కానీ ఈ కాన్ఫిగరేషన్ తగ్గిన విశ్వసనీయత లేదా పనితీరును కలిగించవచ్చు. \ N \ n మీరు అధునాతన వినియోగదారు కానట్లయితే, ఒక యాడ్మార్కెట్ Android ROM ను అమలు చేయకపోయినా లేదా మీరు దీనిని తప్పుగా చూస్తున్నారని విశ్వసిస్తారు, దయచేసి support@signal.org </string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ఈ పరికరంలో Google Play సేవలు లేవు. మీరు ఇప్పటికీ Signal ఉపయోగించవచ్చు, కానీ ఈ కాన్ఫిగరేషన్ తగ్గిన విశ్వసనీయత లేదా పనితీరును కలిగించవచ్చు. \ N \ n మీరు అధునాతన వినియోగదారు కానట్లయితే, ఒక యాడ్మార్కెట్ Android ROM ను అమలు చేయకపోయినా లేదా మీరు దీనిని తప్పుగా చూస్తున్నారని విశ్వసిస్తారు, దయచేసి support@xecureit.id </string>
   <string name="RegistrationActivity_i_understand">నాకు అర్దం అయ్యినది</string>
   <string name="RegistrationActivity_play_services_error">ప్లే సేవల దోషం.</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">గూగల్ ేవలను నవీకరించుటకు లేదా తాత్కాలికంగా అందుబాటులో చేస్తున్నారు. మళ్ళి ప్రయత్నించండి.</string>
@@ -1030,7 +1030,7 @@
   <string name="unknown_sender_view__add_to_contacts">పరిచయాలకు జోడించండి</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">జోడించవద్దు, కానీ నా రూపం కనిపించేలా చేస్తుంది</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[మీరు మీ ఎన్క్రిప్షన్ యొక్క భద్రతను ధృవీకరించాలనుకుంటే %s, వారి పరికరంలో ఉన్న సంఖ్యతో ఉన్న సంఖ్యను సరిపోల్చండి. ప్రత్యామ్నాయంగా, మీరు వారి ఫోన్లో కోడ్ను స్కాన్ చేయవచ్చు లేదా మీ కోడ్ను స్కాన్ చేయమని అడగవచ్చు. <a href="https://signal.org/redirect/safety-numbers">ఇంకా నేర్చుకో.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[మీరు మీ ఎన్క్రిప్షన్ యొక్క భద్రతను ధృవీకరించాలనుకుంటే %s, వారి పరికరంలో ఉన్న సంఖ్యతో ఉన్న సంఖ్యను సరిపోల్చండి. ప్రత్యామ్నాయంగా, మీరు వారి ఫోన్లో కోడ్ను స్కాన్ చేయవచ్చు లేదా మీ కోడ్ను స్కాన్ చేయమని అడగవచ్చు.]]></string>
   <string name="verify_display_fragment__tap_to_scan">స్కాన్ నొక్కండి</string>
   <string name="verify_display_fragment__loading">లోడ్…</string>
   <string name="verify_display_fragment__verified">ధృవీకరించబడింది</string>

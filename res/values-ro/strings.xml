@@ -565,7 +565,7 @@
   <string name="ProfileEditOverviewFragment_username">Nume utilizator</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Creați un nume de profil</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Creați un nume de utilizator</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Profilul Signal poate fi văzut de contactele dvs. și de alți utilizatori sau grupuri atunci când inițiați o conversație sau acceptați o solicitare de conversație. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Apăsați pentru a afla mai multe</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Profilul Signal poate fi văzut de contactele dvs. și de alți utilizatori sau grupuri atunci când inițiați o conversație sau acceptați o solicitare de conversație.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Evaluați aplicaţia</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Dacă vă place aplicaţia, vă rog ajutați-ne cu o evaluare.</string>
@@ -613,7 +613,7 @@ numărul dvs. de telefon</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Numărul de telefon
 furnizat (%s) este invalid.</string>
   <string name="RegistrationActivity_missing_google_play_services">Serviciile Google Play lipsesc</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Acestui dispozitiv îi lipsesc serviciile Google Play. Poți utiliza în continuare Signal, însă această configurație poate duce la fiabilitate și performanță redusă.\n\nDacă nu ești un utilizator avansat, nu rulezi un ROM Android aftermarket,  sau crezi că vezi asta în erori, te tog contactează support@signal.org pentru ajutor la depanare.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Acestui dispozitiv îi lipsesc serviciile Google Play. Poți utiliza în continuare Signal, însă această configurație poate duce la fiabilitate și performanță redusă.\n\nDacă nu ești un utilizator avansat, nu rulezi un ROM Android aftermarket,  sau crezi că vezi asta în erori, te tog contactează support@xecureit.id pentru ajutor la depanare.</string>
   <string name="RegistrationActivity_i_understand">Am înțeles</string>
   <string name="RegistrationActivity_play_services_error">Eroare servicii Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Serviciile Google Play se actualizează sau sunt temporar indisponibile. Te rog încearcă din nou.</string>
@@ -1107,7 +1107,7 @@ Am primit mesajul conform căruia schimbul de chei a avut loc pentru o versiune 
   <string name="unknown_sender_view__add_to_contacts">ADĂUGAȚI LA CONTACTE</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NU ADĂUGA, DAR FĂ-MI PROFILUL MEU VIZIBIL</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Dacă doriți să verificați securitatea criptării cu %s, comparați numărul de deasupra cu numărul de pe dispozitivul lor. Alternativ, puteți scana codul de pe telefonul lor sau îi puteți ruga să scaneze codul dvs. <a href="https://signal.org/redirect/safety-numbers">Aflați mai multe.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Dacă doriți să verificați securitatea criptării cu %s, comparați numărul de deasupra cu numărul de pe dispozitivul lor. Alternativ, puteți scana codul de pe telefonul lor sau îi puteți ruga să scaneze codul dvs.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Apăsați pentru a scana</string>
   <string name="verify_display_fragment__loading">Se încarcă…</string>
   <string name="verify_display_fragment__verified">Verificat</string>

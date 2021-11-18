@@ -42,6 +42,8 @@ import org.whispersystems.signalservice.api.messages.multidevice.StickerPackOper
 import org.whispersystems.signalservice.api.messages.multidevice.VerifiedMessage;
 import org.whispersystems.signalservice.api.messages.multidevice.ViewOnceOpenMessage;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
+import org.whispersystems.signalservice.api.profiles.AccountTestToken;
+import org.whispersystems.signalservice.api.profiles.ProfileTokenAndEndPoint;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.api.push.exceptions.AuthorizationFailedException;
 import org.whispersystems.signalservice.api.push.exceptions.PushNetworkException;
@@ -49,7 +51,6 @@ import org.whispersystems.signalservice.api.push.exceptions.UnregisteredUserExce
 import org.whispersystems.signalservice.api.util.CredentialsProvider;
 import org.whispersystems.signalservice.internal.configuration.SignalServiceConfiguration;
 import org.whispersystems.signalservice.internal.crypto.PaddingInputStream;
-import org.whispersystems.signalservice.internal.push.AttachmentUploadAttributes;
 import org.whispersystems.signalservice.internal.push.MismatchedDevices;
 import org.whispersystems.signalservice.internal.push.OutgoingPushMessage;
 import org.whispersystems.signalservice.internal.push.OutgoingPushMessageList;
@@ -331,6 +332,17 @@ public class SignalServiceMessageSender {
   public void setIsMultiDevice(boolean isMultiDevice) {
     this.isMultiDevice.set(isMultiDevice);
   }
+
+  public ProfileTokenAndEndPoint getEndPoint(String moduleid) throws IOException{
+    ProfileTokenAndEndPoint objProf = socket.getEndPoint(moduleid);
+    return objProf;
+  }
+
+  public AccountTestToken getToken(String moduleid) throws IOException{
+    AccountTestToken objProf = socket.getToken(moduleid);
+    return objProf;
+  }
+
 
   public SignalServiceAttachmentPointer uploadAttachment(SignalServiceAttachmentStream attachment) throws IOException {
     byte[]             attachmentKey    = Util.getSecretBytes(64);

@@ -559,7 +559,7 @@ telefonnummer</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Numret du
 angav (%s) är ogiltigt.</string>
   <string name="RegistrationActivity_missing_google_play_services">Saknar Google Play-tjänster</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Denna enhet saknar Google Play-tjänster. Du kan ändå använda Signal men kanske med nedsatt tillförlitlighet och prestanda.\n\nOm du inte är en avancerad användare, inte använder en egenhändigt modifierad androidversion eller tror att du ser detta på grund av ett fel, kontakta då support@signal.org för hjälp med felsökning.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Denna enhet saknar Google Play-tjänster. Du kan ändå använda Signal men kanske med nedsatt tillförlitlighet och prestanda.\n\nOm du inte är en avancerad användare, inte använder en egenhändigt modifierad androidversion eller tror att du ser detta på grund av ett fel, kontakta då support@xecureit.id för hjälp med felsökning.</string>
   <string name="RegistrationActivity_i_understand">Jag förstår</string>
   <string name="RegistrationActivity_play_services_error">Fel på Google Play-tjänster</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play-tjänster uppdateras eller är tillfälligt otillgängliga. Försök igen senare.</string>
@@ -1024,7 +1024,7 @@ Tog emot meddelande för nyckelutbyte för ogiltig protokollversion.</string>
   <string name="unknown_sender_view__add_to_contacts">LÄGG TILL KONTAKT</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">LÄGG INTE TILL, MEN GÖR PROFILEN SYNLIG</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Om du vill verifiera säkerheten i krypteringen med %s, jämför numret ovan med numret på hens enhet. Alternativt så kan du skanna koden på hens telefon eller be hen skanna din kod. <a href="https://signal.org/redirect/safety-numbers">Mer info.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Om du vill verifiera säkerheten i krypteringen med %s, jämför numret ovan med numret på hens enhet. Alternativt så kan du skanna koden på hens telefon eller be hen skanna din kod.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Tryck för att skanna</string>
   <string name="verify_display_fragment__loading">Hämtar in…</string>
   <string name="verify_display_fragment__verified">Verifierad</string>

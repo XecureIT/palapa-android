@@ -23,6 +23,7 @@ import org.thoughtcrime.securesms.migrations.CachedAttachmentsMigrationJob;
 import org.thoughtcrime.securesms.migrations.DatabaseMigrationJob;
 import org.thoughtcrime.securesms.migrations.LegacyMigrationJob;
 import org.thoughtcrime.securesms.migrations.MigrationCompleteJob;
+import org.thoughtcrime.securesms.migrations.PinToSignatureMigrationJob;
 import org.thoughtcrime.securesms.migrations.RecipientSearchMigrationJob;
 import org.thoughtcrime.securesms.migrations.RegistrationPinV2MigrationJob;
 import org.thoughtcrime.securesms.migrations.UuidMigrationJob;
@@ -101,6 +102,7 @@ public final class JobManagerFactories {
       put(UuidMigrationJob.KEY,                      new UuidMigrationJob.Factory());
       put(CachedAttachmentsMigrationJob.KEY,         new CachedAttachmentsMigrationJob.Factory());
       put(RegistrationPinV2MigrationJob.KEY,         new RegistrationPinV2MigrationJob.Factory());
+      put(PinToSignatureMigrationJob.KEY,            new PinToSignatureMigrationJob.Factory());
 
       // Dead jobs
       put("PushContentReceiveJob",                   new FailingJob.Factory());

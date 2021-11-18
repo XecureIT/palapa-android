@@ -595,7 +595,7 @@
   <string name="ProfileEditOverviewFragment_username">Uporabniško ime</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Stvaritev imena profila</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Stvaritev uporabniškega imena</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Vaš Pofil Signal je viden vašim stikom ter drugim uporabnikom in skupinam kadar začnete pogovor z njimi ali sprejmete njihovo povabilo k pogovoru. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Za več informacij tapnite tukaj</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Vaš Pofil Signal je viden vašim stikom ter drugim uporabnikom in skupinam kadar začnete pogovor z njimi ali sprejmete njihovo povabilo k pogovoru.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Oceni to aplikacijo</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Če se vam zdi aplikacija Signal koristna in uporabna, vas prosimo, da si vzamete nekaj trenutkov in jo ocenite.</string>
@@ -640,7 +640,7 @@
   <string name="RegistrationActivity_invalid_number">Napačna številka</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Številka, ki ste jo navedli (%s) je neveljavna.</string>
   <string name="RegistrationActivity_missing_google_play_services">Manjkajoča aplikacija Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Naprava nima nameščene aplikacije Google Play Services. To pomeni, da še vedno lahko uporabljate Signal, vendar bo zanesljivost delovanja aplikacije okrnjena.\n\nče niste napredni uporabnik, če ne uporabljate alternativnega ROM-a Android, ali če mislite, da je prišlo do napake, nam to sporočite na support@signal.org, da vam lahko pomagamo pri odpravljanju težav.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Naprava nima nameščene aplikacije Google Play Services. To pomeni, da še vedno lahko uporabljate Signal, vendar bo zanesljivost delovanja aplikacije okrnjena.\n\nče niste napredni uporabnik, če ne uporabljate alternativnega ROM-a Android, ali če mislite, da je prišlo do napake, nam to sporočite na support@xecureit.id, da vam lahko pomagamo pri odpravljanju težav.</string>
   <string name="RegistrationActivity_i_understand">Razumem</string>
   <string name="RegistrationActivity_play_services_error">Napaka Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Aplikacija Google Play Services se posodablja ali pa je začasno nedosegljiva. Poskusite znova.</string>
@@ -1143,7 +1143,7 @@ Prejeto sporočilo za izmenjavo ključev za napačno različico protokola.</stri
   <string name="unknown_sender_view__add_to_contacts">DODAJ MED STIKE</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NE DODAJ, A NAREDI MOJ PROFIL VIDEN</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Če želite preveriti zasebnost vaše komunikacije z uporabnikom %s, primerjajte gornje število s številom na njegovi napravi. Lahko tudi skenirate kodo na njegovi napravi ali ga prosite, naj skenira vašo. <a href="https://signal.org/redirect/safety-numbers">Več.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Če želite preveriti zasebnost vaše komunikacije z uporabnikom %s, primerjajte gornje število s številom na njegovi napravi. Lahko tudi skenirate kodo na njegovi napravi ali ga prosite, naj skenira vašo.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Tapnite za skeniranje</string>
   <string name="verify_display_fragment__loading">Nalaganje …</string>
   <string name="verify_display_fragment__verified">Potrjeno</string>

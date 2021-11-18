@@ -576,7 +576,7 @@
         unijeli (%s) nije važeći.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Nedostaju Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Na ovom uređaju nisu instalirani Google Play Services. I dalje ćete moći koristiti Signal, ali ova konfiguracija može dovesti do manje pouzdanosti i lošijih performansi.\n\nAko niste napredni korisnik, ako nemate ručno instaliranu verziju Android ROM-a ili smatrate da je ova poruka greška, molimo kontaktirajte support@signal.org za pomoć.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Na ovom uređaju nisu instalirani Google Play Services. I dalje ćete moći koristiti Signal, ali ova konfiguracija može dovesti do manje pouzdanosti i lošijih performansi.\n\nAko niste napredni korisnik, ako nemate ručno instaliranu verziju Android ROM-a ili smatrate da je ova poruka greška, molimo kontaktirajte support@xecureit.id za pomoć.</string>
   <string name="RegistrationActivity_i_understand">Razumijem</string>
   <string name="RegistrationActivity_play_services_error">Play Services greška</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services se ažuriraju ili su privremeno nedostupni. Pokušajte ponovo.</string>
@@ -1050,7 +1050,7 @@
   <string name="unknown_sender_view__add_to_contacts">DODAJ U KONTAKTE</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NEMOJ DODATI, ALI MOJ PROFIL UČINI VIDLJIVIM</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ako želite provjeriti sigurnost šifriranja sa %s, uporedite gore navedeni broj sa brojem na njihovom uređaju. Alternativno, možete skenirati kōd sa njihovog telefona ili ih zamoliti da oni skeniraju Vaš kōd. <a href="https://signal.org/redirect/safety-numbers">Saznajte više.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ako želite provjeriti sigurnost šifriranja sa %s, uporedite gore navedeni broj sa brojem na njihovom uređaju. Alternativno, možete skenirati kōd sa njihovog telefona ili ih zamoliti da oni skeniraju Vaš kōd.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Pritisnite da skenirate</string>
   <string name="verify_display_fragment__loading">Učitavanje…</string>
   <string name="verify_display_fragment__verified">Potvrđeno</string>

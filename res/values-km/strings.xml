@@ -542,7 +542,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">លេខរបស់អ្នក
 ដែលបានបញ្ជាក់(%s) មិនត្រឹមត្រូវ</string>
   <string name="RegistrationActivity_missing_google_play_services">រកមិនឃើញ Google Play Services</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ឧបករណ៍នេះមិនមាន Google Play Services។ អ្នកនៅតែអាចប្រើប្រាស់Signalបាន ប៉ុន្តែលទ្ធផលការកំណត់នេះអាចកាត់បន្ថយទំនុកចិត្ត ឬល្បឿន។ \n\n បើអ្នកមិនមែនជាអ្នកប្រើប្រាស់កម្រិតខ្ពស់ទេ មិនប្រើប្រាស់ Android ROM ផ្សេង ឬជឿជាក់ថាអ្នកកំពុងឃើញបញ្ហានេះ សូមទំនាក់ទំនង support@signal.org សម្រាប់ជួយក្នុងការដោះស្រាយបញ្ហា។</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">ឧបករណ៍នេះមិនមាន Google Play Services។ អ្នកនៅតែអាចប្រើប្រាស់Signalបាន ប៉ុន្តែលទ្ធផលការកំណត់នេះអាចកាត់បន្ថយទំនុកចិត្ត ឬល្បឿន។ \n\n បើអ្នកមិនមែនជាអ្នកប្រើប្រាស់កម្រិតខ្ពស់ទេ មិនប្រើប្រាស់ Android ROM ផ្សេង ឬជឿជាក់ថាអ្នកកំពុងឃើញបញ្ហានេះ សូមទំនាក់ទំនង support@xecureit.id សម្រាប់ជួយក្នុងការដោះស្រាយបញ្ហា។</string>
   <string name="RegistrationActivity_i_understand">ខ្ញុំយល់</string>
   <string name="RegistrationActivity_play_services_error">Play Services មានបញ្ហាា</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services កំពុងធ្វើបច្ចុប្បន្នភាព ឬមិនអាចប្រើបានជាបណ្តោះអាសន្ន។ សូមព្យាយាមម្តងទៀត។</string>
@@ -998,7 +998,7 @@
   <string name="unknown_sender_view__add_to_contacts">បន្ថែមទៅក្នុងបញ្ជីទំនាក់ទំនង</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">កុំបន្ថែម, ប៉ុន្តែបង្ហាញប្រវត្តិរូបរបស់ខ្ញុំ</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[បើអ្នកចង់ផ្ទៀងផ្ទាត់សុវត្ថិភាពកូដនីយកម្មរបស់អ្នកជាមួយ %s ប្រៀបធៀបលេខខាងលើជាមួយលេខនៅលើឧបករណ៍របស់ពួកគេ។ ផ្សេងពីនេះទៀត អ្នកអាចស្កេនកូដលើទូរស័ព្ទរបស់ពួកគេ ឬសុំពួកគេឲ្យស្កេនកូដលើទូរស័ព្ទរបស់អ្នក។ <a href="https://signal.org/redirect/safety-numbers">ស្វែងយល់បន្ថែម</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[បើអ្នកចង់ផ្ទៀងផ្ទាត់សុវត្ថិភាពកូដនីយកម្មរបស់អ្នកជាមួយ %s ប្រៀបធៀបលេខខាងលើជាមួយលេខនៅលើឧបករណ៍របស់ពួកគេ។ ផ្សេងពីនេះទៀត អ្នកអាចស្កេនកូដលើទូរស័ព្ទរបស់ពួកគេ ឬសុំពួកគេឲ្យស្កេនកូដលើទូរស័ព្ទរបស់អ្នក។ ]]></string>
   <string name="verify_display_fragment__tap_to_scan">ចុច ដើម្បីស្កែន</string>
   <string name="verify_display_fragment__loading">កំពុងផ្ទុក…</string>
   <string name="verify_display_fragment__verified">បានផ្ទៀងផ្ទាត់</string>

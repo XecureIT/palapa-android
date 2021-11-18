@@ -560,7 +560,7 @@
         especificou (%s) é inválido.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Ausência do Serviços Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Este dispositivo não tem Google Play Services. Você ainda pode usar o Signal, mas talvez não consiga a mesma estabilidade e desempenho.\n\nSe você está em uma ROM oficial do Android, acredita que esta mensagem é um erro ou não faz ideia do que está acontecendo, fale conosco no endereço support@signal.org para que possamos ajudar a resolver o problema.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Este dispositivo não tem Google Play Services. Você ainda pode usar o Signal, mas talvez não consiga a mesma estabilidade e desempenho.\n\nSe você está em uma ROM oficial do Android, acredita que esta mensagem é um erro ou não faz ideia do que está acontecendo, fale conosco no endereço support@xecureit.id para que possamos ajudar a resolver o problema.</string>
   <string name="RegistrationActivity_i_understand">Entendi</string>
   <string name="RegistrationActivity_play_services_error">Erro Serviços Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Serviços Google Play está sendo atualizado ou temporariamente indisponível. Favor tentar novamente.</string>
@@ -1025,7 +1025,7 @@
   <string name="unknown_sender_view__add_to_contacts">ADICIONAR AOS CONTATOS</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NÃO ADICIONAR, MAS TORNAR MEU PERFIL VISÍVEL</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se vocẽ quiser verificar a segurança da sua criptografia ponta a ponta com %s, compare os números acima com os números no aparelho dessa pessoa. Outra opção é escanear o código QR no telefone dela, ou pedir que ela escaneie o código no seu dispositivo. <a href="https://signal.org/redirect/safety-numbers">Saiba mais.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Se vocẽ quiser verificar a segurança da sua criptografia ponta a ponta com %s, compare os números acima com os números no aparelho dessa pessoa. Outra opção é escanear o código QR no telefone dela, ou pedir que ela escaneie o código no seu dispositivo.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Clique para escanear</string>
   <string name="verify_display_fragment__loading">Carregando…</string>
   <string name="verify_display_fragment__verified">Verificado</string>

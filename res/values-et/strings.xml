@@ -554,8 +554,7 @@
   <string name="ProfileEditOverviewFragment_username">Kasutajanimi</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Loo profiilinimi</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Loo kasutajanimi</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Sinu Signali profiili näevad sinu kontaktid ning teised kasutajad või grupid, kui lood vestluse või võtad vastu vestluskutse.
-<a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Rohkema lugemiseks koputa siia</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Sinu Signali profiili näevad sinu kontaktid ning teised kasutajad või grupid, kui lood vestluse või võtad vastu vestluskutse.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Hinda seda rakendust</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Kui sa naudid selle rakenduse kasutamist, palun võta aega ja hinda seda, et meid aidata.</string>
@@ -606,7 +605,7 @@
         (%s) on sobimatu.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">Puuduvad Google Play teenused</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Seadmest puuduvad Google Play teenused. Sa saad siiski Signalit kasutada, kuid see konfiguratsioon võib põhjustada vähendatud stabiilsust või jõudlust.\n\nKui sa pole edasijõudnud kasutaja, ei käita järelturu Androidi ROMi või arvad, et see on viga, palun kontakteeru support@signal.org, et saada abi probleemi lahendamisel.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Seadmest puuduvad Google Play teenused. Sa saad siiski Signalit kasutada, kuid see konfiguratsioon võib põhjustada vähendatud stabiilsust või jõudlust.\n\nKui sa pole edasijõudnud kasutaja, ei käita järelturu Androidi ROMi või arvad, et see on viga, palun kontakteeru support@xecureit.id, et saada abi probleemi lahendamisel.</string>
   <string name="RegistrationActivity_i_understand">Saan aru</string>
   <string name="RegistrationActivity_play_services_error">Play teenuste viga</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play teenused uuenevad või pole hetkel saadaval. Palun proovi uuesti.</string>
@@ -1093,7 +1092,7 @@
   <string name="unknown_sender_view__add_to_contacts">LISA KONTAKTIDESSE</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">ÄRA LISA, AGA TEE MU PROFIIL NÄHTAVAKS</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Kui soovid kinnitada oma krüpteeringut kasutajaga %s, võrdle ülalolevat numbrit nende seadmes oleva numbriga. Võid ka skaneerida nende telefonis olevat koodi või paluda tal skaneerida sinu oma. <a href="https://signal.org/redirect/safety-numbers">Lisateave.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Kui soovid kinnitada oma krüpteeringut kasutajaga %s, võrdle ülalolevat numbrit nende seadmes oleva numbriga. Võid ka skaneerida nende telefonis olevat koodi või paluda tal skaneerida sinu oma.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Koputa skäneerimiseks</string>
   <string name="verify_display_fragment__loading">Laadimine…</string>
   <string name="verify_display_fragment__verified">Kinnitatud</string>

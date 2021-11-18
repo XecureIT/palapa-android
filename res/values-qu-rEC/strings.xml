@@ -477,7 +477,7 @@ riksichinami kanki
 (%s) mana alli kanchu
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Servicios de Google Play illanmi</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kay antahillayka mana tarinchu Google Play yanapayta. Shinapash Signal ukuka paskarinrami ashallata riksichinkapak, .\n\nMana allipacha mashi kashpaka, ROM Android mushukyachishkata  mana rikunata ushankichu, shina kakpika support@signal.org yanapayta maskapay llakita allichinkapak.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Kay antahillayka mana tarinchu Google Play yanapayta. Shinapash Signal ukuka paskarinrami ashallata riksichinkapak, .\n\nMana allipacha mashi kashpaka, ROM Android mushukyachishkata  mana rikunata ushankichu, shina kakpika support@xecureit.id yanapayta maskapay llakita allichinkapak.</string>
   <string name="RegistrationActivity_i_understand">Hamutanimi</string>
   <string name="RegistrationActivity_play_services_error">\"Play Services\" wakllimi</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services mushukyakunmi mana kashpaka ashalla pachata wañushkami. Kutinlla kallaripay.</string>
@@ -888,7 +888,7 @@ Shuk ranti pakallayupay chaski chayamurka, shuk ñawpa mana alli protocolo kashk
   <string name="unknown_sender_view__add_to_contacts">YUPAY MASHIKUMAN KIMICHINA</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">MANA ALLICHINI , SHINAPASH TUKUYLLA ÑUKAPA KALLARI WILLAYTA RIKUCHUN MUNANI </string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Wakaychishka pakalla  yupayta kaywan %s rikunkapak munashpaka, hawapi yupayta kay antanikipi llukshishka yupaywan chimpapurapay kikinpa kayachirikuk mashiwan. Mana kashpaka, rantimanta unanchata  shuyurikchashpa ushankichik. <a href="https://signal.org/redirect/safety-numbers">Ashtawan yachana.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Wakaychishka pakalla  yupayta kaywan %s rikunkapak munashpaka, hawapi yupayta kay antanikipi llukshishka yupaywan chimpapurapay kikinpa kayachirikuk mashiwan. Mana kashpaka, rantimanta unanchata  shuyurikchashpa ushankichik.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Shuyurikchankapak llapipay.</string>
   <string name="verify_display_fragment__loading">Paskakun…</string>
   <string name="verify_display_fragment__verified">Shinapachami</string>

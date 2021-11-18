@@ -541,7 +541,7 @@
   <string name="RegistrationActivity_invalid_number">Nombor tidak sah</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Nombor yang anda nyatakan (%s) adalah tidak sah.</string>
   <string name="RegistrationActivity_missing_google_play_services">Kehilangan Perkhidmatan Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Peranti ini kehilangan Perkhidmatan Google Play. Anda masih boleh gunakan Signal, tetapi konfigurasi ini boleh menyebabkan kebolehpercayaan atau prestasi yang kurang.\n\nKalau anda bukan pengguna lanjutan, tidak menjalankan ROM Android selepas jualan, atau anda percaya melihat ini kerana ralat, sila hubungi support@signal.org untuk penyelesaian masalah.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Peranti ini kehilangan Perkhidmatan Google Play. Anda masih boleh gunakan Signal, tetapi konfigurasi ini boleh menyebabkan kebolehpercayaan atau prestasi yang kurang.\n\nKalau anda bukan pengguna lanjutan, tidak menjalankan ROM Android selepas jualan, atau anda percaya melihat ini kerana ralat, sila hubungi support@xecureit.id untuk penyelesaian masalah.</string>
   <string name="RegistrationActivity_i_understand">Saya faham</string>
   <string name="RegistrationActivity_play_services_error">Ralat Perkhidmatan Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Perkhidmatan Google Play sedang dikemas kini atau tidak tersedia sementara waktu. Sila cuba sekali lagi.</string>
@@ -996,7 +996,7 @@ Menerima mesej pertukaran kunci untuk versi protokol yang tidak sah.</string>
   <string name="unknown_sender_view__add_to_contacts">TAMBAH KEPADA KENALAN</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">JANGAN TAMBAH, TETAPI BUAT PROFIL SAYA DILIHAT</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Jika anda ingin mengesah keselamatan penyulitan anda dengan %s, bandingkan nombor di atas dengan nombor pada peranti mereka. Secara alternatif, anda boleh mengimbas kod di telefon mereka, atau meminta mereka untuk mengimbas kod anda. <a href="https://signal.org/redirect/safety-numbers">Ketahui lebih lanjut.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Jika anda ingin mengesah keselamatan penyulitan anda dengan %s, bandingkan nombor di atas dengan nombor pada peranti mereka. Secara alternatif, anda boleh mengimbas kod di telefon mereka, atau meminta mereka untuk mengimbas kod anda.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Ketik untuk mengimbas</string>
   <string name="verify_display_fragment__loading">Memuatkan…</string>
   <string name="verify_display_fragment__verified">Disahkan</string>

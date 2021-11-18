@@ -127,8 +127,8 @@ public class GroupUtil {
 
       if (members != null) {
         description.append("\n");
-        description.append(context.getResources().getQuantityString(R.plurals.GroupUtil_joined_the_group,
-                                                                    members.size(), toString(members)));
+//        description.append(context.getResources().getQuantityString(R.plurals.GroupUtil_joined_the_group,
+//                                                                    members.size(), toString(members)));
       }
 
       if (title != null && !title.trim().isEmpty()) {
@@ -159,12 +159,12 @@ public class GroupUtil {
     private String toString(List<Recipient> recipients) {
       String result = "";
 
-      for (int i=0;i<recipients.size();i++) {
-        result += recipients.get(i).toShortString(context);
-
-      if (i != recipients.size() -1 )
-        result += ", ";
-    }
+//      for (int i=0;i<recipients.size();i++) {
+//        result += recipients.get(i).toShortString(context);
+//
+//      if (i != recipients.size() -1 )
+//        result += ", ";
+//    }
 
     return result;
     }

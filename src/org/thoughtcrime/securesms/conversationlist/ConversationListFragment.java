@@ -21,6 +21,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -29,7 +30,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -41,7 +42,6 @@ import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.PluralsRes;
@@ -57,14 +57,24 @@ import androidx.appcompat.view.ActionMode;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import android.text.TextUtils;
+
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +87,6 @@ import org.thoughtcrime.securesms.MainNavigator;
 import org.thoughtcrime.securesms.NewConversationActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.conversationlist.ConversationListAdapter.ItemClickListener;
-import org.thoughtcrime.securesms.color.MaterialColor;
 import org.thoughtcrime.securesms.components.RatingManager;
 import org.thoughtcrime.securesms.components.SearchToolbar;
 import org.thoughtcrime.securesms.components.recyclerview.DeleteItemAnimator;
@@ -93,9 +102,6 @@ import org.thoughtcrime.securesms.components.reminder.ServiceOutageReminder;
 import org.thoughtcrime.securesms.components.reminder.ShareReminder;
 import org.thoughtcrime.securesms.components.reminder.SystemSmsImportReminder;
 import org.thoughtcrime.securesms.components.reminder.UnauthorizedReminder;
-import org.thoughtcrime.securesms.contacts.avatars.ContactColors;
-import org.thoughtcrime.securesms.contacts.avatars.GeneratedContactPhoto;
-import org.thoughtcrime.securesms.contacts.avatars.ProfileContactPhoto;
 import org.thoughtcrime.securesms.conversationlist.model.MessageResult;
 import org.thoughtcrime.securesms.conversationlist.model.SearchResult;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
@@ -118,6 +124,7 @@ import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.service.KeyCachingService;
 import org.thoughtcrime.securesms.util.AvatarUtil;
+import org.thoughtcrime.securesms.util.DynamicTheme;
 import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
@@ -125,13 +132,28 @@ import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.task.SnackbarAsyncTask;
+import org.thoughtcrime.securesms.vicon.ApiRoomPalapa;
+import org.thoughtcrime.securesms.vicon.RoomActivity;
+import org.thoughtcrime.securesms.vicon.RoomModel;
+import org.thoughtcrime.securesms.vicon.ServiceApiRoomPalapa;
 import org.whispersystems.libsignal.util.guava.Optional;
+import org.whispersystems.signalservice.api.SignalServiceMessageSender;
+import org.whispersystems.signalservice.api.profiles.AccountTestToken;
+import org.whispersystems.signalservice.api.profiles.ProfileTokenAndEndPoint;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
 import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ConversationListFragment extends MainFragment implements LoaderManager.LoaderCallbacks<Cursor>,
@@ -156,6 +178,7 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
   private TextView                      searchEmptyState;
   private PulsingFloatingActionButton   fab;
   private PulsingFloatingActionButton   cameraFab;
+  private PulsingFloatingActionButton   viconFab;
   private SearchToolbar                 searchToolbar;
   private ImageView                     searchAction;
   private View                          toolbarShadow;
@@ -164,6 +187,15 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
   private ConversationListAdapter       defaultAdapter;
   private ConversationListSearchAdapter searchAdapter;
   private StickyHeaderDecoration        searchAdapterDecoration;
+  private String username;
+  private Map<String, String> map;
+  private ProfileTokenAndEndPoint profileTokenAndEndPoint;
+  private AccountTestToken accountTestToken;
+  private SignalServiceMessageSender messageSender;
+  private android.app.AlertDialog dialogCreateAndList;
+  private AlertDialog.Builder dialogBuilder;
+  private AlertDialog.Builder dialogBuilderCreate;
+  private ProgressDialog progressDialog;
 
   public static ConversationListFragment newInstance() {
     return new ConversationListFragment();
@@ -177,7 +209,185 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle bundle) {
+    initialEndPoint();
+    initialAuthToken();
     return inflater.inflate(R.layout.conversation_list_fragment, container, false);
+  }
+
+
+  public TextView titleViewAlert(){
+    LinearLayout.LayoutParams layoutP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+                              layoutP.topMargin = 35;
+                              layoutP.bottomMargin = 35;
+
+    TextView tvT = new TextView(getContext());
+             tvT.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+             tvT.setGravity(Gravity.LEFT);
+             tvT.setTypeface(Typeface.SERIF, Typeface.NORMAL);
+             tvT.setPadding(20,35,10,35);
+             tvT.setLayoutParams(layoutP);
+             tvT.setText(R.string.MessageRequestViconInformationRoom_header);
+             tvT.setTextColor(Color.parseColor("#ffffff"));
+    Random rnd = new Random();
+    int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+            tvT.setBackgroundColor(Color.parseColor("#f65552"));
+
+    return tvT;
+  }
+
+  private void handleActionRoomList(){
+    ProgressDialog progressDoalogList = new ProgressDialog(getContext());
+    progressDoalogList.setMessage("Loading....");
+    progressDoalogList.show();
+    try {
+      //RecipientId recipientId = getActivity().getIntent().getParcelableExtra(ConversationActivity.RECIPIENT_EXTRA);
+      Intent intent = new Intent(getActivity(), RoomActivity.class);
+      //intent.putExtra(RoomActivity.RECIPIENT_EXTRA, recipientId);
+      intent.putExtra(RoomActivity.END_POINT, profileTokenAndEndPoint.getEndpointUrl());
+      intent.putExtra(RoomActivity.RESULT_END_POINT, String.valueOf(profileTokenAndEndPoint.isResult()));
+      intent.putExtra(RoomActivity.ERROR_MESSAGE_END_POINT, profileTokenAndEndPoint.getErrorMessage());
+      intent.putExtra(RoomActivity.AUTH_TOKEN, accountTestToken.getAuthToken());
+      intent.putExtra(RoomActivity.USER_TIME, accountTestToken.getUserTime());
+      intent.putExtra(RoomActivity.RESULT_TOKEN, String.valueOf(accountTestToken.isResult()));
+      intent.putExtra(RoomActivity.ERROR_MESSAGE_TOKEN, accountTestToken.getErrorMessage());
+      startActivity(intent);
+    }catch (Exception e){
+      e.printStackTrace();
+      Toast.makeText(getContext(), R.string.ConversationActivity_connection_server_scp_failed, Toast.LENGTH_SHORT).show();
+    }
+    progressDoalogList.dismiss();
+  }
+
+  private void handleActionCreateRoomAndList(){
+    LayoutInflater inflater = getLayoutInflater();
+    View dialogView = inflater.inflate(R.layout.conversation_alert_room, null);
+    dialogBuilder = new AlertDialog.Builder(getActivity());
+    dialogBuilder.setView(dialogView);
+
+    ImageButton   linierButtonCreate           = (ImageButton) dialogView.findViewById(R.id.linierButtonCreate);
+    TextView      linierTextViewCreate         = (TextView)      dialogView.findViewById(R.id.linierTextViewCreate);
+
+    ImageButton   linierButtonListRoom       = (ImageButton) dialogView.findViewById(R.id.linierButtonListRoom);
+    TextView      linierTextViewList         = (TextView)      dialogView.findViewById(R.id.linierTextViewList);
+
+    TextView      buttonCencel         = (TextView)      dialogView.findViewById(R.id.buttonCencel);
+
+   String themeApp = TextSecurePreferences.getTheme(getActivity());
+   if((themeApp).equals(DynamicTheme.DARK)){
+      linierButtonListRoom.setImageResource(R.drawable.ic_list_room_bar);
+      linierTextViewCreate.setTextColor(Color.WHITE);
+      linierButtonCreate.setImageResource(R.drawable.ic_create_room_bar);
+      linierTextViewList.setTextColor(Color.WHITE);
+    }
+
+
+    AlertDialog alertDialog = dialogBuilder.create();
+    alertDialog.show();
+
+    linierButtonCreate.setOnClickListener(new View.OnClickListener(){
+      public void onClick(View v)  {  alertDialog.dismiss();     handleActionCreateRoom();     }
+    });
+    linierButtonListRoom.setOnClickListener(new View.OnClickListener(){
+      public void onClick(View v)  {
+        alertDialog.dismiss();
+        new AsyncTask<Void, Void, Void>() {
+          @Override
+          protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.show();
+          }
+
+          @Override
+          protected Void doInBackground(Void... params) {
+            handleDisplayListRoom();
+            return null;
+          }
+
+          @Override
+          protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressDialog.dismiss();
+          }
+        }.execute();
+      }
+    });
+    buttonCencel.setOnClickListener(new View.OnClickListener(){
+      public void onClick(View v)  {  alertDialog.dismiss();     }
+    });
+
+  }
+
+  private void handleActionCreateRoom() {
+    LayoutInflater inflater = getLayoutInflater();
+    View dialogView = inflater.inflate(R.layout.conversation_alert_room_create, null);
+    EditText      createRoomTextView         = (EditText)      dialogView.findViewById(R.id.createRoom);
+    String themeApp = TextSecurePreferences.getTheme(getActivity());
+    if((themeApp).equals(DynamicTheme.DARK)){
+      createRoomTextView.setHintTextColor(Color.WHITE);
+    }
+    createRoomTextView.requestFocus();
+    showKeyboard();
+    dialogBuilderCreate = new AlertDialog.Builder(getActivity());
+    dialogBuilderCreate
+            .setView(dialogView)
+            .setPositiveButton(R.string.MessageRequestViconCreateRoom_footer_create, new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int id) {
+                new AsyncTask<Void, Void, Void>() {
+                  @Override
+                  protected void onPreExecute() {
+                    super.onPreExecute();
+                    progressDialog.show();
+                  }
+                  @Override
+                  protected Void doInBackground(Void... params) {
+                    try {
+                      if (profileTokenAndEndPoint.isResult() && accountTestToken.isResult()) {
+                        String BASE_URL = profileTokenAndEndPoint.getEndpointUrl();
+                        ServiceApiRoomPalapa service = ApiRoomPalapa.getRetrofitInstance(BASE_URL).create(ServiceApiRoomPalapa.class);
+                        Recipient self = Recipient.self();
+                        username = self.requireE164();
+                        map = new HashMap<>();
+                        map.put("x-authToken", accountTestToken.getAuthToken());
+                        map.put("x-userTime", accountTestToken.getUserTime());
+                        try {
+                              showUrlCreateRoom(dialogView, service,progressDialog);
+                        } catch (Exception ex) {
+                          onFailRoom();
+                        }
+                      }
+                      hideKeyboard();
+                    }catch (Exception e){
+                      e.printStackTrace();
+                      Toast.makeText(getContext(), R.string.ConversationActivity_connection_server_scp_failed, Toast.LENGTH_SHORT).show();
+                    }
+                    return null;
+                  }
+                  @Override
+                  protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    //progressDialog.dismiss();
+                  }
+                }.execute();
+              }
+            })
+            .setNegativeButton(R.string.MessageRequestViconCreateRoom_footer_cancel, new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int id) {       hideKeyboard();                dialog.dismiss();            }
+            });
+    TextView      buttonCencel         = (TextView)      dialogView.findViewById(R.id.buttonCencel);
+    AlertDialog alertDialogCreate = dialogBuilderCreate.create();
+    alertDialogCreate.show();
+    buttonCencel.setOnClickListener(new View.OnClickListener(){
+      public void onClick(View v)  {        hideKeyboard();        alertDialogCreate.dismiss();      }
+    });
+  }
+
+  public void showKeyboard(){
+    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,0);
+  }
+  public void hideKeyboard(){
+    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
   }
 
   @Override
@@ -192,13 +402,19 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
     searchToolbar    = view.findViewById(R.id.search_toolbar);
     searchAction     = view.findViewById(R.id.search_action);
     toolbarShadow    = view.findViewById(R.id.conversation_list_toolbar_shadow);
+    viconFab        = view.findViewById(R.id.vicon_fab);
+
+    progressDialog = new ProgressDialog(getContext());
+    progressDialog.setMessage("Loading....");
 
     Toolbar toolbar = view.findViewById(getToolbarRes());
     toolbar.setVisibility(View.VISIBLE);
     ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
 
+
     fab.show();
     cameraFab.show();
+    viconFab.show();
 
     reminderView.setOnDismissListener(this::updateReminders);
 
@@ -221,6 +437,12 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
                  .execute();
     });
 
+    viconFab.setOnClickListener(v -> {
+      handleActionCreateRoomAndList();
+    });
+
+
+
     initializeListAdapters();
     initializeViewModel();
     initializeTypingObserver();
@@ -230,6 +452,110 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
     RegistrationLockDialog.showReminderIfNecessary(requireContext());
 
     TooltipCompat.setTooltipText(searchAction, getText(R.string.SearchToolbar_search_for_conversations_contacts_and_messages));
+  }
+
+  public void handleShareRoom(String dataparam){
+    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+    sharingIntent.setType("text/plain");
+    String shareBody = dataparam;
+    sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+    sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+    startActivity(Intent.createChooser(sharingIntent, "Share via"));
+  }
+
+  private void showUrlCreateRoom(View customLayout,ServiceApiRoomPalapa service,ProgressDialog progressDialogCreate) {
+             try{
+                      EditText editText = customLayout.findViewById(R.id.createRoom);
+                      TableLayout tableP = new TableLayout(getContext());
+                      TableRow trP = new TableRow(getContext());
+                      TextView tvT = new TextView(getContext());
+                      Call<RoomModel> call = service.createRoom(new RoomModel().ApiJsonMapCreate(editText.getText().toString(), username), map);
+                      call.enqueue(new Callback<RoomModel>() {
+                        @Override
+                        public void onResponse(Call<RoomModel> call, Response<RoomModel> response) {
+                          RoomModel paramModel = (RoomModel) response.body();
+                          if (response.isSuccessful()) {
+                            if ("".equals(paramModel.getEror())) {
+                              if (paramModel.getResult()) {
+                                new AsyncTask<Void, Void, Void>() {
+                                  @Override
+                                  protected void onPreExecute() {
+                                    super.onPreExecute();
+                                  }
+                                  @Override
+                                  protected Void doInBackground(Void... params) {
+                                    handleDisplayListRoom();
+                                    return null;
+                                  }
+                                  @Override
+                                  protected void onPostExecute(Void aVoid) {
+                                    super.onPostExecute(aVoid);
+                                    progressDialogCreate.dismiss();
+                                  }
+                                }.execute();
+                              } else {
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                                alertDialogBuilder
+                                        .setTitle(R.string.MessageRequestViconInformationRoom_header)
+                                        .setMessage(paramModel.getErrorMessage())
+                                        .setCancelable(false)
+                                        .setPositiveButton(R.string.MessageRequestViconInformationRoom_footer, new DialogInterface.OnClickListener() {
+                                          public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                          }
+                                        });
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+                                progressDialogCreate.dismiss();
+                              }
+                            } else {
+                              String strDataUri = "" + paramModel.getEror();
+                              String tokenData[] = strDataUri.split(":");
+                              String maxRoom = tokenData[1];
+                              AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                              alertDialogBuilder
+                                      .setTitle(R.string.MessageRequestViconInformationRoom_header)
+                                      .setMessage(getResources().getString(R.string.MessageRequestViconInformationRoom_max) + " : " + maxRoom + ". " + getResources().getString(R.string.MessageRequestViconInformationRoom_max_))
+                                      .setCancelable(false)
+                                      .setPositiveButton(R.string.MessageRequestViconInformationRoom_footer, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                          dialog.cancel();
+                                        }
+                                      });
+                              AlertDialog alertDialog = alertDialogBuilder.create();
+                              alertDialog.show();
+                              progressDialogCreate.dismiss();
+                            }
+                          }
+                        }
+
+                        @Override
+                        public void onFailure(Call<RoomModel> call, Throwable t) {
+                          t.printStackTrace();
+                          progressDialogCreate.dismiss();
+                          Toast.makeText(getContext(), R.string.ConversationActivity_connection_server_scp_create_room_failed, Toast.LENGTH_SHORT).show();
+                        }
+                      });
+          }catch (Exception e){
+            e.printStackTrace();
+            progressDialogCreate.dismiss();
+            Toast.makeText(getContext(), R.string.ConversationActivity_connection_server_scp_failed, Toast.LENGTH_SHORT).show();
+          }
+  }
+
+  private void onFailRoom(){
+    AlertDialog.Builder alertFail = new AlertDialog.Builder(getActivity());
+    alertFail
+            .setTitle(R.string.MessageRequestViconInformationRoom_header)
+            .setMessage(getResources().getString(R.string.MessageRequestViconInformationRoom_create_fail))
+            .setCancelable(false)
+            .setPositiveButton(R.string.MessageRequestViconInformationRoom_footer, new DialogInterface.OnClickListener() {
+              public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+              }
+            });
+    AlertDialog alertDialogFail = alertFail.create();
+    alertDialogFail.show();
   }
 
   @Override
@@ -259,6 +585,7 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
 
     fab.stopPulse();
     cameraFab.stopPulse();
+    viconFab.stopPulse();
     EventBus.getDefault().unregister(this);
   }
 
@@ -277,7 +604,6 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     super.onOptionsItemSelected(item);
-
     switch (item.getItemId()) {
       case R.id.menu_new_group:         handleCreateGroup();     return true;
       case R.id.menu_view_media:        handleViewMedia();       return true;
@@ -347,6 +673,43 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
 
     AvatarUtil.loadIconIntoImageView(recipient, icon);
     icon.setOnClickListener(v -> getNavigator().goToAppSettings());
+  }
+  private void initialEndPoint(){
+       new AsyncTask<Void, Void, Void>() {
+         ProfileTokenAndEndPoint profileTokenAndEndPointParam;
+         protected Void doInBackground(Void... arg0) {
+           try {
+             messageSender = ApplicationDependencies.getSignalServiceMessageSender();
+             profileTokenAndEndPointParam = messageSender.getEndPoint(RoomActivity.MODULE_ID);
+           } catch (IOException e){
+             e.printStackTrace();
+           }
+           return null;
+         }
+         protected void onPostExecute(Void result) {
+           if(profileTokenAndEndPointParam != null && profileTokenAndEndPointParam.isResult())
+            profileTokenAndEndPoint = profileTokenAndEndPointParam;
+       }
+      }.execute();
+  }
+
+  private void initialAuthToken(){
+       new AsyncTask<Void, Void, Void>() {
+         AccountTestToken accountTestTokenParam;
+        protected Void doInBackground(Void... arg0) {
+           try {
+             messageSender = ApplicationDependencies.getSignalServiceMessageSender();
+             accountTestTokenParam = messageSender.getToken(RoomActivity.MODULE_ID);
+           } catch (IOException e){
+             e.printStackTrace();
+           }
+           return null;
+         }
+         protected void onPostExecute(Void result) {
+           if(accountTestTokenParam != null && accountTestTokenParam.isResult())
+             accountTestToken = accountTestTokenParam;
+         }
+       }.execute();
   }
 
   private void initializeSearchListener() {
@@ -465,6 +828,18 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
     startActivity(MediaOverviewActivity.forAllFromMain(requireContext()));
   }
 
+
+  private void handleDisplayListRoom() {
+    try {
+      Window window = getActivity().getWindow();
+      int statusBarColor = window.getStatusBarColor();
+      getNavigator().goToAppListRoom(profileTokenAndEndPoint, accountTestToken,statusBarColor);
+    }catch (Exception e){
+      e.printStackTrace();
+      Toast.makeText(getContext(), R.string.ConversationActivity_connection_server_scp_failed, Toast.LENGTH_SHORT).show();
+    }
+  }
+
   private void handleDisplaySettings() {
     getNavigator().goToAppSettings();
   }
@@ -496,7 +871,7 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
 
   private void handleHelp() {
     try {
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://support.signal.org")));
+      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://client.xecure.world")));
     } catch (ActivityNotFoundException e) {
       Toast.makeText(requireActivity(), R.string.ConversationListActivity_there_is_no_browser_installed_on_your_device, Toast.LENGTH_LONG).show();
     }
@@ -621,11 +996,13 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
       emptyImage.setImageResource(EMPTY_IMAGES[(int) (Math.random() * EMPTY_IMAGES.length)]);
       fab.startPulse(3 * 1000);
       cameraFab.startPulse(3 * 1000);
+      viconFab.startPulse(3 * 1000);
     } else {
       list.setVisibility(View.VISIBLE);
       emptyState.setVisibility(View.GONE);
       fab.stopPulse();
       cameraFab.stopPulse();
+      viconFab.stopPulse();
     }
 
     defaultAdapter.changeCursor(cursor);

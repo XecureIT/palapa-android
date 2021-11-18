@@ -526,7 +526,7 @@
   <string name="ProfileEditOverviewFragment_username">使用者名稱</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">創立一個個人資料名稱</string>
   <string name="ProfileEditOverviewFragment_create_a_username">創立一個使用者名稱</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">當你發起對話或接受對話要求時，你的聯絡人以及其他使用者或群組可以看到你的 Signal 個人資料。<a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles"> 點擊此處了解更多資訊</a>。</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">當你發起對話或接受對話要求時，你的聯絡人以及其他使用者或群組可以看到你的 Signal 個人資料。</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">評分這個應用程式</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">如果您喜歡使用此應用程式，請使用片刻時間幫我們對其進行評分。</string>
@@ -575,7 +575,7 @@
         號碼 (%s) 是無效的
     </string>
   <string name="RegistrationActivity_missing_google_play_services">找不到 Google Play 服務</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">此裝置缺少 Google Play 服務。你仍然可以使用 Signal，但是此設定可能會降低可靠性或效能。\n\n如果你不是個進階使用者，不是正在執行原廠的 Android ROM，或是你認為你看到的可能是一個錯誤，請聯絡 support@signal.org 來協助你排除故障。</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">此裝置缺少 Google Play 服務。你仍然可以使用 Signal，但是此設定可能會降低可靠性或效能。\n\n如果你不是個進階使用者，不是正在執行原廠的 Android ROM，或是你認為你看到的可能是一個錯誤，請聯絡 support@xecureit.id 來協助你排除故障。</string>
   <string name="RegistrationActivity_i_understand">我了解</string>
   <string name="RegistrationActivity_play_services_error">Play 服務錯誤</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play 服務正在更新或暫時無法使用。請再重試。</string>
@@ -1053,7 +1053,7 @@
   <string name="unknown_sender_view__add_to_contacts">加入聯絡人</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">不要加入，但讓我的個人資訊可以被看見</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[如果你希望用 %s 來驗證你的加密的安全性，比對上面的號碼與他們裝置上的號碼。或者，你可以掃描在他們手機上的 QR code，或讓他們掃描您的 QR Code。<a href="https://signal.org/redirect/safety-numbers">瞭解更多</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[如果你希望用 %s 來驗證你的加密的安全性，比對上面的號碼與他們裝置上的號碼。或者，你可以掃描在他們手機上的 QR code，或讓他們掃描您的 QR Code。]]></string>
   <string name="verify_display_fragment__tap_to_scan">點擊掃描</string>
   <string name="verify_display_fragment__loading">讀取中…</string>
   <string name="verify_display_fragment__verified">已驗證</string>

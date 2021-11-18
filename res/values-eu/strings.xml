@@ -560,7 +560,7 @@ zehaztu behar duzu
 zenbakia (%s) baliogabea da.
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Ez dira topatzen Google Play-ren zerbitzuak </string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ez dago Google Play Services-ik gailu honetan. Signal erabili dezakezu, baina konfigurazio honek fidagarritasuna edo errendimendua gutxiagotu dezake.\n\nErabiltzaile aurreratua ez bazara, jatorrizkoa ez den Android ROM bat erabiltzen ari ez bazara edo hau errore bat dela uste baduzu, mesedez jarri zaitez harremanetan support@signal.org helbidean.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Ez dago Google Play Services-ik gailu honetan. Signal erabili dezakezu, baina konfigurazio honek fidagarritasuna edo errendimendua gutxiagotu dezake.\n\nErabiltzaile aurreratua ez bazara, jatorrizkoa ez den Android ROM bat erabiltzen ari ez bazara edo hau errore bat dela uste baduzu, mesedez jarri zaitez harremanetan support@xecureit.id helbidean.</string>
   <string name="RegistrationActivity_i_understand">Ulertzen dut</string>
   <string name="RegistrationActivity_play_services_error">Play Services-en Errorea</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services eguneratzen ari da edo tenporalki ez dago erabilgarri. Mesedez, berriro saia zaitez.</string>
@@ -1027,7 +1027,7 @@ Inportatu \'SMSBackup and Restorekin\' bateragarria den enkriptatu gabeko babesk
   <string name="unknown_sender_view__add_to_contacts">KONTAKTUETARA GEHITU</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">EZ GEHITU, BAINA PROFILA ERAKUTSI</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s erabiltzailearekin duzun enkriptazioaren segurtasuna egiaztatu nahi baduzu, goian duzun zenbakia bere gailuan agertzen denarekin alderatu. Beste aukera bat zera da: beraren telefonoan agertzen den kodea eskaneatzea edo berari eskatu zure kodea eskaneatzeko.  <a href="https://signal.org/redirect/safety-numbers">Gehiago ikasi. </a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[%s erabiltzailearekin duzun enkriptazioaren segurtasuna egiaztatu nahi baduzu, goian duzun zenbakia bere gailuan agertzen denarekin alderatu. Beste aukera bat zera da: beraren telefonoan agertzen den kodea eskaneatzea edo berari eskatu zure kodea eskaneatzeko.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Ukitu eskaneatzeko</string>
   <string name="verify_display_fragment__loading">Kargatzen…</string>
   <string name="verify_display_fragment__verified">Egiaztatua</string>

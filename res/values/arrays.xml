@@ -160,8 +160,12 @@
         <item>3600</item>
         <item>21600</item>
         <item>43200</item>
-        <item>86400</item>
-        <item>604800</item>
+        <item>86400</item> <!-- 1 day-->
+        <item>604800</item> <!-- 1 week = 7 days -->
+        <item>2592000</item> <!-- 1 month = 30 days -->
+        <item>7776000</item> <!-- 3 months = 90 days -->
+        <item>15552000</item> <!-- 6 months = 180 days -->
+        <item>31536000</item> <!-- 1 year = 365 days-->
     </integer-array>
 
     <array name="scribble_colors">

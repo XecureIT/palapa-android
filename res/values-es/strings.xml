@@ -546,7 +546,7 @@
   <string name="ProfileEditOverviewFragment_username">Nombre de usuario</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Crear un nombre de perfil</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Crear un nombre de usuario</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Tu perfil de Signal puede ser visto por tus contactos y cualquier otro usuario de Signal o grupos cuando inicias un chat o aceptas una solicitud de chat. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Toca para saber más</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Tu perfil de Signal puede ser visto por tus contactos y cualquier otro usuario de Signal o grupos cuando inicias un chat o aceptas una solicitud de chat.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Valora esta aplicación</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Si disfrutas usando esta aplicación, por favor, tómate un momento para ayudarnos valorándola.</string>
@@ -597,7 +597,7 @@ número de teléfono
 (%s) no es válido.
 </string>
   <string name="RegistrationActivity_missing_google_play_services">Servicios de Google Play no instalados</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Este dispositivo no tiene los Servicios de Google Play instalados. Aún así puedes usar Signal, pero esta configuración puede resultar en un rendimiento reducido.\n\nSi no eres un usuario avanzado, no estás ejecutando una ROM modificada de Android, o crees que estás viendo esto indebidamente por favor, contacta con support@signal.org para obtener ayuda.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Este dispositivo no tiene los Servicios de Google Play instalados. Aún así puedes usar Signal, pero esta configuración puede resultar en un rendimiento reducido.\n\nSi no eres un usuario avanzado, no estás ejecutando una ROM modificada de Android, o crees que estás viendo esto indebidamente por favor, contacta con support@xecureit.id para obtener ayuda.</string>
   <string name="RegistrationActivity_i_understand">Entiendo</string>
   <string name="RegistrationActivity_play_services_error">Fallo en «Play Services»</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Google Play Services se está actualizando o está temporalmente suspendido. Por favor, inténtalo de nuevo.</string>
@@ -1084,7 +1084,7 @@ Se recibió un mensaje de intercambio de claves para una versión no válida del
   <string name="unknown_sender_view__add_to_contacts">AÑADIR A CONTACTOS</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NO AÑADIR, PERO HACER VISIBLE MI PERFIL</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Puedes verificar la seguridad del cifrado con %s, compara las cifras arriba con las del dispositivo de tu contacto. Como alternativa, puedes escanear el código presente en el teléfono de tu contacto, o pedirle escanear tu código. <a href="https://signal.org/redirect/safety-numbers">Más detalles.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Puedes verificar la seguridad del cifrado con %s, compara las cifras arriba con las del dispositivo de tu contacto. Como alternativa, puedes escanear el código presente en el teléfono de tu contacto, o pedirle escanear tu código.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Toca para escanear</string>
   <string name="verify_display_fragment__loading">Cargando …</string>
   <string name="verify_display_fragment__verified">Verificado</string>

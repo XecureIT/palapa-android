@@ -7,14 +7,24 @@ import android.os.AsyncTask;
 import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 
+import com.annimon.stream.Stream;
+
 import org.thoughtcrime.securesms.database.DatabaseFactory;
+import org.thoughtcrime.securesms.database.loaders.DeviceListLoader;
+import org.thoughtcrime.securesms.devicelist.Device;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientExporter;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.Util;
+import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupMembersDialog extends AsyncTask<Void, Void, List<Recipient>> {
 
@@ -38,9 +48,11 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, List<Recipient>> {
 
   @Override
   public void onPostExecute(List<Recipient> members) {
+    String tittle = context.getString(R.string.ConversationActivity_group_members) + "   ("+members.size()+")";
     GroupMembers groupMembers = new GroupMembers(members);
     AlertDialog.Builder builder = new AlertDialog.Builder(context);
-    builder.setTitle(R.string.ConversationActivity_group_members);
+    //builder.setTitle(R.string.ConversationActivity_group_members);
+    builder.setTitle(tittle);
     builder.setIconAttribute(R.attr.group_members_dialog_icon);
     builder.setCancelable(true);
     builder.setItems(groupMembers.getRecipientStrings(), new GroupMembersOnClickListener(context, groupMembers));
@@ -97,6 +109,29 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, List<Recipient>> {
           members.add(recipient);
         }
       }
+      Collections.sort(members, new Comparator<Recipient>() {
+          @Override
+          public int compare(Recipient r1, Recipient r2) {
+            String nameshortR1 = null;   String nameshortR2 = null;
+            if(r1.toShortString(context) == null && r2.toShortString(context)  == null){
+              return -1;
+            }else if(r1.toShortString(context) == null){
+              return 1;
+            }else{
+              if (r1.isLocalNumber()) {
+                nameshortR1 = context.getString(R.string.GroupMembersDialog_me);
+              }else{
+                nameshortR1 = getRecipientName(r1);
+              }
+              if (r2.isLocalNumber()) {
+                nameshortR2 = context.getString(R.string.GroupMembersDialog_me);
+              }else{
+                nameshortR2 = getRecipientName(r2);
+              }
+              return nameshortR1.compareTo(nameshortR2);
+            }
+          }
+      });
     }
 
     public String[] getRecipientStrings() {
@@ -110,7 +145,7 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, List<Recipient>> {
           recipientStrings.add(name);
         }
       }
-
+//      Collections.sort(recipientStrings,new MyComparatorMamberDialog());
       return recipientStrings.toArray(new String[members.size()]);
     }
 
@@ -130,4 +165,19 @@ public class GroupMembersDialog extends AsyncTask<Void, Void, List<Recipient>> {
       return members.get(index);
     }
   }
+
+  private static class MyComparatorMamberDialog implements Comparator<String>{
+
+    @Override
+    public int compare(String str1, String str2) {
+      if(str1 == null && str2 == null){
+        return -1;
+      }else if(str1 == null){
+        return 1;
+      }else{
+        return str1.compareTo(str2);
+      }
+    }
+  }
+
 }

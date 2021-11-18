@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE resources [
     <!ENTITY app_name "PALAPA">
-    <!ENTITY support_mail "support@signal.org">
+    <!ENTITY support_mail "support@xecureit.id">
 ]>
 <resources>
     <string name="app_name" translatable="false">&app_name;</string>
@@ -212,6 +212,16 @@
     <string name="ConversationActivity_quick_camera_unavailable">Camera unavailable</string>
     <string name="ConversationActivity_unable_to_record_audio">Unable to record audio!</string>
     <string name="ConversationActivity_there_is_no_app_available_to_handle_this_link_on_your_device">There is no app available to handle this link on your device.</string>
+    <string name="ConversationActivity_connection_server_scp_failed">Server Connection Failed...</string>
+    <string name="ConversationActivity_connection_server_scp_create_room_failed">Create Room Failed...</string>
+    <string name="ConversationActivity_connection_server_scp_room_list_failed">Room List Failed...</string>
+    <string name="ConversationActivity_connection_server_scp_room_delete_failed">Room Delete Failed...</string>
+    <string name="ConversationActivity_copy_url_join">Copy Url Join Success...</string>
+    <string name="ConversationActivity_button_create_room">Create Room</string>
+    <string name="ConversationActivity_button_list_room">Room List</string>
+    <string name="ConversationListRoomFragment_desc_join_room">Silahkan buka tautan berikut di Chrome, Firefox, Edge, atau Safari.</string>
+    <string name="ConversationListRoomFragment_desc_join_room_info">Akan diminta memasukkan nama sebelum join room.</string>
+    <string name="ConversationListRoomFragment_desc_join_room_catatan">Catatan: Jika ada isu dgn audio, coba exit, kemudian join room lagi. Terkadang peserta lupa menyetujui saat browser minta ijin akses ke mic &amp; camera.</string>
 
     <string name="ConversationActivity_to_send_audio_messages_allow_signal_access_to_your_microphone">To send audio messages, allow &app_name; access to your microphone.</string>
     <string name="ConversationActivity_signal_requires_the_microphone_permission_in_order_to_send_audio_messages">&app_name; requires the Microphone permission in order to send audio messages, but it has been permanently denied. Please continue to app settings, select \"Permissions\", and enable \"Microphone\".</string>
@@ -658,7 +668,7 @@
     <string name="ProfileEditOverviewFragment_username">Username</string>
     <string name="ProfileEditOverviewFragment_create_a_profile_name">Create a profile name</string>
     <string name="ProfileEditOverviewFragment_create_a_username">Create a username</string>
-    <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Your &app_name; Profile can be seen by your contacts and by other users or groups when you initiate a conversation or accept a conversation request. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Tap here to learn more</a>.</string>
+    <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Your &app_name; Profile can be seen by your contacts and by other users or groups when you initiate a conversation or accept a conversation request.</string>
 
     <!-- RatingManager -->
     <string name="RatingManager_rate_this_app">Rate this app</string>
@@ -1029,6 +1039,7 @@
     <string name="attachment_type_selector__gallery_description">Image or video</string>
     <string name="attachment_type_selector__file_description">File</string>
     <string name="attachment_type_selector__gallery">Gallery</string>
+    <string name="attachment_type_selector__vicon">Video conference</string>
     <string name="attachment_type_selector__file">File</string>
 
     <string name="attachment_type_selector__drawer_description">Toggle attachment drawer</string>
@@ -1176,6 +1187,21 @@
 
     <string name="expiration_weeks_abbreviated">%dw</string>
 
+    <plurals name="expiration_months">
+        <item quantity="one">%d month</item>
+        <item quantity="other">%d months</item>
+    </plurals>
+
+    <string name="expiration_months_abbreviated">%dm</string>
+
+    <plurals name="expiration_years">
+        <item quantity="one">%d year</item>
+        <item quantity="other">%d years</item>
+    </plurals>
+
+    <string name="expiration_years_abbreviated">%dy</string>
+
+
     <!-- unverified safety numbers -->
     <string name="IdentityUtil_unverified_banner_one">Your safety number with %s has changed and is no longer verified</string>
     <string name="IdentityUtil_unverified_banner_two">Your safety numbers with %1$s and %2$s are no longer verified</string>
@@ -1305,7 +1331,7 @@
     <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">DON\'T ADD, BUT MAKE MY PROFILE VISIBLE</string>
 
     <!-- verify_display_fragment -->
-    <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[If you wish to verify the security of your encryption with %s, compare the number above with the number on their device. Alternatively, you can scan the code on their phone, or ask them to scan your code. <a href="https://signal.org/redirect/safety-numbers">Learn more.</a>]]></string>
+    <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[If you wish to verify the security of your encryption with %s, compare the number above with the number on their device. Alternatively, you can scan the code on their phone, or ask them to scan your code.]]></string>
     <string name="verify_display_fragment__tap_to_scan">Tap to scan</string>
     <string name="verify_display_fragment__loading">Loading…</string>
     <string name="verify_display_fragment__verified">Verified</string>
@@ -1455,6 +1481,7 @@
     <string name="preferences__signal_messages_and_calls">&app_name; messages and calls</string>
     <string name="preferences__free_private_messages_and_calls">Free private messages and calls to &app_name; users</string>
     <string name="preferences__submit_debug_log">Submit debug log</string>
+    <string name="preferences__submit_version">Version</string>
     <string name="preferences__support_wifi_calling">\'WiFi Calling\' compatibility mode</string>
     <string name="preferences__enable_if_your_device_supports_sms_mms_delivery_over_wifi">Enable if your device uses SMS/MMS delivery over WiFi (only enable when \'WiFi Calling\' is enabled on your device)</string>
     <string name="preferences__incognito_keyboard">Incognito keyboard</string>
@@ -1522,6 +1549,12 @@
     <string name="conversation_context__menu_resend_message">Resend message</string>
     <string name="conversation_context__menu_reply_to_message">Reply to message</string>
 
+
+    <string name="conversation_context__menu_message_action_copy">Copy Url</string>
+    <string name="conversation_context__menu_message_action_share">Share Url</string>
+    <string name="conversation_context__menu_message_action_delete">Delete Room</string>
+    <string name="conversation_context__menu_message_action_vicon">Video Conference</string>
+
     <!-- conversation_context_reacction -->
     <string name="conversation_context__reaction_multi_select">Select multiple</string>
 
@@ -1577,6 +1610,7 @@
     <string name="conversation__menu_view_all_media">All media</string>
     <string name="conversation__menu_conversation_settings">Conversation settings</string>
     <string name="conversation__menu_add_shortcut">Add to home screen</string>
+    <string name="conversation__menu_room_list">Room list</string>
 
     <!-- conversation_popup -->
     <string name="conversation_popup__menu_expand_popup">Expand popup</string>
@@ -1757,6 +1791,9 @@
     <string name="RegistrationLockDialog_error_connecting_to_the_service">Error connecting to the service</string>
     <string name="RegistrationLockDialog_disable_registration_lock_pin">Disable Anti Registration Hijacking PIN?</string>
     <string name="RegistrationLockDialog_disable">Disable</string>
+    <string name="RegistrationLockDialog_confirm">Confirm</string>
+    <string name="RegistrationLockDialog_pin_successfully_confirmed">PIN successfully confirmed.</string>
+    <string name="RegistrationLockDialog_incorrect_pin_try_again">Incorrect PIN. Try again.</string>
     <string name="RegistrationActivity_pin_incorrect">PIN Incorrect</string>
     <string name="RegistrationActivity_you_have_d_tries_remaining">You have %d tries remaining</string>
     <string name="preferences_chats__backups">Backups</string>
@@ -1813,6 +1850,26 @@ DISCLAIMERS:\n
 ● The developer has the RIGHT to stop the Palapa’s service(s) and delete Palapa’s user account.\n
 ● The developer accepts NO RESPONSIBILITY for any accusation, suspicion, or lawsuit from users as a result of or relating to their use of the Palapa’s service(s).
     </string>
+
+    <string name="MessageRequestViconCreateRoom_header">Create Room</string>
+    <string name="MessageRequestViconCreateRoom_body">Room Name</string>
+    <string name="MessageRequestViconCreateRoom_footer_create">Create</string>
+    <string name="MessageRequestViconCreateRoom_footer_cancel">Cancel</string>
+    <string name="conversation_list_fragment__open_vicon_description">Open video conference</string>
+    <string name="MessageRequestViconInformationRoom_header">Video conference (beta)</string>
+    <string name="MessageRequestViconInformationRoom_header_create_room">Create room</string>
+    <string name="MessageRequestViconInformationRoom_header_create_body">Enter your room name here</string>
+    <string name="MessageRequestViconInformationRoom_footer">OK</string>
+    <string name="MessageRequestViconInformationRoom_delete">Do you want to delete room</string>
+    <string name="MessageRequestViconInformationRoom_max">You have reached the room creation limit</string>
+    <string name="MessageRequestViconInformationRoom_max_">Please delete the room if you wish to use it again</string>
+    <string name="MessageRequestViconInformationRoom_button_copy">Copy</string>
+    <string name="MessageRequestViconInformationRoom_button_info">Info</string>
+    <string name="MessageRequestViconInformationRoom_button_delete">Delete</string>
+    <string name="MessageRequestViconInformationRoom_daftar_ruangan">List Room</string>
+    <string name="MessageRequestViconInformationRoom_daftar_ruangan_room_name">Room Name</string>
+    <string name="MessageRequestViconInformationRoom_create_fail">Please check the server conference</string>
+
     <plurals name="MessageRequestProfileView_member_of_others">
         <item quantity="one">%d other</item>
         <item quantity="other">%d others</item>

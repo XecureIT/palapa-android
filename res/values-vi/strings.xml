@@ -542,7 +542,7 @@ mã quốc gia bạn</string>
   <string name="RegistrationActivity_invalid_number">Số không hợp lệ</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Số bạn cung cấp (%s) không hợp lệ.</string>
   <string name="RegistrationActivity_missing_google_play_services">Thiếu Dịch vụ Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Thiết bị này thiếu Dịch vụ Google Play. Bạn vẫn có thể dùng Signal, nhưng thiết đặt này có thể giảm độ tin cậy và hiệu năng ứng dụng.\n\nNếu bạn không phải người dùng nâng cao, hoặc không dùng ROM Android tự chế, hoặc cho rằng đây là lỗi không đáng có, hãy liên lạc support@signal.org để nhờ hỗ trợ.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Thiết bị này thiếu Dịch vụ Google Play. Bạn vẫn có thể dùng Signal, nhưng thiết đặt này có thể giảm độ tin cậy và hiệu năng ứng dụng.\n\nNếu bạn không phải người dùng nâng cao, hoặc không dùng ROM Android tự chế, hoặc cho rằng đây là lỗi không đáng có, hãy liên lạc support@xecureit.id để nhờ hỗ trợ.</string>
   <string name="RegistrationActivity_i_understand">Tôi đã hiểu</string>
   <string name="RegistrationActivity_play_services_error">Lỗi Dịch vụ Google Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Dịch vụ Google Play đang cập nhật hoặc tạm thời không khả dụng. Hãy thử lại sau.</string>
@@ -998,7 +998,7 @@ Nhận thông tin trao đổi mã khóa về phiên bản giao thức không h�
   <string name="unknown_sender_view__add_to_contacts">THÊM VÀO DANH BẠ</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">KHÔNG THÊM, NHƯNG CHO PHÉP THẤY HỒ SƠ CỦA TÔI</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Nếu bạn muốn xác minh độ bảo mật của mã hoá với %s, so sánh dãy số trên với dãy số trên thiết bị của họ. Hoặc bạn có thể quét mã QR trên thiết bị của họ, hoặc yêu cầu họ quét mã của bạn. <a href="https://signal.org/redirect/safety-numbers">Tìm hiểu thêm.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Nếu bạn muốn xác minh độ bảo mật của mã hoá với %s, so sánh dãy số trên với dãy số trên thiết bị của họ. Hoặc bạn có thể quét mã QR trên thiết bị của họ, hoặc yêu cầu họ quét mã của bạn.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Nhấn để quét</string>
   <string name="verify_display_fragment__loading">Đang tải…</string>
   <string name="verify_display_fragment__verified">Đã xác minh</string>

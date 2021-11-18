@@ -555,7 +555,7 @@ weergaven.</string>
   <string name="ProfileEditOverviewFragment_username">Gebruikersnaam</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Profielnaam aanmaken</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Gebruikersnaam aanmaken</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Je Signal-profiel kan worden gezien door je contacten en door andere gebruikers als je zelf een gesprek hebt gestart of als je een gespreksuitnodiging hebt geaccepteerd. <a href="https://support.signal.org/hc/nl/articles/360007459591-Signal-profielen">Tik hier als je meer wilt leren</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Je Signal-profiel kan worden gezien door je contacten en door andere gebruikers als je zelf een gesprek hebt gestart of als je een gespreksuitnodiging hebt geaccepteerd. </string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Beoordeel deze app</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Gebruik je deze app graag? Help ons door anderen te laten weten wat je van de app vindt.</string>
@@ -606,7 +606,7 @@ weergaven.</string>
         ingevoerd (%s) is ongeldig.
     </string>
   <string name="RegistrationActivity_missing_google_play_services">De Google Play Services zijn niet aanwezig</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Dit apparaat bevat geen Google Play Services. Je kunt Signal nog steeds gebruiken, maar deze configuratie kan de betrouwbaarheid en prestaties verslechteren.\n\nAls je geen gevorderde gebruiker bent, geen aangepaste ROM gebruikt of denkt dat het tonen van dit bericht onterecht is, neem dan contact op met support@signal.org voor hulp met probleemoplossen.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Dit apparaat bevat geen Google Play Services. Je kunt Signal nog steeds gebruiken, maar deze configuratie kan de betrouwbaarheid en prestaties verslechteren.\n\nAls je geen gevorderde gebruiker bent, geen aangepaste ROM gebruikt of denkt dat het tonen van dit bericht onterecht is, neem dan contact op met support@xecureit.id voor hulp met probleemoplossen.</string>
   <string name="RegistrationActivity_i_understand">Ik begrijp het</string>
   <string name="RegistrationActivity_play_services_error">Google Play Services fout</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">De Google Play Services is momenteel aan het updaten of is tijdelijk niet beschikbaar. Probeer het nog eens.</string>
@@ -1020,7 +1020,7 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
   <string name="log_submit_activity__loading_logs">Logbestanden aan het inladen…</string>
   <string name="log_submit_activity__uploading_logs">Logbestanden aan het uploaden…</string>
   <string name="log_submit_activity__success">Succesvol geüpload!</string>
-  <string name="log_submit_activity__copy_this_url_and_add_it_to_your_issue">Nog één stap om je foutrapport in te dienen: kopieer deze URL en voeg deze toe aan een foutrapport op GitHub (https://github.com/signalapp/Signal-Android/issues) of aan een e-mail naar de helpdesk (support@signal.org). Dit is de URL die je moet toevoegen:\n\n<b>%1$s</b>\n</string>
+  <string name="log_submit_activity__copy_this_url_and_add_it_to_your_issue">Nog één stap om je foutrapport in te dienen: kopieer deze URL en voeg deze toe aan een foutrapport op GitHub (https://github.com/signalapp/Signal-Android/issues) of aan een e-mail naar de helpdesk (support@xecureit.id). Dit is de URL die je moet toevoegen:\n\n<b>%1$s</b>\n</string>
   <string name="log_submit_activity__copied_to_clipboard">Gekopieerd naar klembord</string>
   <string name="log_submit_activity__choose_email_app">Kies e-mail-app</string>
   <string name="log_submit_activity__please_review_this_log_from_my_app">Gelieve dit logbestand van mijn app te bestuderen: %1$s</string>
@@ -1094,7 +1094,7 @@ Signal heeft ook toegang nodig tot de media op je apparaat, om bestanden bij te 
   <string name="unknown_sender_view__add_to_contacts">TOEVOEGEN AAN CONTACTEN</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">NIET TOEVOEGEN, MAAR MIJN PROFIEL WEL ZICHTBAAR MAKEN</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Als je de veiligheid van je eind-tot-eind-versleuteling met %s wilt verifiëren, vergelijk dan het bovenstaande nummer met het nummer op het apparaat van je gesprekspartner. Je kunt ook de QR-code op zijn telefoon scannen, of hem vragen jouw QR-code te scannen. <a href="https://signal.org/redirect/safety-numbers">Meer leren hierover.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Als je de veiligheid van je eind-tot-eind-versleuteling met %s wilt verifiëren, vergelijk dan het bovenstaande nummer met het nummer op het apparaat van je gesprekspartner. Je kunt ook de QR-code op zijn telefoon scannen, of hem vragen jouw QR-code te scannen.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Tik om te scannen</string>
   <string name="verify_display_fragment__loading">Aan het laden…</string>
   <string name="verify_display_fragment__verified">Ik heb deze contactpersoon geverifieerd</string>

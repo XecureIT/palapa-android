@@ -593,7 +593,7 @@ Send neges heb ei ddiogelu?</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Mae\'r rhif rydych wedi
        ei bennu ( %s) yn annilys.</string>
   <string name="RegistrationActivity_missing_google_play_services">Google Play Services Coll</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nid yw Google Play Services ar y ddyfais hon. Gallwch barhau i ddefnyddio Signal, ond gall y ffurfweddiad hwn arwain at lai o ddibynadwyedd neu berfformiad. \n\nOs nad ydych chi\'n ddefnyddiwr uwch, nac yn rhedeg ROM Android amgen, neu os ydych chi\'n credu eich bod yn gweld hyn trwy gamgymeriad, cysylltwch â support@signal.org er mwyn datrys problemau.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">Nid yw Google Play Services ar y ddyfais hon. Gallwch barhau i ddefnyddio Signal, ond gall y ffurfweddiad hwn arwain at lai o ddibynadwyedd neu berfformiad. \n\nOs nad ydych chi\'n ddefnyddiwr uwch, nac yn rhedeg ROM Android amgen, neu os ydych chi\'n credu eich bod yn gweld hyn trwy gamgymeriad, cysylltwch â support@xecureit.id er mwyn datrys problemau.</string>
   <string name="RegistrationActivity_i_understand">Rwy\'n deall</string>
   <string name="RegistrationActivity_play_services_error">Gwall Play Services</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Mae Google Play Services yn cael eu diweddaru neu nid yw ar gael dros dro. Ceisiwch eto os gwelwch yn dda.</string>

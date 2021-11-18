@@ -595,7 +595,7 @@
   <string name="ProfileEditOverviewFragment_username">Имя пользователя</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">Создать имя профиля</string>
   <string name="ProfileEditOverviewFragment_create_a_username">Создать имя пользователя</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Ваш профиль Signal виден вашим контактам и другим пользователям или группам, когда вы начинаете разговор или принимаете запрос на общение. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">Нажмите здесь, чтобы узнать больше</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">Ваш профиль Signal виден вашим контактам и другим пользователям или группам, когда вы начинаете разговор или принимаете запрос на общение.</string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">Оцените это приложение</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">Если вам нравится это приложение, пожалуйста, найдите минутку, чтобы помочь нам, поставив ему оценку.</string>
@@ -640,7 +640,7 @@
   <string name="RegistrationActivity_invalid_number">Неверный номер</string>
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">Указанный вами номер (%s) недействителен.</string>
   <string name="RegistrationActivity_missing_google_play_services">Отсутствуют Службы Google Play</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">На устройстве отсутствуют Службы Google Play. Вы можете продолжить использование Signal, но надежность или производительность могут снизиться.\n\nЕсли вы не продвинутый пользователь, не используете стороннюю прошивку Android, либо считаете, что видите это сообщение по ошибке, обратитесь в службу поддержки по адресу support@signal.org для помощи с устранением неполадок.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">На устройстве отсутствуют Службы Google Play. Вы можете продолжить использование Signal, но надежность или производительность могут снизиться.\n\nЕсли вы не продвинутый пользователь, не используете стороннюю прошивку Android, либо считаете, что видите это сообщение по ошибке, обратитесь в службу поддержки по адресу support@xecureit.id для помощи с устранением неполадок.</string>
   <string name="RegistrationActivity_i_understand">Я понимаю</string>
   <string name="RegistrationActivity_play_services_error">Ошибка Служб Google Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">Службы Google Play обновляются или временно недоступны. Пожалуйста, попробуйте еще раз.</string>

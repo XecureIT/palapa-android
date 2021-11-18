@@ -583,7 +583,7 @@
   <string name="ProfileEditOverviewFragment_username">שם משתמש</string>
   <string name="ProfileEditOverviewFragment_create_a_profile_name">צור שם פרופיל</string>
   <string name="ProfileEditOverviewFragment_create_a_username">צור שם משתמש</string>
-  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">פרופיל Signal שלך יכול להיראות ע״י אנשי הקשר שלך וע״י משתמשים אחרים או קבוצות אחרות כאשר אתה יוזם שיחה או מקבל בקשת שיחה. <a href="https://support.signal.org/hc/en-us/articles/360007459591-Signal-Profiles">הקש כאן כדי ללמוד עוד</a>.</string>
+  <string name="ProfileEditOverviewFragment_your_signal_profile_can_be_seen_by">פרופיל Signal שלך יכול להיראות ע״י אנשי הקשר שלך וע״י משתמשים אחרים או קבוצות אחרות כאשר אתה יוזם שיחה או מקבל בקשת שיחה. </string>
   <!--RatingManager-->
   <string name="RatingManager_rate_this_app">דרג יישום זה</string>
   <string name="RatingManager_if_you_enjoy_using_this_app_please_take_a_moment">אם אתה נהנה להשתמש ביישום זה, אנא הקדש רגע כדי לעזור לנו לדרג אותו.</string>
@@ -631,7 +631,7 @@
   <string name="RegistrationActivity_the_number_you_specified_s_is_invalid">המספר שציינת (%s)
 אינו תקף.</string>
   <string name="RegistrationActivity_missing_google_play_services">שירותי Google Play חסרים</string>
-  <string name="RegistrationActivity_this_device_is_missing_google_play_services">במכשיר זה חסרים שירותי Google Play. אתה יכול עדין להשתמש ב־Signal, אבל תצורה זו עשויה לגרום לאמינות מופחתת או לביצועים מופחתים.\n\nאם אינך משתמש מתקדם, אינך מריץ ROM של Android שהותקן לאחר רכישה, או שאתה מאמין שאתה רואה זאת בטעות, אנא צור קשר עם support@signal.org לעזרה באיתור תקלות.</string>
+  <string name="RegistrationActivity_this_device_is_missing_google_play_services">במכשיר זה חסרים שירותי Google Play. אתה יכול עדין להשתמש ב־Signal, אבל תצורה זו עשויה לגרום לאמינות מופחתת או לביצועים מופחתים.\n\nאם אינך משתמש מתקדם, אינך מריץ ROM של Android שהותקן לאחר רכישה, או שאתה מאמין שאתה רואה זאת בטעות, אנא צור קשר עם support@xecureit.id לעזרה באיתור תקלות.</string>
   <string name="RegistrationActivity_i_understand">אני מבין</string>
   <string name="RegistrationActivity_play_services_error">שגיאת שירותי Play</string>
   <string name="RegistrationActivity_google_play_services_is_updating_or_unavailable">שירותי גוגל Play מתעדכנים או שאינם זמינים כעת. נא לנסות שוב.</string>
@@ -1134,7 +1134,7 @@
   <string name="unknown_sender_view__add_to_contacts">הוסף לאנשי הקשר</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">אל תוסיף, אבל הפוך את הפרופיל שלי לנראה</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[אם אתה רוצה לוודא את אבטחת ההצפנה שלך עם %s, השווה את המספר לעיל עם המספר במכשיר שלו. לחלופין, אתה יכול לסרוק את הקוד בטלפון שלו, או לבקש ממנו לסרוק את הקוד שלך. <a href="https://signal.org/redirect/safety-numbers">למד עוד.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[אם אתה רוצה לוודא את אבטחת ההצפנה שלך עם %s, השווה את המספר לעיל עם המספר במכשיר שלו. לחלופין, אתה יכול לסרוק את הקוד בטלפון שלו, או לבקש ממנו לסרוק את הקוד שלך. ]]></string>
   <string name="verify_display_fragment__tap_to_scan">הקש כדי לסרוק</string>
   <string name="verify_display_fragment__loading">טוען…</string>
   <string name="verify_display_fragment__verified">מוודא</string>

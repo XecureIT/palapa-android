@@ -1006,7 +1006,7 @@
   <string name="unknown_sender_view__add_to_contacts">ДОДАЈ У КОНТАКТЕ</string>
   <string name="unknown_sender_view__don_t_add_but_make_my_profile_visible">Не додаји, али учини мој профил видљивим</string>
   <!--verify_display_fragment-->
-  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ако желите да потврдите да је шифровање са %s безбедно, упоредите број изнад са бројем на њиховом уређају. Алтернативно, можете да очитате кôд са њиховог телефона или замолити их да очитају ваш кôд. <a href="https://signal.org/redirect/safety-numbers">Сазнајте више.</a>]]></string>
+  <string name="verify_display_fragment__if_you_wish_to_verify_the_security_of_your_end_to_end_encryption_with_s"><![CDATA[Ако желите да потврдите да је шифровање са %s безбедно, упоредите број изнад са бројем на њиховом уређају. Алтернативно, можете да очитате кôд са њиховог телефона или замолити их да очитају ваш кôд.]]></string>
   <string name="verify_display_fragment__tap_to_scan">Тапните за скенирање</string>
   <string name="verify_display_fragment__loading">Учитавање…</string>
   <string name="verify_display_fragment__verified">Потврђен</string>

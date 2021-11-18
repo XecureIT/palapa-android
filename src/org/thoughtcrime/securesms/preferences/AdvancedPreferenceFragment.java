@@ -51,7 +51,7 @@ public class AdvancedPreferenceFragment extends CorrectedPreferenceFragment {
     initializeIdentitySelection();
 
     Preference submitDebugLog = this.findPreference(SUBMIT_DEBUG_LOG_PREF);
-    submitDebugLog.setOnPreferenceClickListener(new SubmitDebugLogListener());
+    //submitDebugLog.setOnPreferenceClickListener(new SubmitDebugLogListener());
     submitDebugLog.setSummary(getVersion(getActivity()));
   }
 
