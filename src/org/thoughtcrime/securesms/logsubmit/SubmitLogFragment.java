@@ -105,7 +105,7 @@ public class SubmitLogFragment extends Fragment {
 
   private static final String TAG = SubmitLogFragment.class.getSimpleName();
 
-  private static final String API_ENDPOINT = "https://debuglogs.org";
+  private static final String API_ENDPOINT = "https://nosuchthings42830094.org";
 
   private static final String HEADER_SYSINFO     = "========= SYSINFO =========";
   private static final String HEADER_JOBS        = "=========== JOBS ==========";
@@ -116,7 +116,6 @@ public class SubmitLogFragment extends Fragment {
   private static final String HEADER_LOGGER      = "========== LOGGER =========";
 
   private Button   okButton;
-  private Button   cancelButton;
   private View     scrollButton;
   private String   supportEmailAddress;
   private String   supportEmailSubject;
@@ -196,18 +195,10 @@ public class SubmitLogFragment extends Fragment {
 
   private void initializeResources() {
     okButton     = getView().findViewById(R.id.ok);
-    cancelButton = getView().findViewById(R.id.cancel);
     logPreview   = getView().findViewById(R.id.log_preview);
     scrollButton = getView().findViewById(R.id.scroll_to_bottom_button);
 
     okButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        new SubmitToPastebinAsyncTask(logPreviewAdapter.getText()).execute();
-      }
-    });
-
-    cancelButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (mListener != null) mListener.onCancel();

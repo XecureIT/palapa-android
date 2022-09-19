@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="google_app_id" translatable="false">change_this</string>
-    <string name="gcm_defaultSenderId" translatable="false">change_this</string>
-    <string name="default_web_client_id" translatable="false">change_this.apps.googleusercontent.com</string>
-    <string name="firebase_database_url" translatable="false">https://change_this.firebaseio.com</string>
-    <string name="google_api_key" translatable="false">change_this</string>
-    <string name="google_crash_reporting_api_key" translatable="false">change_this</string>
-    <string name="project_id" translatable="false">change_this</string>
+    <string name="google_app_id" translatable="false">1:415026150283:android:8632e2f708a08647500d8e</string>
+    <string name="gcm_defaultSenderId" translatable="false">415026150283</string>
+    <string name="default_web_client_id" translatable="false">415026150283-8vgd1ohcdrdscfq3vpjoiepnrc0khtg3.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://sonorous-veld-162113.firebaseio.com</string>
+    <string name="google_api_key" translatable="false">AIzaSyDUbrX30BVksg7S94F6xvS0nCLrtVBPVRI</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDUbrX30BVksg7S94F6xvS0nCLrtVBPVRI</string>
+    <string name="project_id" translatable="false">sonorous-veld-162113</string>
 </resources>

@@ -7,6 +7,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import android.os.Build;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -195,8 +196,9 @@ public class SaveAttachmentTask extends ProgressDialogAsyncTask<SaveAttachmentTa
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         break;
       case WRITE_ACCESS_FAILURE:
-        Toast.makeText(context, R.string.ConversationFragment_unable_to_write_to_sd_card_exclamation,
-            Toast.LENGTH_LONG).show();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+          Toast.makeText(context, R.string.ConversationFragment_unable_to_write_to_sd_card_exclamation,Toast.LENGTH_LONG).show();
+        }
         break;
     }
   }

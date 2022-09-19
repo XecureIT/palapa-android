@@ -28,6 +28,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
@@ -39,7 +40,7 @@ public class AttachmentTypeSelector extends PopupWindow {
   public static final int ADD_CONTACT_INFO  = 4;
   public static final int TAKE_PHOTO        = 5;
   public static final int ADD_LOCATION      = 6;
-  public static final int ADD_GIF           = 7;
+  public static final int ADD_VCON           = 7;
 
   private static final int ANIMATION_DURATION = 300;
 
@@ -54,10 +55,10 @@ public class AttachmentTypeSelector extends PopupWindow {
   private final @NonNull ImageView           contactButton;
   private final @NonNull ImageView           cameraButton;
   private final @NonNull ImageView           locationButton;
-  private final @NonNull ImageView           gifButton;
+  private final @NonNull ImageView           vconButton;
   private final @NonNull ImageView           closeButton;
 
-  private final @NonNull  TextView gifText;
+  private final @NonNull TextView            vconText;
 
   private @Nullable View                      currentAnchor;
   private @Nullable AttachmentClickedListener listener;
@@ -77,10 +78,10 @@ public class AttachmentTypeSelector extends PopupWindow {
     this.contactButton  = ViewUtil.findById(layout, R.id.contact_button);
     this.cameraButton   = ViewUtil.findById(layout, R.id.camera_button);
     this.locationButton = ViewUtil.findById(layout, R.id.location_button);
-    this.gifButton      = ViewUtil.findById(layout, R.id.giphy_button);
+    this.vconButton      = ViewUtil.findById(layout, R.id.vcon_button);
     this.closeButton    = ViewUtil.findById(layout, R.id.close_button);
 
-    this.gifText   = ViewUtil.findById(layout, R.id.giphy_text);
+    this.vconText   = ViewUtil.findById(layout, R.id.vcon_text);
 
     this.imageButton.setOnClickListener(new PropagatingClickListener(ADD_GALLERY));
     this.audioButton.setOnClickListener(new PropagatingClickListener(ADD_SOUND));
@@ -88,7 +89,7 @@ public class AttachmentTypeSelector extends PopupWindow {
     this.contactButton.setOnClickListener(new PropagatingClickListener(ADD_CONTACT_INFO));
     this.cameraButton.setOnClickListener(new PropagatingClickListener(TAKE_PHOTO));
     this.locationButton.setOnClickListener(new PropagatingClickListener(ADD_LOCATION));
-    this.gifButton.setOnClickListener(new PropagatingClickListener(ADD_GIF));
+    this.vconButton.setOnClickListener(new PropagatingClickListener(ADD_VCON));
     this.closeButton.setOnClickListener(new CloseClickListener());
     this.recentRail.setListener(new RecentPhotoSelectedListener());
 
@@ -105,7 +106,8 @@ public class AttachmentTypeSelector extends PopupWindow {
   }
 
   public void show(@NonNull Activity activity, final @NonNull View anchor , Boolean singleConversation) {
-    if(singleConversation){  gifButton.setVisibility(View.INVISIBLE); gifText.setVisibility(View.INVISIBLE);}
+    if(singleConversation){  vconButton.setVisibility(View.INVISIBLE); vconText.setVisibility(View.INVISIBLE);}
+    if(!BuildConfig.VCON_ENABLED) {vconButton.setVisibility(View.INVISIBLE); vconText.setVisibility(View.INVISIBLE);}
     if (Permissions.hasAll(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
       recentRail.setVisibility(View.VISIBLE);
       loaderManager.restartLoader(1, null, recentRail);
@@ -137,11 +139,15 @@ public class AttachmentTypeSelector extends PopupWindow {
       animateButtonIn(audioButton, ANIMATION_DURATION / 3);
       animateButtonIn(locationButton, ANIMATION_DURATION / 3);
       animateButtonIn(documentButton, ANIMATION_DURATION / 4);
-//      animateButtonIn(gifButton, ANIMATION_DURATION / 4);
+
        if(singleConversation) {
-         gifButton.setVisibility(View.INVISIBLE); gifText.setVisibility(View.INVISIBLE);
+         vconButton.setVisibility(View.INVISIBLE); vconText.setVisibility(View.INVISIBLE);
        }else{
-         animateButtonIn(gifButton, ANIMATION_DURATION / 4);
+         if(BuildConfig.VCON_ENABLED) {
+           animateButtonIn(vconButton, ANIMATION_DURATION / 4);
+         } else {
+           vconButton.setVisibility(View.INVISIBLE); vconText.setVisibility(View.INVISIBLE);
+         }
        }
       animateButtonIn(contactButton, 0);
       animateButtonIn(closeButton, 0);

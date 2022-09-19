@@ -952,7 +952,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="log_submit_activity__submitting">Mengirimkan</string>
   <string name="log_submit_activity__no_browser_installed">Tidak ada peramban yang terpasang</string>
   <string name="log_submit_activity__button_dont_submit">Jangan kirimkan</string>
-  <string name="log_submit_activity__button_submit">Kirimkan</string>
+  <string name="log_submit_activity__button_submit">Tutup</string>
   <string name="log_submit_activity__button_got_it">Paham</string>
   <string name="log_submit_activity__button_compose_email">Tulis surel</string>
   <string name="log_submit_activity__this_log_will_be_posted_online">Catatan ini akan diunggah secara publik agar para kontributor dapat melihat, Anda dapat memeriksa kembali dan menyunting sebelum mengunggahnya.</string>

@@ -198,8 +198,8 @@ dependencyVerification {
     configuration = '(play|website)(Debug|Release)RuntimeClasspath'
 }
 
-def canonicalVersionCode = 595
-def canonicalVersionName = "2.2.2"
+def canonicalVersionCode = 596
+def canonicalVersionName = "2.2.3"
 
 def postFixSize = 10
 def abiPostFix = ['universal'   : 0,
@@ -223,7 +223,7 @@ android {
         resValue "string", "applicationId", "id.xecureworld.app"
 
         manifestPlaceholders = [appName   :"PALAPA",
-                                geoApiKey :"change_this"]
+                                geoApiKey :"AIzaSyB3ZRLLn_vzNcykVIZsMzK4gi4S_QaGZX8"]
 
         versionCode canonicalVersionCode * postFixSize
         versionName canonicalVersionName
@@ -259,6 +259,7 @@ android {
         // buildConfigField "String", "SIGNAL_CDN", "\"https://cdn.signal.org\""
         // If you wish to disable STICKER use this line
         buildConfigField "String", "SIGNAL_CDN", "\"\""
+        buildConfigField "boolean", "VCON_ENABLED", "true"
 
         ndk {
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'

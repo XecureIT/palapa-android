@@ -189,16 +189,16 @@
                           android:orientation="vertical">
 
                 <org.thoughtcrime.securesms.components.CircleColorImageView
-                        android:id="@+id/giphy_button"
+                        android:id="@+id/vcon_button"
                         android:layout_width="53dp"
                         android:layout_height="53dp"
                         android:src="@drawable/ic_video_solid_24"
                         android:scaleType="center"
-                        android:contentDescription="@string/attachment_type_selector__gif_description"
+                        android:contentDescription="@string/attachment_type_selector__vicon"
                         app:circleColor="@color/red_400"/>
 
                 <TextView
-                    android:id="@+id/giphy_text"
+                    android:id="@+id/vcon_text"
                     style="@style/AttachmentTypeLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

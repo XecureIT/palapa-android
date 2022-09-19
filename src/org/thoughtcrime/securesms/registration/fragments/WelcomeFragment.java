@@ -3,7 +3,12 @@ package org.thoughtcrime.securesms.registration.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,12 +94,26 @@ public final class WelcomeFragment extends BaseRegistrationFragment {
                         Manifest.permission.READ_CONTACTS,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.MANAGE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_PHONE_STATE)
                .ifNecessary()
                .withRationaleDialog(getString(R.string.RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends),
                  R.drawable.ic_contacts_white_48dp, R.drawable.ic_folder_white_48dp)
                .onAnyResult(() -> {
-                 gatherInformationAndContinue(continueButton);
+                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                   if(!Environment.isExternalStorageManager()) {
+                     Intent intent = new Intent();
+                     intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                     Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
+                     intent.setData(uri);
+                     startActivity(intent);
+                     cancelSpinning(continueButton);
+                   }else{
+                     gatherInformationAndContinue(continueButton);
+                   }
+                 }else{
+                   gatherInformationAndContinue(continueButton);
+                 }
                })
                .execute();
   }

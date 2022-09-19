@@ -911,8 +911,12 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     tvT.setTextColor(Color.parseColor("#ffffff"));
     Random rnd = new Random();
     int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-    tvT.setBackgroundColor(Color.parseColor("#f65552"));
-
+    String themeApp = TextSecurePreferences.getTheme(this);
+    if((themeApp).equals(DynamicTheme.DARK)){
+      tvT.setBackgroundResource(R.color.signal_primary_dark);
+    } else {
+      tvT.setBackgroundResource(R.color.signal_primary);
+    }
     return tvT;
   }
 
@@ -2253,7 +2257,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         AttachmentManager.selectLocation(this, PICK_LOCATION); break;
       case AttachmentTypeSelector.TAKE_PHOTO:
         attachmentManager.capturePhoto(this, TAKE_PHOTO); break;
-      case AttachmentTypeSelector.ADD_GIF:
+      case AttachmentTypeSelector.ADD_VCON:
         handleActionCreateRoomAndList(); break;
         // AttachmentManager.selectGif(this, PICK_GIF, !isSecureText, recipient.get().getColor().toConversationColor(this)); break;
     }

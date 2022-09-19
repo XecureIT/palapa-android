@@ -3,11 +3,17 @@ package org.thoughtcrime.securesms.preferences;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
@@ -127,23 +133,40 @@ public class ChatsPreferenceFragment extends ListSummaryPreferenceFragment {
   private class BackupClickListener implements Preference.OnPreferenceClickListener {
     @Override
     public boolean onPreferenceClick(Preference preference) {
-      Permissions.with(ChatsPreferenceFragment.this)
-                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                 .ifNecessary()
-                 .onAllGranted(() -> {
-                   if (!((SwitchPreferenceCompat)preference).isChecked()) {
-                     BackupDialog.showEnableBackupDialog(getActivity(), (SwitchPreferenceCompat)preference);
-                   } else {
-                     BackupDialog.showDisableBackupDialog(getActivity(), (SwitchPreferenceCompat)preference);
-                   }
-                 })
-                 .withPermanentDenialDialog(getString(R.string.ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups))
-                 .execute();
-
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.MANAGE_EXTERNAL_STORAGE},
+                1);
+        if(!Environment.isExternalStorageManager()) {
+          Intent intent = new Intent();
+          intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+          Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
+          intent.setData(uri);
+          startActivity(intent);
+        }else{
+          PermessionsBackup(preference);
+        }
+      }else{
+        PermessionsBackup(preference);
+      }
       return true;
     }
   }
-
+private void PermessionsBackup(Preference preference){
+  Permissions.with(ChatsPreferenceFragment.this)
+          .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+          .ifNecessary()
+          .onAllGranted(() -> {
+            if (!((SwitchPreferenceCompat)preference).isChecked()) {
+              BackupDialog.showEnableBackupDialog(getActivity(), (SwitchPreferenceCompat)preference);
+            } else {
+              BackupDialog.showDisableBackupDialog(getActivity(), (SwitchPreferenceCompat)preference);
+            }
+          })
+          .withPermanentDenialDialog(getString(R.string.ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups))
+          .execute();
+}
   private class BackupCreateListener implements Preference.OnPreferenceClickListener {
     @SuppressLint("StaticFieldLeak")
     @Override

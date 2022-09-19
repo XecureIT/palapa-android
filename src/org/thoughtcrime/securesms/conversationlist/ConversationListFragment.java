@@ -82,6 +82,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.thoughtcrime.securesms.ApplicationContext;
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.MainFragment;
 import org.thoughtcrime.securesms.MainNavigator;
 import org.thoughtcrime.securesms.NewConversationActivity;
@@ -221,16 +222,19 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
                               layoutP.bottomMargin = 35;
 
     TextView tvT = new TextView(getContext());
-             tvT.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-             tvT.setGravity(Gravity.LEFT);
-             tvT.setTypeface(Typeface.SERIF, Typeface.NORMAL);
-             tvT.setPadding(20,35,10,35);
-             tvT.setLayoutParams(layoutP);
-             tvT.setText(R.string.MessageRequestViconInformationRoom_header);
-             tvT.setTextColor(Color.parseColor("#ffffff"));
-    Random rnd = new Random();
-    int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-            tvT.setBackgroundColor(Color.parseColor("#f65552"));
+    tvT.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+    tvT.setGravity(Gravity.LEFT);
+    tvT.setTypeface(Typeface.SERIF, Typeface.NORMAL);
+    tvT.setPadding(20,35,10,35);
+    tvT.setLayoutParams(layoutP);
+    tvT.setText(R.string.MessageRequestViconInformationRoom_header);
+    tvT.setTextColor(Color.parseColor("#ffffff"));
+    String themeApp = TextSecurePreferences.getTheme(getActivity());
+    if((themeApp).equals(DynamicTheme.DARK)){
+      tvT.setBackgroundResource(R.color.signal_primary_dark);
+    } else {
+      tvT.setBackgroundResource(R.color.signal_primary);
+    }
 
     return tvT;
   }
@@ -414,7 +418,11 @@ public class ConversationListFragment extends MainFragment implements LoaderMana
 
     fab.show();
     cameraFab.show();
-    viconFab.show();
+    if(BuildConfig.VCON_ENABLED) {
+      viconFab.show();
+    } else {
+      viconFab.hide();
+    }
 
     reminderView.setOnDismissListener(this::updateReminders);
 
