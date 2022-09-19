@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.telephony.TelephonyManager;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.logging.Log;
-
-import org.thoughtcrime.securesms.service.WebRtcCallService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -40,7 +39,7 @@ public class IncomingPstnCallReceiver extends BroadcastReceiver {
 
     InCallListener listener = new InCallListener(context, new Handler());
 
-    WebRtcCallService.isCallActive(context, listener);
+    ApplicationDependencies.getSignalCallManager().isCallActive(listener);
   }
 
   private static class InCallListener extends ResultReceiver {

@@ -158,7 +158,7 @@ public class MultiDeviceContactUpdateJob extends BaseJob {
       return;
     }
 
-    boolean isAppVisible      = ApplicationContext.getInstance(context).isAppVisible();
+    boolean isAppVisible      = ApplicationDependencies.getAppForegroundObserver().isForegrounded();
     long    timeSinceLastSync = System.currentTimeMillis() - TextSecurePreferences.getLastFullContactSyncTime(context);
 
     Log.d(TAG, "Requesting a full contact sync. forced = " + forceSync + ", appVisible = " + isAppVisible + ", timeSinceLastSync = " + timeSinceLastSync + " ms");

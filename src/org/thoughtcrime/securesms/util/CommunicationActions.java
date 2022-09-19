@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.TaskStackBuilder;
 
 import android.os.Bundle;
@@ -23,10 +22,9 @@ import org.thoughtcrime.securesms.conversation.ConversationActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.WebRtcCallActivity;
 import org.thoughtcrime.securesms.database.DatabaseFactory;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.service.WebRtcCallService;
-import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 
 public class CommunicationActions {
 
@@ -39,7 +37,7 @@ public class CommunicationActions {
       return;
     }
 
-    WebRtcCallService.isCallActive(activity, new ResultReceiver(new Handler(Looper.getMainLooper())) {
+    ApplicationDependencies.getSignalCallManager().isCallActive(new ResultReceiver(new Handler(Looper.getMainLooper())) {
       @Override
       protected void onReceiveResult(int resultCode, Bundle resultData) {
         if (resultCode == 1) {
@@ -66,7 +64,7 @@ public class CommunicationActions {
       return;
     }
 
-    WebRtcCallService.isCallActive(activity, new ResultReceiver(new Handler(Looper.getMainLooper())) {
+    ApplicationDependencies.getSignalCallManager().isCallActive(new ResultReceiver(new Handler(Looper.getMainLooper())) {
       @Override
       protected void onReceiveResult(int resultCode, Bundle resultData) {
         if (resultCode == 1) {
@@ -146,10 +144,7 @@ public class CommunicationActions {
                                     R.drawable.ic_video_solid_24_tinted)
                .withPermanentDenialDialog(activity.getString(R.string.ConversationActivity_signal_needs_the_microphone_and_camera_permissions_in_order_to_call_s, recipient.getDisplayName(activity)))
                .onAllGranted(() -> {
-                 Intent intent = new Intent(activity, WebRtcCallService.class);
-                 intent.setAction(WebRtcCallService.ACTION_OUTGOING_CALL);
-                 intent.putExtra(WebRtcCallService.EXTRA_REMOTE_RECIPIENT, recipient.getId());
-                 activity.startService(intent);
+                 ApplicationDependencies.getSignalCallManager().startOutgoingAudioCall(recipient);
 
                  Intent activityIntent = new Intent(activity, WebRtcCallActivity.class);
                  activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

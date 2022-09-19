@@ -1,5 +1,6 @@
 package org.thoughtcrime.securesms.util;
 
+import android.app.Application;
 import android.content.Context;
 import android.view.Choreographer;
 import android.view.Display;
@@ -28,7 +29,7 @@ public class FrameRateTracker {
   private static final int MAX_CONSECUTIVE_FRAME_LOGS    = 10;
   private static final int MAX_CONSECUTIVE_INTERVAL_LOGS = 10;
 
-  private final Context      context;
+  private final Application  context;
   private final List<Double> fpsData;
   private final RingBuffer   runningAverageFps;
 
@@ -43,7 +44,7 @@ public class FrameRateTracker {
   private long consecutiveFrameWarnings;
   private long consecutiveIntervalWarnings;
 
-  public FrameRateTracker(@NonNull Context context) {
+  public FrameRateTracker(@NonNull Application context) {
     this.context                 = context;
     this.fpsData                 = new ArrayList<>();
     this.runningAverageFps       = new RingBuffer(TimeUnit.SECONDS.toMillis(10));

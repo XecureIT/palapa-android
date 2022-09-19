@@ -4,36 +4,20 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.text.TextUtils;
+import android.util.Pair;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import android.text.TextUtils;
-import android.util.Pair;
-
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-
-import org.signal.libsignal.metadata.InvalidMetadataMessageException;
-import org.signal.libsignal.metadata.InvalidMetadataVersionException;
-import org.signal.libsignal.metadata.ProtocolDuplicateMessageException;
-import org.signal.libsignal.metadata.ProtocolInvalidKeyException;
-import org.signal.libsignal.metadata.ProtocolInvalidKeyIdException;
-import org.signal.libsignal.metadata.ProtocolInvalidMessageException;
-import org.signal.libsignal.metadata.ProtocolInvalidVersionException;
-import org.signal.libsignal.metadata.ProtocolLegacyMessageException;
-import org.signal.libsignal.metadata.ProtocolNoSessionException;
-import org.signal.libsignal.metadata.ProtocolUntrustedIdentityException;
-import org.signal.libsignal.metadata.SelfSendException;
+import org.signal.libsignal.metadata.*;
+import org.signal.ringrtc.CallId;
 import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.MainActivity;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.attachments.Attachment;
-import org.thoughtcrime.securesms.attachments.DatabaseAttachment;
-import org.thoughtcrime.securesms.attachments.PointerAttachment;
-import org.thoughtcrime.securesms.attachments.TombstoneAttachment;
-import org.thoughtcrime.securesms.attachments.UriAttachment;
+import org.thoughtcrime.securesms.attachments.*;
 import org.thoughtcrime.securesms.contactshare.Contact;
 import org.thoughtcrime.securesms.contactshare.ContactModelMapper;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
@@ -41,22 +25,10 @@ import org.thoughtcrime.securesms.crypto.SecurityEvent;
 import org.thoughtcrime.securesms.crypto.UnidentifiedAccessUtil;
 import org.thoughtcrime.securesms.crypto.storage.SignalProtocolStoreImpl;
 import org.thoughtcrime.securesms.crypto.storage.TextSecureSessionStore;
-import org.thoughtcrime.securesms.database.AttachmentDatabase;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
-import org.thoughtcrime.securesms.database.GroupDatabase;
-import org.thoughtcrime.securesms.database.GroupReceiptDatabase;
+import org.thoughtcrime.securesms.database.*;
 import org.thoughtcrime.securesms.database.GroupReceiptDatabase.GroupReceiptInfo;
-import org.thoughtcrime.securesms.database.MessagingDatabase;
 import org.thoughtcrime.securesms.database.MessagingDatabase.InsertResult;
 import org.thoughtcrime.securesms.database.MessagingDatabase.SyncMessageId;
-import org.thoughtcrime.securesms.database.MmsDatabase;
-import org.thoughtcrime.securesms.database.MmsSmsDatabase;
-import org.thoughtcrime.securesms.database.NoSuchMessageException;
-import org.thoughtcrime.securesms.database.PushDatabase;
-import org.thoughtcrime.securesms.database.RecipientDatabase;
-import org.thoughtcrime.securesms.database.SmsDatabase;
-import org.thoughtcrime.securesms.database.StickerDatabase;
-import org.thoughtcrime.securesms.database.ThreadDatabase;
 import org.thoughtcrime.securesms.database.model.MessageRecord;
 import org.thoughtcrime.securesms.database.model.MmsMessageRecord;
 import org.thoughtcrime.securesms.database.model.ReactionRecord;
@@ -70,70 +42,34 @@ import org.thoughtcrime.securesms.linkpreview.Link;
 import org.thoughtcrime.securesms.linkpreview.LinkPreview;
 import org.thoughtcrime.securesms.linkpreview.LinkPreviewUtil;
 import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.mms.IncomingMediaMessage;
-import org.thoughtcrime.securesms.mms.MmsException;
-import org.thoughtcrime.securesms.mms.OutgoingExpirationUpdateMessage;
-import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
-import org.thoughtcrime.securesms.mms.OutgoingSecureMediaMessage;
-import org.thoughtcrime.securesms.mms.QuoteModel;
-import org.thoughtcrime.securesms.mms.SlideDeck;
-import org.thoughtcrime.securesms.mms.StickerSlide;
+import org.thoughtcrime.securesms.mms.*;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.service.WebRtcCallService;
-import org.thoughtcrime.securesms.sms.IncomingEncryptedMessage;
-import org.thoughtcrime.securesms.sms.IncomingEndSessionMessage;
-import org.thoughtcrime.securesms.sms.IncomingTextMessage;
-import org.thoughtcrime.securesms.sms.OutgoingEncryptedMessage;
-import org.thoughtcrime.securesms.sms.OutgoingEndSessionMessage;
-import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
+import org.thoughtcrime.securesms.ringrtc.IceCandidateParcel;
+import org.thoughtcrime.securesms.ringrtc.RemotePeer;
+import org.thoughtcrime.securesms.service.webrtc.WebRtcData;
+import org.thoughtcrime.securesms.sms.*;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
 import org.thoughtcrime.securesms.transport.RetryLaterException;
-import org.thoughtcrime.securesms.util.GroupUtil;
-import org.thoughtcrime.securesms.util.Hex;
-import org.thoughtcrime.securesms.util.IdentityUtil;
-import org.thoughtcrime.securesms.util.MediaUtil;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.*;
+import org.webrtc.IceCandidate;
 import org.whispersystems.libsignal.state.SessionStore;
 import org.whispersystems.libsignal.state.SignalProtocolStore;
 import org.whispersystems.libsignal.util.guava.Optional;
 import org.whispersystems.signalservice.api.crypto.SignalServiceCipher;
-import org.whispersystems.signalservice.api.messages.SignalServiceAttachment;
-import org.whispersystems.signalservice.api.messages.SignalServiceContent;
-import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage;
+import org.whispersystems.signalservice.api.messages.*;
 import org.whispersystems.signalservice.api.messages.SignalServiceDataMessage.Preview;
-import org.whispersystems.signalservice.api.messages.SignalServiceEnvelope;
-import org.whispersystems.signalservice.api.messages.SignalServiceGroup;
-import org.whispersystems.signalservice.api.messages.SignalServiceReceiptMessage;
-import org.whispersystems.signalservice.api.messages.SignalServiceTypingMessage;
-import org.whispersystems.signalservice.api.messages.calls.AnswerMessage;
-import org.whispersystems.signalservice.api.messages.calls.BusyMessage;
-import org.whispersystems.signalservice.api.messages.calls.HangupMessage;
-import org.whispersystems.signalservice.api.messages.calls.IceUpdateMessage;
-import org.whispersystems.signalservice.api.messages.calls.OfferMessage;
-import org.whispersystems.signalservice.api.messages.calls.SignalServiceCallMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.BlockedListMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.ConfigurationMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.ReadMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.RequestMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.SentTranscriptMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.SignalServiceSyncMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.StickerPackOperationMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.VerifiedMessage;
-import org.whispersystems.signalservice.api.messages.multidevice.ViewOnceOpenMessage;
+import org.whispersystems.signalservice.api.messages.calls.*;
+import org.whispersystems.signalservice.api.messages.multidevice.*;
 import org.whispersystems.signalservice.api.messages.shared.SharedContact;
 import org.whispersystems.signalservice.api.push.SignalServiceAddress;
 import org.whispersystems.signalservice.internal.push.UnsupportedDataMessageException;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PushDecryptJob extends BaseJob {
 
@@ -340,21 +276,18 @@ public class PushDecryptJob extends BaseJob {
                                       @NonNull OfferMessage message,
                                       @NonNull Optional<Long> smsMessageId)
   {
-    Log.w(TAG, "handleCallOfferMessage...");
+    Log.i(TAG, "handleCallOfferMessage...");
 
     if (smsMessageId.isPresent()) {
       SmsDatabase database = DatabaseFactory.getSmsDatabase(context);
       database.markAsMissedCall(smsMessageId.get());
     } else {
-      Intent intent = new Intent(context, WebRtcCallService.class);
-      intent.setAction(WebRtcCallService.ACTION_INCOMING_CALL);
-      intent.putExtra(WebRtcCallService.EXTRA_CALL_ID, message.getId());
-      intent.putExtra(WebRtcCallService.EXTRA_REMOTE_RECIPIENT, Recipient.externalPush(context, content.getSender()).getId());
-      intent.putExtra(WebRtcCallService.EXTRA_REMOTE_DESCRIPTION, message.getDescription());
-      intent.putExtra(WebRtcCallService.EXTRA_TIMESTAMP, content.getTimestamp());
+      RemotePeer remotePeer        = new RemotePeer(Recipient.externalPush(context, content.getSender()).getId());
 
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) context.startForegroundService(intent);
-      else                                                context.startService(intent);
+      ApplicationDependencies.getSignalCallManager()
+                             .receivedOffer(new WebRtcData.CallMetadata(remotePeer, new CallId(message.getId()), content.getSenderDevice()),
+                                            new WebRtcData.OfferMetadata(message.getDescription()),
+                                            new WebRtcData.ReceivedOfferMetadata(content.getTimestamp()));
     }
   }
 
@@ -362,30 +295,30 @@ public class PushDecryptJob extends BaseJob {
                                        @NonNull AnswerMessage message)
   {
     Log.i(TAG, "handleCallAnswerMessage...");
-    Intent intent = new Intent(context, WebRtcCallService.class);
-    intent.setAction(WebRtcCallService.ACTION_RESPONSE_MESSAGE);
-    intent.putExtra(WebRtcCallService.EXTRA_CALL_ID, message.getId());
-    intent.putExtra(WebRtcCallService.EXTRA_REMOTE_RECIPIENT, Recipient.externalPush(context, content.getSender()).getId());
-    intent.putExtra(WebRtcCallService.EXTRA_REMOTE_DESCRIPTION, message.getDescription());
+    RemotePeer remotePeer = new RemotePeer(Recipient.externalPush(context, content.getSender()).getId());
 
-    context.startService(intent);
+    ApplicationDependencies.getSignalCallManager()
+                           .receivedAnswer(new WebRtcData.CallMetadata(remotePeer, new CallId(message.getId()), content.getSenderDevice()),
+                                           new WebRtcData.AnswerMetadata(message.getDescription()));
   }
 
   private void handleCallIceUpdateMessage(@NonNull SignalServiceContent content,
                                           @NonNull List<IceUpdateMessage> messages)
   {
-    Log.w(TAG, "handleCallIceUpdateMessage... " + messages.size());
-    for (IceUpdateMessage message : messages) {
-      Intent intent = new Intent(context, WebRtcCallService.class);
-      intent.setAction(WebRtcCallService.ACTION_ICE_MESSAGE);
-      intent.putExtra(WebRtcCallService.EXTRA_CALL_ID, message.getId());
-      intent.putExtra(WebRtcCallService.EXTRA_REMOTE_RECIPIENT, Recipient.externalPush(context, content.getSender()).getId());
-      intent.putExtra(WebRtcCallService.EXTRA_ICE_SDP, message.getSdp());
-      intent.putExtra(WebRtcCallService.EXTRA_ICE_SDP_MID, message.getSdpMid());
-      intent.putExtra(WebRtcCallService.EXTRA_ICE_SDP_LINE_INDEX, message.getSdpMLineIndex());
+    Log.i(TAG, "handleCallIceUpdateMessage... " + messages.size());
 
-      context.startService(intent);
+    ArrayList<IceCandidate> iceCandidates = new ArrayList(messages.size());
+    long callId = -1;
+    for (IceUpdateMessage iceMessage : messages) {
+      iceCandidates.add(new IceCandidateParcel(iceMessage).getIceCandidate());
+      callId = iceMessage.getId();
     }
+
+    RemotePeer remotePeer = new RemotePeer(Recipient.externalPush(context, content.getSender()).getId());
+
+    ApplicationDependencies.getSignalCallManager()
+                           .receivedIceCandidates(new WebRtcData.CallMetadata(remotePeer, new CallId(callId), content.getSenderDevice()),
+                                                  iceCandidates);
   }
 
   private void handleCallHangupMessage(@NonNull SignalServiceContent content,
@@ -396,24 +329,22 @@ public class PushDecryptJob extends BaseJob {
     if (smsMessageId.isPresent()) {
       DatabaseFactory.getSmsDatabase(context).markAsMissedCall(smsMessageId.get());
     } else {
-      Intent intent = new Intent(context, WebRtcCallService.class);
-      intent.setAction(WebRtcCallService.ACTION_REMOTE_HANGUP);
-      intent.putExtra(WebRtcCallService.EXTRA_CALL_ID, message.getId());
-      intent.putExtra(WebRtcCallService.EXTRA_REMOTE_RECIPIENT, Recipient.externalPush(context, content.getSender()).getId());
+      RemotePeer remotePeer = new RemotePeer(Recipient.externalPush(context, content.getSender()).getId());
 
-      context.startService(intent);
+      ApplicationDependencies.getSignalCallManager()
+                             .receivedCallHangup(new WebRtcData.CallMetadata(remotePeer, new CallId(message.getId()), content.getSenderDevice()));
     }
   }
 
   private void handleCallBusyMessage(@NonNull SignalServiceContent content,
                                      @NonNull BusyMessage message)
   {
-    Intent intent = new Intent(context, WebRtcCallService.class);
-    intent.setAction(WebRtcCallService.ACTION_REMOTE_BUSY);
-    intent.putExtra(WebRtcCallService.EXTRA_CALL_ID, message.getId());
-    intent.putExtra(WebRtcCallService.EXTRA_REMOTE_RECIPIENT, Recipient.externalPush(context, content.getSender()).getId());
+    Log.i(TAG, "handleCallBusyMessage");
 
-    context.startService(intent);
+    RemotePeer remotePeer = new RemotePeer(Recipient.externalPush(context, content.getSender()).getId());
+
+    ApplicationDependencies.getSignalCallManager()
+            .receivedCallBusy(new WebRtcData.CallMetadata(remotePeer, new CallId(message.getId()), content.getSenderDevice()));
   }
 
   private void handleEndSessionMessage(@NonNull SignalServiceContent content,

@@ -28,7 +28,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:autofillHints=""
         android:editable="false"
@@ -45,14 +45,30 @@
     <com.dd.CircularProgressButton
         android:id="@+id/welcome_continue_button"
         style="@style/Button.Registration"
-        android:layout_width="318dp"
-        android:layout_height="37dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="17dp"
         app:cpb_textIdle="@string/RegistrationActivity_continue"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/welcome_restore_backup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_goneMarginBottom="@dimen/registration_button_bottom_margin" />
+
+    <Button
+        android:id="@+id/welcome_restore_backup"
+        style="@style/Button.Registration.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/registration_activity__restore_backup"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/welcome_continue_button"
+        app:layout_constraintStart_toStartOf="@+id/welcome_continue_button"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

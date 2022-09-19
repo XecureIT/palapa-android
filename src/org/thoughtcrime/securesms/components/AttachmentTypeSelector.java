@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.BuildConfig;
-import org.thoughtcrime.securesms.permissions.Permissions;
+import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.ViewUtil;
 
 public class AttachmentTypeSelector extends PopupWindow {
@@ -108,7 +108,7 @@ public class AttachmentTypeSelector extends PopupWindow {
   public void show(@NonNull Activity activity, final @NonNull View anchor , Boolean singleConversation) {
     if(singleConversation){  vconButton.setVisibility(View.INVISIBLE); vconText.setVisibility(View.INVISIBLE);}
     if(!BuildConfig.VCON_ENABLED) {vconButton.setVisibility(View.INVISIBLE); vconText.setVisibility(View.INVISIBLE);}
-    if (Permissions.hasAll(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+    if (StorageUtil.canReadFromMediaStore()) {
       recentRail.setVisibility(View.VISIBLE);
       loaderManager.restartLoader(1, null, recentRail);
     } else {

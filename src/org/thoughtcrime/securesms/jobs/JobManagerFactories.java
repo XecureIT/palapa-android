@@ -47,6 +47,7 @@ public final class JobManagerFactories {
       put(DirectoryRefreshJob.KEY,                   new DirectoryRefreshJob.Factory());
       put(FcmRefreshJob.KEY,                         new FcmRefreshJob.Factory());
       put(LocalBackupJob.KEY,                        new LocalBackupJob.Factory());
+      put(LocalBackupJobApi29.KEY,                   new LocalBackupJobApi29.Factory());
       put(MmsDownloadJob.KEY,                        new MmsDownloadJob.Factory());
       put(MmsReceiveJob.KEY,                         new MmsReceiveJob.Factory());
       put(MmsSendJob.KEY,                            new MmsSendJob.Factory());

@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.scribbles.widget.ColorPaletteAdapter;
 import org.thoughtcrime.securesms.scribbles.widget.VerticalSlideColorPicker;
@@ -42,6 +43,7 @@ public final class ImageEditorHud extends LinearLayout {
   private View                     saveButton;
   private View                     deleteButton;
   private View                     confirmButton;
+  private View                     doneButton;
   private VerticalSlideColorPicker colorPicker;
   private RecyclerView             colorPalette;
 
@@ -90,6 +92,7 @@ public final class ImageEditorHud extends LinearLayout {
     deleteButton     = findViewById(R.id.scribble_delete_button);
     confirmButton    = findViewById(R.id.scribble_confirm_button);
     colorPicker      = findViewById(R.id.scribble_color_picker);
+    doneButton       = findViewById(R.id.scribble_done_button);
 
     cropAspectLock.setOnClickListener(v -> {
       eventListener.onCropAspectLock(!eventListener.isCropAspectLocked());
@@ -128,6 +131,7 @@ public final class ImageEditorHud extends LinearLayout {
 
     allViews.add(newStickerButton);
     allViews.add(oldStickerButton);
+    allViews.add(doneButton);
   }
 
   private void setVisibleViewsWhenInMode(Mode mode, View... views) {
@@ -136,7 +140,7 @@ public final class ImageEditorHud extends LinearLayout {
 
   @MainThread
   public void setStickersAvailable(boolean stickersAvailable) {
-    if (stickersAvailable) {
+    if (stickersAvailable && !BuildConfig.SIGNAL_CDN.isEmpty()) {
       setVisibleViewsWhenInMode(Mode.NONE, drawButton, highlightButton, textButton, newStickerButton, cropButton, undoButton, saveButton);
     } else {
       setVisibleViewsWhenInMode(Mode.NONE, drawButton, highlightButton, textButton, oldStickerButton, cropButton, undoButton, saveButton);
@@ -170,6 +174,20 @@ public final class ImageEditorHud extends LinearLayout {
     oldStickerButton.setOnClickListener(v -> setMode(Mode.INSERT_ASSET_STICKER));
     newStickerButton.setOnClickListener(v -> setMode(Mode.INSERT_STICKER));
     saveButton.setOnClickListener(v -> eventListener.onSave());
+    doneButton.setOnClickListener(v -> eventListener.onDone());
+  }
+
+  public void setUpForAvatarEditing() {
+    visibilityModeMap.get(Mode.NONE).add(doneButton);
+    visibilityModeMap.get(Mode.NONE).remove(saveButton);
+    visibilityModeMap.get(Mode.CROP).remove(cropAspectLock);
+
+    if (currentMode == Mode.NONE) {
+      doneButton.setVisibility(View.VISIBLE);
+      saveButton.setVisibility(View.GONE);
+    } else if (currentMode == Mode.CROP) {
+      cropAspectLock.setVisibility(View.GONE);
+    }
   }
 
   public void setColorPalette(@NonNull Set<Integer> colors) {
@@ -283,6 +301,7 @@ public final class ImageEditorHud extends LinearLayout {
     void onCropAspectLock(boolean locked);
     boolean isCropAspectLocked();
     void onRequestFullScreen(boolean fullScreen, boolean hideKeyboard);
+    void onDone();
   }
 
   private static final EventListener NULL_EVENT_LISTENER = new EventListener() {
@@ -326,6 +345,10 @@ public final class ImageEditorHud extends LinearLayout {
 
     @Override
     public void onRequestFullScreen(boolean fullScreen, boolean hideKeyboard) {
+    }
+
+    @Override
+    public void onDone() {
     }
   };
 }

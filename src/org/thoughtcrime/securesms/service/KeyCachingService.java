@@ -41,6 +41,7 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.crypto.InvalidPassphraseException;
 import org.thoughtcrime.securesms.crypto.MasterSecret;
 import org.thoughtcrime.securesms.crypto.MasterSecretUtil;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
@@ -220,7 +221,7 @@ public class KeyCachingService extends Service {
   }
 
   private static void startTimeoutIfAppropriate(@NonNull Context context) {
-    boolean appVisible       = ApplicationContext.getInstance(context).isAppVisible();
+    boolean appVisible       = ApplicationDependencies.getAppForegroundObserver().isForegrounded();
     boolean secretSet        = KeyCachingService.masterSecret != null;
 
     boolean timeoutEnabled   = TextSecurePreferences.isPassphraseTimeoutEnabled(context);

@@ -4,11 +4,9 @@ package org.thoughtcrime.securesms;
 import android.Manifest;
 import android.animation.Animator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,7 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dd.CircularProgressButton;
 
-import org.thoughtcrime.securesms.avatar.AvatarSelection;
+import com.google.android.gms.common.util.IOUtils;
 import org.thoughtcrime.securesms.components.InputAwareLayout;
 import org.thoughtcrime.securesms.components.LabeledEditText;
 import org.thoughtcrime.securesms.components.emoji.EmojiKeyboardProvider;
@@ -40,17 +38,18 @@ import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.jobs.MultiDeviceProfileKeyUpdateJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceProfileContentUpdateJob;
-import org.thoughtcrime.securesms.jobs.RefreshOwnProfileJob;
 import org.thoughtcrime.securesms.logging.Log;
+import org.thoughtcrime.securesms.mediasend.AvatarSelectionActivity;
+import org.thoughtcrime.securesms.mediasend.AvatarSelectionBottomSheetDialogFragment;
+import org.thoughtcrime.securesms.mediasend.Media;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
 import org.thoughtcrime.securesms.profiles.ProfileMediaConstraints;
 import org.thoughtcrime.securesms.profiles.SystemProfileUtil;
+import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
-import org.thoughtcrime.securesms.util.BitmapDecodingException;
-import org.thoughtcrime.securesms.util.BitmapUtil;
 import org.thoughtcrime.securesms.util.DynamicLanguage;
 import org.thoughtcrime.securesms.util.DynamicRegistrationTheme;
 import org.thoughtcrime.securesms.util.DynamicTheme;
@@ -58,13 +57,14 @@ import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.ViewUtil;
 import org.thoughtcrime.securesms.util.concurrent.ListenableFuture;
+import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.whispersystems.signalservice.api.SignalServiceAccountManager;
 import org.whispersystems.signalservice.api.crypto.ProfileCipher;
 import org.whispersystems.signalservice.api.util.StreamDetails;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.SecureRandom;
 import java.util.concurrent.ExecutionException;
 
@@ -79,6 +79,8 @@ public class CreateProfileActivity extends BaseActionBarActivity {
   private final DynamicTheme    dynamicTheme    = new DynamicRegistrationTheme();
   private final DynamicLanguage dynamicLanguage = new DynamicLanguage();
 
+  private static final short REQUEST_CODE_SELECT_AVATAR = 31726;
+
   private InputAwareLayout       container;
   private ImageView              avatar;
   private CircularProgressButton finishButton;
@@ -89,7 +91,6 @@ public class CreateProfileActivity extends BaseActionBarActivity {
 
   private Intent nextIntent;
   private byte[] avatarBytes;
-  private File   captureFile;
 
   @Override
   public void onCreate(Bundle bundle) {
@@ -139,56 +140,38 @@ public class CreateProfileActivity extends BaseActionBarActivity {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    switch (requestCode) {
-      case AvatarSelection.REQUEST_CODE_AVATAR:
-        if (resultCode == Activity.RESULT_OK) {
-          Uri outputFile = Uri.fromFile(new File(getCacheDir(), "cropped"));
-          Uri inputFile  = (data != null ? data.getData() : null);
+    if (requestCode == REQUEST_CODE_SELECT_AVATAR && resultCode == RESULT_OK) {
 
-          if (inputFile == null && captureFile != null) {
-            inputFile = Uri.fromFile(captureFile);
-          }
+      if (data != null && data.getBooleanExtra("delete", false)) {
+        avatarBytes = null;
+        avatar.setImageDrawable(new ResourceContactPhoto(R.drawable.ic_camera_solid_white_24).asDrawable(this, getResources().getColor(R.color.grey_400)));
+        return;
+      }
 
-          if (data != null && data.getBooleanExtra("delete", false)) {
-            avatarBytes = null;
-            avatar.setImageDrawable(new ResourceContactPhoto(R.drawable.ic_camera_solid_white_24).asDrawable(this, getResources().getColor(R.color.grey_400)));
-          } else {
-            AvatarSelection.circularCropImage(this, inputFile, outputFile, R.string.CropImageActivity_profile_avatar);
-          }
+      SimpleTask.run(() -> {
+        try {
+          Media       result = data.getParcelableExtra(AvatarSelectionActivity.EXTRA_MEDIA);
+          InputStream stream = BlobProvider.getInstance().getStream(this, result.getUri());
+
+          return IOUtils.readInputStreamFully(stream);
+        } catch (IOException ioException) {
+          Log.w(TAG, ioException);
+          return null;
         }
-
-        break;
-      case AvatarSelection.REQUEST_CODE_CROP_IMAGE:
-        if (resultCode == Activity.RESULT_OK) {
-          new AsyncTask<Void, Void, byte[]>() {
-            @Override
-            protected byte[] doInBackground(Void... params) {
-              try {
-                BitmapUtil.ScaleResult result = BitmapUtil.createScaledBytes(CreateProfileActivity.this, AvatarSelection.getResultUri(data), new ProfileMediaConstraints());
-                return result.getBitmap();
-              } catch (BitmapDecodingException e) {
-                Log.w(TAG, e);
-                return null;
-              }
-            }
-
-            @Override
-            protected void onPostExecute(byte[] result) {
-              if (result != null) {
-                avatarBytes = result;
-                GlideApp.with(CreateProfileActivity.this)
-                        .load(avatarBytes)
-                        .skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .circleCrop()
-                        .into(avatar);
-              } else {
-                Toast.makeText(CreateProfileActivity.this, R.string.CreateProfileActivity_error_setting_profile_photo, Toast.LENGTH_LONG).show();
-              }
-            }
-          }.execute();
+      },
+      (bytesAvatar) -> {
+        if (bytesAvatar != null) {
+          avatarBytes = bytesAvatar;
+          GlideApp.with(this)
+                  .load(bytesAvatar)
+                  .skipMemoryCache(true)
+                  .diskCacheStrategy(DiskCacheStrategy.NONE)
+                  .circleCrop()
+                  .into(avatar);
+        } else {
+          Toast.makeText(this, R.string.CreateProfileActivity_error_setting_profile_photo, Toast.LENGTH_LONG).show();
         }
-        break;
+      });
     }
   }
 
@@ -205,7 +188,7 @@ public class CreateProfileActivity extends BaseActionBarActivity {
     this.nextIntent   = getIntent().getParcelableExtra(NEXT_INTENT);
 
     this.avatar.setOnClickListener(view -> Permissions.with(this)
-                                                      .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                      .request(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                                                       .ifNecessary()
                                                       .onAnyResult(this::startAvatarSelection)
                                                       .execute());
@@ -342,7 +325,7 @@ public class CreateProfileActivity extends BaseActionBarActivity {
   }
 
   private void startAvatarSelection() {
-    captureFile = AvatarSelection.startAvatarSelection(this, avatarBytes != null, true);
+    AvatarSelectionBottomSheetDialogFragment.create(avatarBytes != null, true, REQUEST_CODE_SELECT_AVATAR).show(getSupportFragmentManager(), null);
   }
 
   private void handleUpload() {
@@ -392,7 +375,6 @@ public class CreateProfileActivity extends BaseActionBarActivity {
         super.onPostExecute(result);
 
         if (result) {
-          if (captureFile != null) captureFile.delete();
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) handleFinishedLollipop();
           else                                                       handleFinishedLegacy();
         } else        {

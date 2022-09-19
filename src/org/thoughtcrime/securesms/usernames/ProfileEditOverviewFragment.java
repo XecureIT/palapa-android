@@ -65,7 +65,7 @@ public class ProfileEditOverviewFragment extends Fragment {
     usernameText.setOnClickListener(v -> usernameButton.callOnClick());
 
     avatarView.setOnClickListener(v -> Permissions.with(this)
-                                                  .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                  .request(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
                                                   .ifNecessary()
                                                   .onAnyResult(() -> viewModel.onAvatarClicked(this))
                                                   .execute());

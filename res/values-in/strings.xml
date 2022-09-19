@@ -97,7 +97,7 @@
   <string name="CameraContacts__menu_search">Pencarian</string>
   <!--ClearProfileActivity-->
   <string name="ClearProfileActivity_remove">Hapus</string>
-  <string name="ClearProfileActivity_remove_profile_photo">Hapus foto profil?</string>
+  <string name="ClearProfileActivity_remove_profile_photo">Hapus foto?</string>
   <!--CommunicationActions-->
   <string name="CommunicationActions_no_browser_found">Peramban web tidak ditemukan.</string>
   <string name="CommunicationActions_a_cellular_call_is_already_in_progress">Panggilan melalui jaringan seluler sedang berlangsung.</string>
@@ -275,10 +275,27 @@
   <string name="CreateProfileActivity_set_up_your_profile">Siapkan profil Anda</string>
   <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">Profil &app_name; dienkripsi ujung-ke-ujung, dan layanan &app_name; tidak pernah memiliki akses ke informasi ini.</string>
   <string name="CreateProfileActivity_set_avatar_description">Pilih avatar</string>
+  <!--ChooseBackupFragment-->
+  <string name="ChooseBackupFragment__restore_from_backup">Pulihkan dari cadangan?</string>
+  <string name="ChooseBackupFragment__restore_your_messages_and_media">Memulihkan pesan dan media Anda dari cadangan lokal. Jika tidak dipulihkan sekarang, Anda tidak akan bisa memulihkannya nanti.</string>
+  <string name="ChooseBackupFragment__icon_content_description">Pulihkan dari ikon cadangan</string>
+  <string name="ChooseBackupFragment__choose_backup">Pilih cadangan</string>
+  <string name="ChooseBackupFragment__learn_more">Pelajari lebih lanjut</string>
+  <string name="ChooseBackupFragment__no_file_browser_available">Tidak ada pengelola berkas tersedia</string>
+  <!--RestoreBackupFragment-->
+  <string name="RestoreBackupFragment__restore_complete">Pemulihan selesai</string>
+  <string name="RestoreBackupFragment__to_continue_using_backups_please_choose_a_folder">Untuk lanjut menggunakan cadangan; mohon pilih sebuah folder. Cadangan baru akan tersimpan di lokasi ini.</string>
+  <string name="RestoreBackupFragment__choose_folder">Pilih folder</string>
+  <string name="RestoreBackupFragment__not_now">Nanti saja</string>
   <!--CustomDefaultPreference-->
   <string name="CustomDefaultPreference_using_custom">Gunakan pilihan khusus: %s</string>
   <string name="CustomDefaultPreference_using_default">Gunakan pilihan standar: %s</string>
   <string name="CustomDefaultPreference_none">Kosong</string>
+  <!--AvatarSelectionBottomSheetDialogFragment-->
+  <string name="AvatarSelectionBottomSheetDialogFragment__choose_photo">Pilih foto</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Ambil foto</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Pilih dari Galeri</string>
+  <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Hapus foto</string>
   <!--DateUtils-->
   <string name="DateUtils_just_now">Sekarang</string>
   <string name="DateUtils_minutes_ago">%dmenit</string>
@@ -419,6 +436,7 @@
   <string name="NotificationBarManager_signal_call_in_progress">Panggilan &app_name; berlangsung</string>
   <string name="NotificationBarManager__establishing_signal_call">Menyiapkan panggilan &app_name;</string>
   <string name="NotificationBarManager__incoming_signal_call">Panggilan masuk &app_name;</string>
+  <string name="NotificationBarManager__stopping_signal_call_service">Menghentikan layanan panggilan &app_name;</string>
   <string name="NotificationBarManager__deny_call">Tolak panggilan</string>
   <string name="NotificationBarManager__answer_call">Terima panggilan</string>
   <string name="NotificationBarManager__end_call">Akhiri panggilan</string>
@@ -574,6 +592,7 @@ isikan (%s) tidak valid.
   <string name="RegistrationActivity_more_information">Informasi lebih lanjut</string>
   <string name="RegistrationActivity_less_information">Kurang informasi</string>
   <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">&app_name; memerlukkan akses ke kontak dan media Anda untuk terkoneksi dengan teman, bertukar pesan, dan membuat panggilan aman</string>
+  <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal memerlukan akses ke kontak Anda untuk terhubung dengan teman, pertukaran pesan, dan membuat panggilan yang aman</string>
   <string name="RegistrationActivity_unable_to_connect_to_service">Tidak bisa terhubung ke layanan. Mohon cek koneksi jaringan dan coba lagi.</string>
   <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">Untuk memudahkan verifikasi nomor telepon Anda, &app_name; dapat secara otomatis mendeteksi kode verifikasi Anda jika Anda mengizinkan &app_name; untuk melihat pesan SMS.</string>
   <plurals name="RegistrationActivity_debug_log_hint">
@@ -771,6 +790,8 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <!--SingleRecipientNotificationBuilder-->
   <string name="SingleRecipientNotificationBuilder_signal">&app_name;</string>
   <string name="SingleRecipientNotificationBuilder_new_message">Pesan baru</string>
+  <!-- StorageUtil -->
+  <string name="StorageUtil__s_s">%1$s/%2$s</string>
   <!--ThumbnailView-->
   <!--TransferControlView-->
   <plurals name="TransferControlView_n_items">
@@ -1344,6 +1365,8 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="ExperienceUpgradeActivity_please_unlock_signal_to_complete_update">Mohon buka kunci &app_name; untuk menyelesaikan pembaruan</string>
   <string name="enter_backup_passphrase_dialog__backup_passphrase">Frasa sandi cadangan</string>
   <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Cadangan akan disimpan ke penyimpanan eksternal dan terenkripsi dengan frasa di bawah. Anda mesti memiliki frasa sandi ini untuk memulihkan cadangan.</string>
+  <string name="backup_enable_dialog__you_must_have_this_passphrase">Kamu harus memiliki parafrase ini ketika ingin melakukan pengembalian data dari cadangan.</string>
+  <string name="backup_enable_dialog__folder">Folder</string>
   <string name="backup_enable_dialog__i_have_written_down_this_passphrase">Saya telah mencatat frasa ini. Tanpa ini, saya tidak dapat memulihkan cadangan.</string>
   <string name="registration_activity__restore_backup">Pulihkan cadangan</string>
   <string name="registration_activity__skip">Lewati</string>
@@ -1351,6 +1374,7 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="preferences_chats__chat_backups">Cadangan obrolan</string>
   <string name="preferences_chats__backup_chats_to_external_storage">Cadangkan obrolan ke penyimpanan eksternal</string>
   <string name="preferences_chats__create_backup">Buat cadangan</string>
+  <string name="preferences_chats__backup_folder">Folder cadangan</string>
   <string name="RegistrationActivity_enter_backup_passphrase">Masukkan frasa sandi cadangan</string>
   <string name="RegistrationActivity_restore">Pulihkan</string>
   <string name="RegistrationActivity_backup_failure_downgrade">Tidak bisa mengimpor cadangan dari versi &app_name; yang lebih baru</string>
@@ -1367,7 +1391,10 @@ Menerima pesan pertukaran kunci untuk versi protokol yang tidak valid.
   <string name="BackupDialog_delete_backups">Hapus cadangan?</string>
   <string name="BackupDialog_disable_and_delete_all_local_backups">Nonaktifkan dan hapus semua cadangan lokal?</string>
   <string name="BackupDialog_delete_backups_statement">Hapus cadangan</string>
+  <string name="BackupDialog_to_enable_backups_choose_a_folder">Untuk mengaktifkan pencadangan, pilih folder terlebih dahulu. Data hasil cadangan akan disimpan di lokasi itu.</string>
+  <string name="BackupDialog_choose_folder">Pilih folder</string>
   <string name="BackupDialog_copied_to_clipboard">Disalin ke papan klip</string>
+  <string name="BackupDialog_no_file_picker_available">Tidak ada yang bisa melakukan ini.</string>
   <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">&app_name; memerlukan izin penyimpanan eksternal untuk membuat cadangan, tetapi saat ini izin ditolak secara permanen. Harap lanjutkan ke menu pengaturan aplikasi, pilih \"Izin\", dan aktifkan \"Penyimpanan\".</string>
   <string name="ChatsPreferenceFragment_last_backup_s">Terakhir melakukan cadangan: %s</string>
   <string name="ChatsPreferenceFragment_in_progress">Sedang berjalan</string>

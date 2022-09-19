@@ -2,6 +2,7 @@ package org.thoughtcrime.securesms.dependencies;
 
 import android.app.Application;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 
 import org.thoughtcrime.securesms.BuildConfig;
@@ -11,6 +12,8 @@ import org.thoughtcrime.securesms.jobmanager.JobManager;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.service.IncomingMessageObserver;
+import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
+import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.FeatureFlags;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.IasKeyStore;
@@ -30,43 +33,59 @@ import org.whispersystems.signalservice.api.SignalServiceMessageSender;
  */
 public class ApplicationDependencies {
 
-  private static Application application;
-  private static Provider    provider;
+  private static final Object LOCK                    = new Object();
+  private static final Object FRAME_RATE_TRACKER_LOCK = new Object();
+  private static final Object JOB_MANAGER_LOCK        = new Object();
 
-  private static SignalServiceAccountManager  accountManager;
-  private static SignalServiceMessageSender   messageSender;
-  private static SignalServiceMessageReceiver messageReceiver;
-  private static IncomingMessageProcessor     incomingMessageProcessor;
-  private static MessageRetriever             messageRetriever;
-  private static LiveRecipientCache           recipientCache;
-  private static JobManager                   jobManager;
-  private static FrameRateTracker             frameRateTracker;
+  private static Application           application;
+  private static Provider              provider;
+  private static AppForegroundObserver appForegroundObserver;
 
-  public static synchronized void init(@NonNull Application application, @NonNull Provider provider) {
-    if (ApplicationDependencies.application != null || ApplicationDependencies.provider != null) {
-      throw new IllegalStateException("Already initialized!");
+  private static volatile SignalServiceAccountManager  accountManager;
+  private static volatile SignalServiceMessageSender   messageSender;
+  private static volatile SignalServiceMessageReceiver messageReceiver;
+  private static volatile IncomingMessageProcessor     incomingMessageProcessor;
+  private static volatile MessageRetriever             messageRetriever;
+  private static volatile LiveRecipientCache           recipientCache;
+  private static volatile JobManager                   jobManager;
+  private static volatile FrameRateTracker             frameRateTracker;
+  private static volatile SignalCallManager            signalCallManager;
+
+  @MainThread
+  public static void init(@NonNull Application application, @NonNull Provider provider) {
+    synchronized (LOCK) {
+      if (ApplicationDependencies.application != null || ApplicationDependencies.provider != null) {
+        throw new IllegalStateException("Already initialized!");
+      }
+
+      ApplicationDependencies.application           = application;
+      ApplicationDependencies.provider              = provider;
+      ApplicationDependencies.appForegroundObserver = provider.provideAppForegroundObserver();
+
+      ApplicationDependencies.appForegroundObserver.begin();
     }
-
-    ApplicationDependencies.application = application;
-    ApplicationDependencies.provider    = provider;
   }
 
   public static @NonNull Application getApplication() {
-    assertInitialization();
     return application;
   }
 
-  public static synchronized @NonNull SignalServiceAccountManager getSignalServiceAccountManager() {
-    assertInitialization();
+  public static @NonNull SignalServiceAccountManager getSignalServiceAccountManager() {
+    SignalServiceAccountManager local = accountManager;
 
-    if (accountManager == null) {
-      accountManager = provider.provideSignalServiceAccountManager();
+    if (local != null) {
+      return local;
     }
 
-    return accountManager;
+    synchronized (LOCK) {
+      if (accountManager == null) {
+        accountManager = provider.provideSignalServiceAccountManager();
+      }
+      return accountManager;
+    }
   }
 
-  public static synchronized @NonNull KeyBackupService getKeyBackupService() {
+  public static @NonNull KeyBackupService getKeyBackupService() {
     if (!FeatureFlags.KBS) throw new AssertionError();
     return getSignalServiceAccountManager().getKeyBackupService(IasKeyStore.getIasKeyStore(application),
                                                                 BuildConfig.KEY_BACKUP_ENCLAVE_NAME,
@@ -74,93 +93,120 @@ public class ApplicationDependencies {
                                                                 10);
   }
 
-  public static synchronized @NonNull SignalServiceMessageSender getSignalServiceMessageSender() {
-    assertInitialization();
+  public static @NonNull SignalServiceMessageSender getSignalServiceMessageSender() {
+    SignalServiceMessageSender local = messageSender;
 
-    if (messageSender == null) {
-      messageSender = provider.provideSignalServiceMessageSender();
-    } else {
-      messageSender.setMessagePipe(IncomingMessageObserver.getPipe(), IncomingMessageObserver.getUnidentifiedPipe());
-      messageSender.setIsMultiDevice(TextSecurePreferences.isMultiDevice(application));
+    if (local != null) {
+      return local;
     }
 
-    return messageSender;
-  }
+    synchronized (LOCK) {
+      if (messageSender == null) {
+        messageSender = provider.provideSignalServiceMessageSender();
+      } else {
+        messageSender.setMessagePipe(IncomingMessageObserver.getPipe(), IncomingMessageObserver.getUnidentifiedPipe());
+        messageSender.setIsMultiDevice(TextSecurePreferences.isMultiDevice(application));
+      }
 
-  public static synchronized @NonNull SignalServiceMessageReceiver getSignalServiceMessageReceiver() {
-    assertInitialization();
-
-    if (messageReceiver == null) {
-      messageReceiver = provider.provideSignalServiceMessageReceiver();
+      return messageSender;
     }
-
-    return messageReceiver;
   }
 
-  public static synchronized void resetSignalServiceMessageReceiver() {
-    assertInitialization();
-    messageReceiver = null;
+  public static @NonNull SignalServiceMessageReceiver getSignalServiceMessageReceiver() {
+    synchronized (LOCK) {
+      if (messageReceiver == null) {
+        messageReceiver = provider.provideSignalServiceMessageReceiver();
+      }
+      return messageReceiver;
+    }
   }
 
-  public static synchronized @NonNull SignalServiceNetworkAccess getSignalServiceNetworkAccess() {
-    assertInitialization();
+  public static void resetSignalServiceMessageReceiver() {
+    synchronized (LOCK) {
+      messageReceiver = null;
+    }
+  }
+
+  public static @NonNull SignalServiceNetworkAccess getSignalServiceNetworkAccess() {
     return provider.provideSignalServiceNetworkAccess();
   }
 
-  public static synchronized @NonNull IncomingMessageProcessor getIncomingMessageProcessor() {
-    assertInitialization();
-
+  public static @NonNull IncomingMessageProcessor getIncomingMessageProcessor() {
     if (incomingMessageProcessor == null) {
-      incomingMessageProcessor = provider.provideIncomingMessageProcessor();
+      synchronized (LOCK) {
+        if (incomingMessageProcessor == null) {
+          incomingMessageProcessor = provider.provideIncomingMessageProcessor();
+        }
+      }
     }
 
     return incomingMessageProcessor;
   }
 
-  public static synchronized @NonNull MessageRetriever getMessageRetriever() {
-    assertInitialization();
-
+  public static @NonNull MessageRetriever getMessageRetriever() {
     if (messageRetriever == null) {
-      messageRetriever = provider.provideMessageRetriever();
+      synchronized (LOCK) {
+        if (messageRetriever == null) {
+          messageRetriever = provider.provideMessageRetriever();
+        }
+      }
     }
 
     return messageRetriever;
   }
 
-  public static synchronized @NonNull LiveRecipientCache getRecipientCache() {
-    assertInitialization();
-
+  public static @NonNull LiveRecipientCache getRecipientCache() {
     if (recipientCache == null) {
-      recipientCache = provider.provideRecipientCache();
+      synchronized (LOCK) {
+        if (recipientCache == null) {
+          recipientCache = provider.provideRecipientCache();
+        }
+      }
     }
 
     return recipientCache;
   }
 
-  public static synchronized @NonNull JobManager getJobManager() {
-    assertInitialization();
-
+  public static @NonNull JobManager getJobManager() {
     if (jobManager == null) {
-      jobManager = provider.provideJobManager();
+      synchronized (JOB_MANAGER_LOCK) {
+        if (jobManager == null) {
+          jobManager = provider.provideJobManager();
+        }
+      }
     }
 
     return jobManager;
   }
 
-  public static synchronized @NonNull FrameRateTracker getFrameRateTracker() {
-    assertInitialization();
-
+  public static @NonNull FrameRateTracker getFrameRateTracker() {
     if (frameRateTracker == null) {
-      frameRateTracker = provider.provideFrameRateTracker();
+      synchronized (FRAME_RATE_TRACKER_LOCK) {
+        if (frameRateTracker == null) {
+          frameRateTracker = provider.provideFrameRateTracker();
+        }
+      }
     }
 
     return frameRateTracker;
   }
 
-  private static void assertInitialization() {
-    if (application == null || provider == null) {
-      throw new UninitializedException();
+  public static @NonNull SignalCallManager getSignalCallManager() {
+    if (signalCallManager == null) {
+      synchronized (LOCK) {
+        if (signalCallManager == null) {
+          if (signalCallManager == null) {
+            signalCallManager = provider.provideSignalCallManager();
+          }
+        }
+      }
     }
+
+    return signalCallManager;
+  }
+
+  public static @NonNull AppForegroundObserver getAppForegroundObserver() {
+    return appForegroundObserver;
   }
 
   public interface Provider {
@@ -173,6 +219,8 @@ public class ApplicationDependencies {
     @NonNull LiveRecipientCache provideRecipientCache();
     @NonNull JobManager provideJobManager();
     @NonNull FrameRateTracker provideFrameRateTracker();
+    @NonNull AppForegroundObserver provideAppForegroundObserver();
+    @NonNull SignalCallManager provideSignalCallManager();
   }
 
   private static class UninitializedException extends IllegalStateException {

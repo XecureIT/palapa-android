@@ -1,10 +1,7 @@
 package org.thoughtcrime.securesms.service;
 
+import android.app.Application;
 import android.app.Service;
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ProcessLifecycleOwner;
-import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import androidx.annotation.NonNull;
@@ -23,6 +20,7 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
+import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.InvalidVersionException;
 import org.whispersystems.signalservice.api.SignalServiceMessagePipe;
@@ -41,14 +39,14 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
   private static SignalServiceMessagePipe pipe             = null;
   private static SignalServiceMessagePipe unidentifiedPipe = null;
 
-  private final Context                      context;
+  private final Application                  context;
   private final NetworkConstraint            networkConstraint;
   private final SignalServiceNetworkAccess   networkAccess;
 
   private boolean appVisible;
 
 
-  public IncomingMessageObserver(@NonNull Context context) {
+  public IncomingMessageObserver(@NonNull Application context) {
     this.context           = context;
     this.networkConstraint = new NetworkConstraint.Factory(ApplicationContext.getInstance(context)).create();
     this.networkAccess     = ApplicationDependencies.getSignalServiceNetworkAccess();
@@ -60,14 +58,14 @@ public class IncomingMessageObserver implements ConstraintObserver.Notifier {
       ContextCompat.startForegroundService(context, new Intent(context, ForegroundService.class));
     }
 
-    ProcessLifecycleOwner.get().getLifecycle().addObserver(new DefaultLifecycleObserver() {
+    ApplicationDependencies.getAppForegroundObserver().addListener(new AppForegroundObserver.Listener() {
       @Override
-      public void onStart(@NonNull LifecycleOwner owner) {
+      public void onForeground() {
         onAppForegrounded();
       }
 
       @Override
-      public void onStop(@NonNull LifecycleOwner owner) {
+      public void onBackground() {
         onAppBackgrounded();
       }
     });

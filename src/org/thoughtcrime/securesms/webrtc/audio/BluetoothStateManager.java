@@ -46,14 +46,20 @@ public class BluetoothStateManager {
 
   public BluetoothStateManager(@NonNull Context context, @Nullable BluetoothStateListener listener) {
     this.context                     = context.getApplicationContext();
-    this.bluetoothAdapter            = BluetoothAdapter.getDefaultAdapter();
+
+    BluetoothAdapter localAdapter = BluetoothAdapter.getDefaultAdapter();
+    if (localAdapter == null) {
+      this.bluetoothAdapter = null;
+      this.listener         = null;
+      this.destroyed        = new AtomicBoolean(true);
+      return;
+    }
+
+    this.bluetoothAdapter            = localAdapter;
     this.bluetoothScoReceiver        = new BluetoothScoReceiver();
     this.bluetoothConnectionReceiver = new BluetoothConnectionReceiver();
     this.listener                    = listener;
     this.destroyed                   = new AtomicBoolean(false);
-
-    if (this.bluetoothAdapter == null)
-      return;
 
     requestHeadsetProxyProfile();
 

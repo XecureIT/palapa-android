@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import androidx.annotation.NonNull;
 import android.util.Pair;
 
@@ -25,8 +26,8 @@ import org.thoughtcrime.securesms.database.SearchDatabase;
 import org.thoughtcrime.securesms.database.StickerDatabase;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.profiles.AvatarHelper;
-import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.recipients.RecipientId;
+import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.Conversions;
 import org.thoughtcrime.securesms.util.SqlUtil;
 import org.thoughtcrime.securesms.util.Util;
@@ -46,6 +47,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -61,13 +63,23 @@ public class FullBackupImporter extends FullBackupBase {
   private static final String TAG = FullBackupImporter.class.getSimpleName();
 
   public static void importFile(@NonNull Context context, @NonNull AttachmentSecret attachmentSecret,
-                                @NonNull SQLiteDatabase db, @NonNull File file, @NonNull String passphrase)
+                                @NonNull SQLiteDatabase db, @NonNull Uri uri, @NonNull String passphrase)
       throws IOException
   {
-    BackupRecordInputStream inputStream = new BackupRecordInputStream(file, passphrase);
-    int                     count       = 0;
+    try (InputStream is = getInputStream(context, uri)) {
+      importFile(context, attachmentSecret, db, is, passphrase);
+    }
+  }
+
+  public static void importFile(@NonNull Context context, @NonNull AttachmentSecret attachmentSecret,
+                                @NonNull SQLiteDatabase db, @NonNull InputStream is, @NonNull String passphrase)
+      throws IOException
+  {
+    int count = 0;
 
     try {
+      BackupRecordInputStream inputStream = new BackupRecordInputStream(is, passphrase);
+
       db.beginTransaction();
 
       dropAllTables(db);
@@ -91,6 +103,14 @@ public class FullBackupImporter extends FullBackupBase {
     }
 
     EventBus.getDefault().post(new BackupEvent(BackupEvent.Type.FINISHED, count));
+  }
+
+  private static @NonNull InputStream getInputStream(@NonNull Context context, @NonNull Uri uri) throws IOException{
+    if (BackupUtil.isUserSelectionRequired(context) || uri.getScheme().equals("content")) {
+      return Objects.requireNonNull(context.getContentResolver().openInputStream(uri));
+    } else {
+      return new FileInputStream(new File(Objects.requireNonNull(uri.getPath())));
+    }
   }
 
   private static void processVersion(@NonNull SQLiteDatabase db, DatabaseVersion version) throws IOException {
@@ -222,9 +242,9 @@ public class FullBackupImporter extends FullBackupBase {
     private byte[] iv;
     private int    counter;
 
-    private BackupRecordInputStream(@NonNull File file, @NonNull String passphrase) throws IOException {
+    private BackupRecordInputStream(@NonNull InputStream in, @NonNull String passphrase) throws IOException {
       try {
-        this.in     = new FileInputStream(file);
+        this.in = in;
 
         byte[] headerLengthBytes = new byte[4];
         Util.readFully(in, headerLengthBytes);

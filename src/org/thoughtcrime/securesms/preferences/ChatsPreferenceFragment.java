@@ -2,18 +2,17 @@ package org.thoughtcrime.securesms.preferences;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
+import androidx.annotation.RequiresApi;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 
@@ -25,21 +24,22 @@ import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.backup.BackupDialog;
 import org.thoughtcrime.securesms.backup.FullBackupBase.BackupEvent;
 import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
-import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
+import org.thoughtcrime.securesms.database.NoExternalStorageException;
 import org.thoughtcrime.securesms.jobs.LocalBackupJob;
 import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.preferences.widgets.ProgressPreference;
 import org.thoughtcrime.securesms.util.BackupUtil;
+import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 public class ChatsPreferenceFragment extends ListSummaryPreferenceFragment {
+
   private static final String TAG = ChatsPreferenceFragment.class.getSimpleName();
+
+  private static final short CHOOSE_BACKUPS_LOCATION_REQUEST_CODE = 26212;
 
   @Override
   public void onCreate(Bundle paramBundle) {
@@ -74,6 +74,7 @@ public class ChatsPreferenceFragment extends ListSummaryPreferenceFragment {
     super.onResume();
     ((ApplicationPreferencesActivity)getActivity()).getSupportActionBar().setTitle(R.string.preferences__chats);
     setMediaDownloadSummaries();
+    setBackupStatus();
     setBackupSummary();
   }
 
@@ -86,6 +87,20 @@ public class ChatsPreferenceFragment extends ListSummaryPreferenceFragment {
   @Override
   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
     Permissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    if (Build.VERSION.SDK_INT >= 29                             &&
+            requestCode == CHOOSE_BACKUPS_LOCATION_REQUEST_CODE &&
+            resultCode == Activity.RESULT_OK                    &&
+            data != null                                        &&
+            data.getData() != null)
+    {
+      BackupDialog.showEnableBackupDialog(requireContext(),
+              data,
+              this::setBackupsEnabled);
+    }
   }
 
   @Subscribe(threadMode = ThreadMode.MAIN)
@@ -103,9 +118,41 @@ public class ChatsPreferenceFragment extends ListSummaryPreferenceFragment {
     }
   }
 
+  private void setBackupStatus() {
+    if (TextSecurePreferences.isBackupEnabled(requireContext())) {
+      if (BackupUtil.canUserAccessBackupDirectory(requireContext())) {
+        setBackupsEnabled();
+      } else {
+        Log.w(TAG, "Cannot access backup directory. Disabling backups.");
+
+        BackupUtil.disableBackups(requireContext());
+        setBackupsDisabled();
+      }
+    } else {
+      setBackupsDisabled();
+    }
+  }
+
   private void setBackupSummary() {
     findPreference(TextSecurePreferences.BACKUP_NOW)
-        .setSummary(String.format(getString(R.string.ChatsPreferenceFragment_last_backup_s), BackupUtil.getLastBackupTime(getContext(), Locale.US)));
+        .setSummary(String.format(getString(R.string.ChatsPreferenceFragment_last_backup_s), BackupUtil.getLastBackupTime(getContext(), Locale.getDefault())));
+  }
+
+  private void setBackupFolderName() {
+    if (BackupUtil.canUserAccessBackupDirectory(requireContext())) {
+      if (BackupUtil.isUserSelectionRequired(requireContext()) &&
+              BackupUtil.canUserAccessBackupDirectory(requireContext()))
+      {
+        Uri backupUri = Objects.requireNonNull(TextSecurePreferences.getBackupDirectory(requireContext()));
+        findPreference(TextSecurePreferences.BACKUP_DIRECTORY).setSummary(StorageUtil.getDisplayPath(requireContext(), backupUri));
+      } else if (StorageUtil.canWriteInSignalStorageDir()) {
+        try {
+          findPreference(TextSecurePreferences.BACKUP_DIRECTORY).setSummary(StorageUtil.getOrCreateBackupDirectory().getPath());
+        } catch (NoExternalStorageException e) {
+          Log.w(TAG, "Could not display folder name.", e);
+        }
+      }
+    }
   }
 
   private void setMediaDownloadSummaries() {
@@ -133,56 +180,69 @@ public class ChatsPreferenceFragment extends ListSummaryPreferenceFragment {
   private class BackupClickListener implements Preference.OnPreferenceClickListener {
     @Override
     public boolean onPreferenceClick(Preference preference) {
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.MANAGE_EXTERNAL_STORAGE},
-                1);
-        if(!Environment.isExternalStorageManager()) {
-          Intent intent = new Intent();
-          intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-          Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
-          intent.setData(uri);
-          startActivity(intent);
-        }else{
-          PermessionsBackup(preference);
-        }
-      }else{
-        PermessionsBackup(preference);
+      if (BackupUtil.isUserSelectionRequired(requireContext())) {
+        onBackupClickedApi29();
+      } else {
+        onBackupClickedLegacy();
       }
+
       return true;
     }
   }
-private void PermessionsBackup(Preference preference){
-  Permissions.with(ChatsPreferenceFragment.this)
-          .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-          .ifNecessary()
-          .onAllGranted(() -> {
-            if (!((SwitchPreferenceCompat)preference).isChecked()) {
-              BackupDialog.showEnableBackupDialog(getActivity(), (SwitchPreferenceCompat)preference);
-            } else {
-              BackupDialog.showDisableBackupDialog(getActivity(), (SwitchPreferenceCompat)preference);
-            }
-          })
-          .withPermanentDenialDialog(getString(R.string.ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups))
-          .execute();
-}
+
+  @RequiresApi(29)
+  private void onBackupClickedApi29() {
+    if (!TextSecurePreferences.isBackupEnabled(requireContext())) {
+      BackupDialog.showChooseBackupLocationDialog(this, CHOOSE_BACKUPS_LOCATION_REQUEST_CODE);
+    } else {
+      BackupDialog.showDisableBackupDialog(requireContext(), this::setBackupsDisabled);
+    }
+  }
+
+  private void onBackupClickedLegacy() {
+    Permissions.with(ChatsPreferenceFragment.this)
+            .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .ifNecessary()
+            .onAllGranted(() -> {
+              if (!TextSecurePreferences.isBackupEnabled(requireContext())) {
+                BackupDialog.showEnableBackupDialog(getActivity(), null, this::setBackupsEnabled);
+              } else {
+                BackupDialog.showDisableBackupDialog(getActivity(), this::setBackupsDisabled);
+              }
+            })
+            .withPermanentDenialDialog(getString(R.string.ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups))
+            .execute();
+  }
+
   private class BackupCreateListener implements Preference.OnPreferenceClickListener {
     @SuppressLint("StaticFieldLeak")
     @Override
     public boolean onPreferenceClick(Preference preference) {
-      Permissions.with(ChatsPreferenceFragment.this)
-                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                 .ifNecessary()
-                 .onAllGranted(() -> {
-                   Log.i(TAG, "Queing backup...");
-                   ApplicationDependencies.getJobManager().add(new LocalBackupJob());
-                 })
-                 .withPermanentDenialDialog(getString(R.string.ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups))
-                 .execute();
-
+      if (BackupUtil.isUserSelectionRequired(requireContext())) {
+        onBackupCreateApi29();
+      } else {
+        onBackupCreateLegacy();
+      }
       return true;
     }
+  }
+
+  @RequiresApi(29)
+  private void onBackupCreateApi29() {
+    Log.i(TAG, "Queing backup...");
+    LocalBackupJob.enqueue();
+  }
+
+  private void onBackupCreateLegacy() {
+    Permissions.with(ChatsPreferenceFragment.this)
+               .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+               .ifNecessary()
+               .onAllGranted(() -> {
+                 Log.i(TAG, "Queing backup...");
+                 LocalBackupJob.enqueue();
+               })
+              .withPermanentDenialDialog(getString(R.string.ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups))
+              .execute();
   }
 
   private class MediaDownloadChangeListener implements Preference.OnPreferenceChangeListener {
@@ -196,5 +256,15 @@ private void PermessionsBackup(Preference preference){
 
   public static CharSequence getSummary(Context context) {
     return null;
+  }
+
+  private void setBackupsEnabled() {
+    ((SwitchPreferenceCompat) findPreference(TextSecurePreferences.BACKUP_ENABLED)).setChecked(true);
+    setBackupFolderName();
+  }
+
+  private void setBackupsDisabled() {
+    ((SwitchPreferenceCompat) findPreference(TextSecurePreferences.BACKUP_ENABLED)).setChecked(false);
+    findPreference(TextSecurePreferences.BACKUP_DIRECTORY).setSummary("");
   }
 }

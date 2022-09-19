@@ -75,6 +75,13 @@
                 android:dependency="pref_backup_enabled"
                 tools:summary="Last backup: 3 days ago"/>
 
+        <org.thoughtcrime.securesms.preferences.widgets.ProgressPreference
+                android:key="pref_backup_directory"
+                android:title="@string/preferences_chats__backup_folder"
+                android:persistent="false"
+                android:dependency="pref_backup_enabled"
+                tools:summary=""/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>

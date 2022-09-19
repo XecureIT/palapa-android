@@ -154,6 +154,8 @@ public class TextSecurePreferences {
   private static final String ENCRYPTED_BACKUP_PASSPHRASE = "pref_encrypted_backup_passphrase";
   private static final String BACKUP_TIME                 = "pref_backup_next_time";
   public  static final String BACKUP_NOW                  = "pref_backup_create";
+  public  static final String BACKUP_DIRECTORY            = "pref_backup_directory";
+  public  static final String LATEST_BACKUP_DIRECTORY     = "pref_latest_backup_directory";
 
   public static final String SCREEN_LOCK         = "pref_android_screen_lock";
   public static final String SCREEN_LOCK_TIMEOUT = "pref_android_screen_lock_timeout";
@@ -406,6 +408,23 @@ public class TextSecurePreferences {
 
   public static long getNextBackupTime(@NonNull Context context) {
     return getLongPreference(context, BACKUP_TIME, -1);
+  }
+
+  public static void setBackupDirectory(@NonNull Context context, Uri uri) {
+    setStringPreference(context, BACKUP_DIRECTORY, uri.toString());
+    setStringPreference(context, LATEST_BACKUP_DIRECTORY, uri.toString());
+  }
+
+  public @Nullable static Uri getBackupDirectory(@NonNull Context context) {
+    return getUri(context, BACKUP_DIRECTORY);
+  }
+
+  public @Nullable static Uri getLatestBackupDirectory(@NonNull Context context) {
+    return getUri(context, LATEST_BACKUP_DIRECTORY);
+  }
+
+  public static void clearBackupDirectory(@NonNull Context context) {
+    setStringPreference(context, BACKUP_DIRECTORY, null);
   }
 
   public static int getNextPreKeyId(@NonNull Context context) {
@@ -1388,6 +1407,16 @@ public class TextSecurePreferences {
       return prefs.getStringSet(key, Collections.<String>emptySet());
     } else {
       return defaultValues;
+    }
+  }
+
+  private static @Nullable Uri getUri(@NonNull Context context, @NonNull String key) {
+    String uri = getStringPreference(context, key, "");
+
+    if (TextUtils.isEmpty(uri)) {
+      return null;
+    } else {
+      return Uri.parse(uri);
     }
   }
 

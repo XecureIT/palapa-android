@@ -2,10 +2,13 @@ package org.thoughtcrime.securesms.mediasend;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 import android.provider.OpenableColumns;
@@ -17,31 +20,37 @@ import android.util.Pair;
 import com.annimon.stream.Stream;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.logging.Log;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.util.MediaUtil;
+import org.thoughtcrime.securesms.util.StorageUtil;
 import org.thoughtcrime.securesms.util.Util;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.whispersystems.libsignal.util.guava.Optional;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Handles the retrieval of media present on the user's device.
  */
 class MediaRepository {
 
+  private static final String TAG    = Log.tag(MediaRepository.class);
+  private static final String CAMERA = "Camera";
+
   /**
    * Retrieves a list of folders that contain media.
    */
   void getFolders(@NonNull Context context, @NonNull Callback<List<MediaFolder>> callback) {
+    if (!StorageUtil.canReadFromMediaStore()) {
+      Log.w(TAG, "No storage permissions!", new Throwable());
+      callback.onComplete(Collections.emptyList());
+      return;
+    }
+
     SignalExecutors.BOUNDED.execute(() -> callback.onComplete(getFolders(context)));
   }
 
@@ -49,6 +58,12 @@ class MediaRepository {
    * Retrieves a list of media items (images and videos) that are present int he specified bucket.
    */
   void getMediaInBucket(@NonNull Context context, @NonNull String bucketId, @NonNull Callback<List<Media>> callback) {
+    if (!StorageUtil.canReadFromMediaStore()) {
+      Log.w(TAG, "No storage permissions!", new Throwable());
+      callback.onComplete(Collections.emptyList());
+      return;
+    }
+
     SignalExecutors.BOUNDED.execute(() -> callback.onComplete(getMediaInBucket(context, bucketId)));
   }
 
@@ -62,19 +77,35 @@ class MediaRepository {
       return;
     }
 
+    if (!StorageUtil.canReadFromMediaStore()) {
+      Log.w(TAG, "No storage permissions!", new Throwable());
+      callback.onComplete(media);
+      return;
+    }
+
     SignalExecutors.BOUNDED.execute(() -> callback.onComplete(getPopulatedMedia(context, media)));
   }
 
   void getMostRecentItem(@NonNull Context context, @NonNull Callback<Optional<Media>> callback) {
+    if (!StorageUtil.canReadFromMediaStore()) {
+      Log.w(TAG, "No storage permissions!", new Throwable());
+      callback.onComplete(Optional.absent());
+      return;
+    }
+
     SignalExecutors.BOUNDED.execute(() -> callback.onComplete(getMostRecentItem(context)));
+  }
+
+  static void transformMedia(@NonNull Context context,
+                             @NonNull List<Media> currentMedia,
+                             @NonNull Map<Media, MediaTransform> modelsToTransform,
+                             @NonNull Callback<LinkedHashMap<Media, Media>> callback)
+  {
+    SignalExecutors.BOUNDED.execute(() -> callback.onComplete(transformMediaSync(context, currentMedia, modelsToTransform)));
   }
 
   @WorkerThread
   private @NonNull List<MediaFolder> getFolders(@NonNull Context context) {
-    if (!Permissions.hasAll(context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-      return Collections.emptyList();
-    }
-
     FolderResult imageFolders       = getFolders(context, Images.Media.EXTERNAL_CONTENT_URI);
     FolderResult videoFolders       = getFolders(context, Video.Media.EXTERNAL_CONTENT_URI);
     Map<String, FolderData> folders = new HashMap<>(imageFolders.getFolderData());
@@ -119,20 +150,19 @@ class MediaRepository {
 
   @WorkerThread
   private @NonNull FolderResult getFolders(@NonNull Context context, @NonNull Uri contentUri) {
-    String                  cameraPath         = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + File.separator + "Camera";
     String                  cameraBucketId     = null;
     Uri                     globalThumbnail    = null;
     long                    thumbnailTimestamp = 0;
     Map<String, FolderData> folders            = new HashMap<>();
 
-    String[] projection = new String[] { Images.Media.DATA, Images.Media.BUCKET_ID, Images.Media.BUCKET_DISPLAY_NAME, Images.Media.DATE_TAKEN };
-    String   selection  = Images.Media.DATA + " NOT NULL";
-    String   sortBy     = Images.Media.BUCKET_DISPLAY_NAME + " COLLATE NOCASE ASC, " + Images.Media.DATE_TAKEN + " DESC";
+    String[] projection = new String[] { Images.Media._ID, Images.Media.BUCKET_ID, Images.Media.BUCKET_DISPLAY_NAME, Images.Media.DATE_MODIFIED };
+    String   selection  = isNotPending();
+    String   sortBy     = Images.Media.BUCKET_DISPLAY_NAME + " COLLATE NOCASE ASC, " + Images.Media.DATE_MODIFIED + " DESC";
 
     try (Cursor cursor = context.getContentResolver().query(contentUri, projection, selection, null, sortBy)) {
       while (cursor != null && cursor.moveToNext()) {
-        String     path      = cursor.getString(cursor.getColumnIndexOrThrow(projection[0]));
-        Uri        thumbnail = Uri.fromFile(new File(path));
+        long       rowId     = cursor.getLong(cursor.getColumnIndexOrThrow(projection[0]));
+        Uri        thumbnail = ContentUris.withAppendedId(contentUri, rowId);
         String     bucketId  = cursor.getString(cursor.getColumnIndexOrThrow(projection[1]));
         String     title     = cursor.getString(cursor.getColumnIndexOrThrow(projection[2]));
         long       timestamp = cursor.getLong(cursor.getColumnIndexOrThrow(projection[3]));
@@ -141,7 +171,7 @@ class MediaRepository {
         folder.incrementCount();
         folders.put(bucketId, folder);
 
-        if (cameraBucketId == null && path.startsWith(cameraPath)) {
+        if (cameraBucketId == null && CAMERA.equals(title)) {
           cameraBucketId = bucketId;
         }
 
@@ -157,10 +187,6 @@ class MediaRepository {
 
   @WorkerThread
   private @NonNull List<Media> getMediaInBucket(@NonNull Context context, @NonNull String bucketId) {
-    if (!Permissions.hasAll(context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-      return Collections.emptyList();
-    }
-
     List<Media> images = getMediaInBucket(context, bucketId, Images.Media.EXTERNAL_CONTENT_URI, true);
     List<Media> videos = getMediaInBucket(context, bucketId, Video.Media.EXTERNAL_CONTENT_URI, false);
     List<Media> media  = new ArrayList<>(images.size() + videos.size());
@@ -175,47 +201,47 @@ class MediaRepository {
   @WorkerThread
   private @NonNull List<Media> getMediaInBucket(@NonNull Context context, @NonNull String bucketId, @NonNull Uri contentUri, boolean hasOrientation) {
     List<Media> media         = new LinkedList<>();
-    String      selection     = Images.Media.BUCKET_ID + " = ? AND " + Images.Media.DATA + " NOT NULL";
+    String      selection     = Images.Media.BUCKET_ID + " = ? AND " + isNotPending();
     String[]    selectionArgs = new String[] { bucketId };
-    String      sortBy        = Images.Media.DATE_TAKEN + " DESC";
+    String      sortBy        = Images.Media.DATE_MODIFIED + " DESC";
 
     String[] projection;
 
     if (hasOrientation) {
-      projection = new String[]{Images.Media.DATA, Images.Media.MIME_TYPE, Images.Media.DATE_TAKEN, Images.Media.ORIENTATION, Images.Media.WIDTH, Images.Media.HEIGHT, Images.Media.SIZE};
+      projection = new String[]{Images.Media._ID, Images.Media.MIME_TYPE, Images.Media.DATE_MODIFIED, Images.Media.ORIENTATION, Images.Media.WIDTH, Images.Media.HEIGHT, Images.Media.SIZE};
     } else {
-      projection = new String[]{Images.Media.DATA, Images.Media.MIME_TYPE, Images.Media.DATE_TAKEN, Images.Media.WIDTH, Images.Media.HEIGHT, Images.Media.SIZE};
+      projection = new String[]{Images.Media._ID, Images.Media.MIME_TYPE, Images.Media.DATE_MODIFIED, Images.Media.WIDTH, Images.Media.HEIGHT, Images.Media.SIZE, Video.Media.DURATION};
     }
 
     if (Media.ALL_MEDIA_BUCKET_ID.equals(bucketId)) {
-      selection     = Images.Media.DATA + " NOT NULL";
+      selection     = isNotPending();
       selectionArgs = null;
     }
 
     try (Cursor cursor = context.getContentResolver().query(contentUri, projection, selection, selectionArgs, sortBy)) {
       while (cursor != null && cursor.moveToNext()) {
-        String path        = cursor.getString(cursor.getColumnIndexOrThrow(projection[0]));
-        Uri    uri         = Uri.fromFile(new File(path));
+        long   rowId       = cursor.getLong(cursor.getColumnIndexOrThrow(projection[0]));
+        Uri    uri         = ContentUris.withAppendedId(contentUri, rowId);
         String mimetype    = cursor.getString(cursor.getColumnIndexOrThrow(Images.Media.MIME_TYPE));
-        long   dateTaken   = cursor.getLong(cursor.getColumnIndexOrThrow(Images.Media.DATE_TAKEN));
+        long   date        = cursor.getLong(cursor.getColumnIndexOrThrow(Images.Media.DATE_MODIFIED));
         int    orientation = hasOrientation ? cursor.getInt(cursor.getColumnIndexOrThrow(Images.Media.ORIENTATION)) : 0;
         int    width       = cursor.getInt(cursor.getColumnIndexOrThrow(getWidthColumn(orientation)));
         int    height      = cursor.getInt(cursor.getColumnIndexOrThrow(getHeightColumn(orientation)));
         long   size        = cursor.getLong(cursor.getColumnIndexOrThrow(Images.Media.SIZE));
 
-        media.add(new Media(uri, mimetype, dateTaken, width, height, size, Optional.of(bucketId), Optional.absent()));
+        media.add(new Media(uri, mimetype, date, width, height, size, Optional.of(bucketId), Optional.absent()));
       }
     }
 
     return media;
   }
 
+  private @NonNull String isNotPending() {
+    return Build.VERSION.SDK_INT <= 28 ? Images.Media.DATA + " NOT NULL" : MediaStore.MediaColumns.IS_PENDING + " != 1";
+  }
+
   @WorkerThread
   private List<Media> getPopulatedMedia(@NonNull Context context, @NonNull List<Media> media) {
-    if (!Permissions.hasAll(context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-      return media;
-    }
-
     return Stream.of(media).map(m -> {
       try {
         if (isPopulated(m)) {
@@ -232,11 +258,25 @@ class MediaRepository {
   }
 
   @WorkerThread
-  private Optional<Media> getMostRecentItem(@NonNull Context context) {
-    if (!Permissions.hasAll(context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-      return Optional.absent();
-    }
+  public static LinkedHashMap<Media, Media> transformMediaSync(@NonNull Context context,
+                                                               @NonNull List<Media> currentMedia,
+                                                               @NonNull Map<Media, MediaTransform> modelsToTransform)
+  {
+    LinkedHashMap<Media, Media> updatedMedia = new LinkedHashMap<>(currentMedia.size());
 
+    for (Media media : currentMedia) {
+      MediaTransform transformer = modelsToTransform.get(media);
+      if (transformer != null) {
+        updatedMedia.put(media, transformer.transform(context, media));
+      } else {
+        updatedMedia.put(media, media);
+      }
+    }
+    return updatedMedia;
+  }
+
+  @WorkerThread
+  private Optional<Media> getMostRecentItem(@NonNull Context context) {
     List<Media> media = getMediaInBucket(context, Media.ALL_MEDIA_BUCKET_ID, Images.Media.EXTERNAL_CONTENT_URI, true);
     return media.size() > 0 ? Optional.of(media.get(0)) : Optional.absent();
   }

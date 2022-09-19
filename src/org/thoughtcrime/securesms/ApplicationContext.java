@@ -17,24 +17,17 @@
 package org.thoughtcrime.securesms;
 
 import android.annotation.SuppressLint;
-
+import android.content.Context;
+import android.os.Build;
+import androidx.annotation.WorkerThread;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.camera.camera2.Camera2AppConfig;
 import androidx.camera.core.CameraX;
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ProcessLifecycleOwner;
-import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Build;
-import androidx.annotation.NonNull;
 import androidx.multidex.MultiDexApplication;
-
 import com.google.android.gms.security.ProviderInstaller;
-
 import org.conscrypt.Conscrypt;
 import org.signal.aesgcmprovider.AesGcmProvider;
-import org.signal.ringrtc.CallConnectionFactory;
+import org.signal.ringrtc.CallManager;
 import org.thoughtcrime.securesms.components.TypingStatusRepository;
 import org.thoughtcrime.securesms.components.TypingStatusSender;
 import org.thoughtcrime.securesms.database.helpers.SQLCipherOpenHelper;
@@ -47,29 +40,20 @@ import org.thoughtcrime.securesms.jobs.CreateSignedPreKeyJob;
 import org.thoughtcrime.securesms.jobs.FcmRefreshJob;
 import org.thoughtcrime.securesms.jobs.MultiDeviceContactUpdateJob;
 import org.thoughtcrime.securesms.jobs.PushNotificationReceiveJob;
-import org.thoughtcrime.securesms.logging.AndroidLogger;
-import org.thoughtcrime.securesms.logging.CustomSignalProtocolLogger;
-import org.thoughtcrime.securesms.logging.Log;
-import org.thoughtcrime.securesms.logging.PersistentLogger;
-import org.thoughtcrime.securesms.logging.UncaughtExceptionLogger;
+import org.thoughtcrime.securesms.logging.*;
 import org.thoughtcrime.securesms.mediasend.camerax.CameraXUtil;
 import org.thoughtcrime.securesms.migrations.ApplicationMigrations;
 import org.thoughtcrime.securesms.notifications.MessageNotifier;
 import org.thoughtcrime.securesms.notifications.NotificationChannels;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
-import org.thoughtcrime.securesms.ringrtc.RingRtcLogger;
-import org.thoughtcrime.securesms.service.DirectoryRefreshListener;
-import org.thoughtcrime.securesms.service.ExpiringMessageManager;
-import org.thoughtcrime.securesms.service.IncomingMessageObserver;
-import org.thoughtcrime.securesms.service.KeyCachingService;
-import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.revealable.ViewOnceMessageManager;
-import org.thoughtcrime.securesms.service.RotateSenderCertificateListener;
-import org.thoughtcrime.securesms.service.RotateSignedPreKeyListener;
-import org.thoughtcrime.securesms.service.UpdateApkRefreshListener;
-import org.thoughtcrime.securesms.util.FrameRateTracker;
+import org.thoughtcrime.securesms.ringrtc.RingRtcLogger;
+import org.thoughtcrime.securesms.service.*;
+import org.thoughtcrime.securesms.util.AppForegroundObserver;
+import org.thoughtcrime.securesms.util.AppStartup;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.dynamiclanguage.DynamicLanguageContextWrapper;
 import org.webrtc.voiceengine.WebRtcAudioManager;
 import org.webrtc.voiceengine.WebRtcAudioUtils;
@@ -88,7 +72,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Moxie Marlinspike
  */
-public class ApplicationContext extends MultiDexApplication implements DefaultLifecycleObserver {
+public class ApplicationContext extends MultiDexApplication implements AppForegroundObserver.Listener {
 
   private static final String TAG = ApplicationContext.class.getSimpleName();
 
@@ -99,58 +83,64 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   private IncomingMessageObserver  incomingMessageObserver;
   private PersistentLogger         persistentLogger;
 
-  private volatile boolean isAppVisible;
-
   public static ApplicationContext getInstance(Context context) {
     return (ApplicationContext)context.getApplicationContext();
   }
 
   @Override
   public void onCreate() {
+    AppStartup.getInstance().onApplicationCreate();
+
     super.onCreate();
-    Log.i(TAG, "onCreate()");
-    initializeSecurityProvider();
-    initializeLogging();
-    initializeCrashHandling();
-    initializeFirstEverAppLaunch();
-    initializeAppDependencies();
-    initializeApplicationMigrations();
-    initializeMessageRetrieval();
-    initializeExpiringMessageManager();
-    initializeRevealableMessageManager();
-    initializeTypingStatusRepository();
-    initializeTypingStatusSender();
-    initializeGcmCheck();
-    initializeSignedPreKeyCheck();
-    initializePeriodicTasks();
-    initializeCircumvention();
-    initializeRingRtc();
-    initializePendingMessages();
-    initializeBlobProvider();
-    initializeCameraX();
-    NotificationChannels.create(this);
-    ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
 
-    if (Build.VERSION.SDK_INT < 21) {
-      AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-    }
-
-    ApplicationDependencies.getJobManager().beginJobLoop();
+    AppStartup.getInstance().addBlocking("security-provider", this::initializeSecurityProvider)
+                            .addBlocking("logging", () -> {
+                              initializeLogging();
+                              Log.i(TAG, "onCreate()");
+                            })
+                            .addBlocking("crash-handling", this::initializeCrashHandling)
+                            .addBlocking("app-dependencies", this::initializeAppDependencies)
+                            .addBlocking("notification-channels", () -> NotificationChannels.create(this))
+                            .addBlocking("first-launch", this::initializeFirstEverAppLaunch)
+                            .addBlocking("app-migrations", this::initializeApplicationMigrations)
+                            .addBlocking("ring-rtc", this::initializeRingRtc)
+                            .addBlocking("lifecycle-observer", () -> ApplicationDependencies.getAppForegroundObserver().addListener(this))
+                            .addBlocking("message-retriever", this::initializeMessageRetrieval)
+                            .addBlocking("vector-compat", () -> {
+                              if (Build.VERSION.SDK_INT < 21) {
+                                AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+                              }
+                            })
+                            .addNonBlocking(this::initializeRevealableMessageManager)
+                            .addNonBlocking(this::initializeTypingStatusRepository)
+                            .addNonBlocking(this::initializeTypingStatusSender)
+                            .addNonBlocking(this::initializeGcmCheck)
+                            .addNonBlocking(this::initializeSignedPreKeyCheck)
+                            .addNonBlocking(this::initializePeriodicTasks)
+                            .addNonBlocking(this::initializeCircumvention)
+                            .addNonBlocking(this::initializePendingMessages)
+                            .addNonBlocking(this::initializeBlobProvider)
+                            .addNonBlocking(this::initializeCameraX)
+                            .addNonBlocking(() -> ApplicationDependencies.getJobManager().beginJobLoop())
+                            .addPostRender(this::initializeExpiringMessageManager)
+                            .execute();
   }
 
   @Override
-  public void onStart(@NonNull LifecycleOwner owner) {
-    isAppVisible = true;
+    public void onForeground() {
     Log.i(TAG, "App is now visible.");
-    ApplicationDependencies.getRecipientCache().warmUp();
-    executePendingContactSync();
-    KeyCachingService.onAppForegrounded(this);
+
     ApplicationDependencies.getFrameRateTracker().begin();
+
+    SignalExecutors.BOUNDED.execute(() -> {
+      ApplicationDependencies.getRecipientCache().warmUp();
+      executePendingContactSync();
+      KeyCachingService.onAppForegrounded(this);
+    });
   }
 
   @Override
-  public void onStop(@NonNull LifecycleOwner owner) {
-    isAppVisible = false;
+    public void onBackground() {
     Log.i(TAG, "App is no longer visible.");
     KeyCachingService.onAppBackgrounded(this);
     MessageNotifier.setVisibleThread(-1);
@@ -171,10 +161,6 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
 
   public TypingStatusSender getTypingStatusSender() {
     return typingStatusSender;
-  }
-
-  public boolean isAppVisible() {
-    return isAppVisible;
   }
 
   public PersistentLogger getPersistentLogger() {
@@ -273,7 +259,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
   }
 
   private void initializeTypingStatusSender() {
-    this.typingStatusSender = new TypingStatusSender(this);
+    this.typingStatusSender = new TypingStatusSender();
   }
 
   private void initializePeriodicTasks() {
@@ -297,6 +283,7 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
         add("Moto G4");
         add("TA-1053");
         add("Mi A1");
+        add("Mi A2");
         add("E5823"); // Sony z5 compact
         add("Redmi Note 5");
         add("FP2"); // Fairphone FP2
@@ -316,29 +303,21 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
         WebRtcAudioManager.setBlacklistDeviceForOpenSLESUsage(true);
       }
 
-      CallConnectionFactory.initialize(this, new RingRtcLogger());
+      CallManager.initialize(this, new RingRtcLogger());
     } catch (UnsatisfiedLinkError e) {
-      Log.w(TAG, e);
+      throw new AssertionError("Unable to load ringrtc library", e);
     }
   }
 
-  @SuppressLint("StaticFieldLeak")
+  @WorkerThread
   private void initializeCircumvention() {
-    AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
-      @Override
-      protected Void doInBackground(Void... params) {
-        if (new SignalServiceNetworkAccess(ApplicationContext.this).isCensored(ApplicationContext.this)) {
-          try {
-            ProviderInstaller.installIfNeeded(ApplicationContext.this);
-          } catch (Throwable t) {
-            Log.w(TAG, t);
-          }
-        }
-        return null;
+    if (new SignalServiceNetworkAccess(ApplicationContext.this).isCensored(ApplicationContext.this)) {
+      try {
+        ProviderInstaller.installIfNeeded(ApplicationContext.this);
+      } catch (Throwable t) {
+        Log.w(TAG, t);
       }
-    };
-
-    task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
   }
 
   private void executePendingContactSync() {
@@ -359,22 +338,19 @@ public class ApplicationContext extends MultiDexApplication implements DefaultLi
     }
   }
 
+  @WorkerThread
   private void initializeBlobProvider() {
-    AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
-      BlobProvider.getInstance().onSessionStart(this);
-    });
+    BlobProvider.getInstance().onSessionStart(this);
   }
 
   @SuppressLint("RestrictedApi")
   private void initializeCameraX() {
     if (CameraXUtil.isSupported()) {
-      new Thread(() -> {
-        try {
-          CameraX.init(this, Camera2AppConfig.create(this));
-        } catch (Throwable t) {
-          Log.w(TAG, "Failed to initialize CameraX.");
-        }
-      }, "signal-camerax-initialization").start();
+      try {
+        CameraX.init(this, Camera2AppConfig.create(this));
+      } catch (Throwable t) {
+        Log.w(TAG, "Failed to initialize CameraX.");
+      }
     }
   }
 

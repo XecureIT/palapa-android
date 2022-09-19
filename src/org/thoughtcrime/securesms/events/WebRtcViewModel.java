@@ -1,16 +1,17 @@
 package org.thoughtcrime.securesms.events;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
+import com.annimon.stream.Stream;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.ringrtc.CameraState;
-import org.webrtc.SurfaceViewRenderer;
-import org.whispersystems.libsignal.IdentityKey;
+import org.thoughtcrime.securesms.service.webrtc.state.WebRtcServiceState;
+
+import java.util.List;
 
 public class WebRtcViewModel {
 
   public enum State {
+    IDLE,
+
     // Normal states
     CALL_INCOMING,
     CALL_OUTGOING,
@@ -23,62 +24,31 @@ public class WebRtcViewModel {
     NETWORK_FAILURE,
     RECIPIENT_UNAVAILABLE,
     NO_SUCH_USER,
-    UNTRUSTED_IDENTITY,
+    UNTRUSTED_IDENTITY;
+
+    public boolean isErrorState() {
+      return this == NETWORK_FAILURE       ||
+             this == RECIPIENT_UNAVAILABLE ||
+             this == NO_SUCH_USER          ||
+             this == UNTRUSTED_IDENTITY;
+    }
   }
 
+  private final @NonNull State        state;
+  private final @NonNull Recipient    recipient;
 
-  private final @NonNull  State       state;
-  private final @NonNull  Recipient   recipient;
-  private final @Nullable IdentityKey identityKey;
+  private final boolean               isBluetoothAvailable;
+  private final CallParticipant       localParticipant;
+  private final List<CallParticipant> remoteParticipants;
 
-  private final boolean remoteVideoEnabled;
-
-  private final boolean isBluetoothAvailable;
-  private final boolean isMicrophoneEnabled;
-
-  private final CameraState         localCameraState;
-  private final SurfaceViewRenderer localRenderer;
-  private final SurfaceViewRenderer remoteRenderer;
-
-  public WebRtcViewModel(@NonNull State               state,
-                         @NonNull Recipient           recipient,
-                         @NonNull CameraState         localCameraState,
-                         @NonNull SurfaceViewRenderer localRenderer,
-                         @NonNull SurfaceViewRenderer remoteRenderer,
-                                  boolean             remoteVideoEnabled,
-                                  boolean             isBluetoothAvailable,
-                                  boolean             isMicrophoneEnabled)
-  {
-    this(state,
-         recipient,
-         null,
-         localCameraState,
-         localRenderer,
-         remoteRenderer,
-         remoteVideoEnabled,
-         isBluetoothAvailable,
-         isMicrophoneEnabled);
-  }
-
-  public WebRtcViewModel(@NonNull  State               state,
-                         @NonNull  Recipient           recipient,
-                         @Nullable IdentityKey         identityKey,
-                         @NonNull  CameraState         localCameraState,
-                         @NonNull  SurfaceViewRenderer localRenderer,
-                         @NonNull  SurfaceViewRenderer remoteRenderer,
-                                   boolean             remoteVideoEnabled,
-                                   boolean             isBluetoothAvailable,
-                                   boolean             isMicrophoneEnabled)
-  {
-    this.state                = state;
-    this.recipient            = recipient;
-    this.localCameraState     = localCameraState;
-    this.localRenderer        = localRenderer;
-    this.remoteRenderer       = remoteRenderer;
-    this.identityKey          = identityKey;
-    this.remoteVideoEnabled   = remoteVideoEnabled;
-    this.isBluetoothAvailable = isBluetoothAvailable;
-    this.isMicrophoneEnabled  = isMicrophoneEnabled;
+  public WebRtcViewModel(@NonNull WebRtcServiceState state) {
+    this.state                     = state.getCallInfoState().getCallState();
+    this.recipient                 = state.getCallInfoState().getCallRecipient();
+    this.isBluetoothAvailable      = state.getLocalDeviceState().isBluetoothAvailable();
+    this.remoteParticipants        = state.getCallInfoState().getRemoteCallParticipants();
+    this.localParticipant          = CallParticipant.createLocal(state.getLocalDeviceState().getCameraState(),
+                                                                 state.getVideoState().requireLocalRenderer(),
+                                                                 state.getLocalDeviceState().isMicrophoneEnabled());
   }
 
   public @NonNull State getState() {
@@ -89,35 +59,30 @@ public class WebRtcViewModel {
     return recipient;
   }
 
-  public @NonNull CameraState getLocalCameraState() {
-    return localCameraState;
-  }
-
-  public @Nullable IdentityKey getIdentityKey() {
-    return identityKey;
-  }
-
   public boolean isRemoteVideoEnabled() {
-    return remoteVideoEnabled;
+    return Stream.of(remoteParticipants).anyMatch(CallParticipant::isVideoEnabled);
   }
 
   public boolean isBluetoothAvailable() {
     return isBluetoothAvailable;
   }
 
-  public boolean isMicrophoneEnabled() {
-    return isMicrophoneEnabled;
+  public @NonNull CallParticipant getLocalParticipant() {
+    return localParticipant;
   }
 
-  public SurfaceViewRenderer getLocalRenderer() {
-    return localRenderer;
+  public @NonNull List<CallParticipant> getRemoteParticipants() {
+    return remoteParticipants;
   }
 
-  public SurfaceViewRenderer getRemoteRenderer() {
-    return remoteRenderer;
-  }
-
+  @Override
   public @NonNull String toString() {
-    return "[State: " + state + ", recipient: " + recipient.getId().serialize() + ", identity: " + identityKey + ", remoteVideo: " + remoteVideoEnabled + ", localVideo: " + localCameraState.isEnabled() + "]";
+    return "WebRtcViewModel{" +
+           "state=" + state +
+           ", recipient=" + recipient.getId() +
+           ", isBluetoothAvailable=" + isBluetoothAvailable +
+           ", localParticipant=" + localParticipant +
+           ", remoteParticipants=" + remoteParticipants +
+           '}';
   }
 }

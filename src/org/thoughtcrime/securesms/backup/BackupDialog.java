@@ -1,18 +1,21 @@
 package org.thoughtcrime.securesms.backup;
 
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
+import android.content.*;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.DocumentsContract;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
 import org.thoughtcrime.securesms.R;
-import org.thoughtcrime.securesms.components.SwitchPreferenceCompat;
 import org.thoughtcrime.securesms.service.LocalBackupListener;
 import org.thoughtcrime.securesms.util.BackupUtil;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
@@ -20,7 +23,10 @@ import org.thoughtcrime.securesms.util.Util;
 
 public class BackupDialog {
 
-  public static void showEnableBackupDialog(@NonNull Context context, @NonNull SwitchPreferenceCompat preference) {
+  public static void showEnableBackupDialog(@NonNull Context context,
+                                            @Nullable Intent backupDirectorySelectionIntent,
+                                            @NonNull Runnable onBackupsEnabled)
+  {
     String[]    password = BackupUtil.generateBackupPassphrase();
     AlertDialog dialog   = new AlertDialog.Builder(context)
                                           .setTitle(R.string.BackupDialog_enable_local_backups)
@@ -34,11 +40,22 @@ public class BackupDialog {
       button.setOnClickListener(v -> {
         CheckBox confirmationCheckBox = dialog.findViewById(R.id.confirmation_check);
         if (confirmationCheckBox.isChecked()) {
+          if (backupDirectorySelectionIntent != null && backupDirectorySelectionIntent.getData() != null) {
+            Uri backupDirectoryUri = backupDirectorySelectionIntent.getData();
+            int takeFlags          = Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+
+            TextSecurePreferences.setBackupDirectory(context, backupDirectoryUri);
+            context.getContentResolver()
+                    .takePersistableUriPermission(backupDirectoryUri, takeFlags);
+          }
+
           BackupPassphrase.set(context, Util.join(password, " "));
+          TextSecurePreferences.setNextBackupTime(context, 0);
           TextSecurePreferences.setBackupEnabled(context, true);
           LocalBackupListener.schedule(context);
 
-          preference.setChecked(true);
+          onBackupsEnabled.run();
           created.dismiss();
         } else {
           Toast.makeText(context, R.string.BackupDialog_please_acknowledge_your_understanding_by_marking_the_confirmation_check_box, Toast.LENGTH_LONG).show();
@@ -69,16 +86,47 @@ public class BackupDialog {
 
   }
 
-  public static void showDisableBackupDialog(@NonNull Context context, @NonNull SwitchPreferenceCompat preference) {
+  @RequiresApi(29)
+  public static void showChooseBackupLocationDialog(@NonNull Fragment fragment, int requestCode) {
+    new AlertDialog.Builder(fragment.requireContext())
+            .setView(R.layout.backup_choose_location_dialog)
+            .setCancelable(true)
+            .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+              dialog.dismiss();
+            })
+            .setPositiveButton(R.string.BackupDialog_choose_folder, ((dialog, which) -> {
+              Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+
+              if (Build.VERSION.SDK_INT >= 26) {
+                intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, TextSecurePreferences.getLatestBackupDirectory(fragment.requireContext()));
+              }
+
+              intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION |
+                              Intent.FLAG_GRANT_WRITE_URI_PERMISSION       |
+                              Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+              try {
+                fragment.startActivityForResult(intent, requestCode);
+              } catch (ActivityNotFoundException e) {
+                Toast.makeText(fragment.requireContext(), R.string.BackupDialog_no_file_picker_available, Toast.LENGTH_LONG)
+                        .show();
+              }
+
+              dialog.dismiss();
+            }))
+            .create()
+            .show();
+  }
+
+  public static void showDisableBackupDialog(@NonNull Context context, @NonNull Runnable onBackupsDisabled) {
     new AlertDialog.Builder(context)
                    .setTitle(R.string.BackupDialog_delete_backups)
                    .setMessage(R.string.BackupDialog_disable_and_delete_all_local_backups)
                    .setNegativeButton(android.R.string.cancel, null)
                    .setPositiveButton(R.string.BackupDialog_delete_backups_statement, (dialog, which) -> {
-                     BackupPassphrase.set(context, null);
-                     TextSecurePreferences.setBackupEnabled(context, false);
-                     BackupUtil.deleteAllBackups();
-                     preference.setChecked(false);
+                     BackupUtil.disableBackups(context);
+
+                     onBackupsDisabled.run();
                    })
                    .create()
                    .show();

@@ -122,7 +122,7 @@
 
     <!-- ClearProfileActivity -->
     <string name="ClearProfileActivity_remove">Remove</string>
-    <string name="ClearProfileActivity_remove_profile_photo">Remove profile photo?</string>
+    <string name="ClearProfileActivity_remove_profile_photo">Remove photo?</string>
 
     <!-- CommunicationActions -->
     <string name="CommunicationActions_no_browser_found">No web browser found.</string>
@@ -335,10 +335,30 @@
     <string name="CreateProfileActivity_signal_profiles_are_end_to_end_encrypted">&app_name; profiles are end-to-end encrypted, and the &app_name; service never has access to this information.</string>
     <string name="CreateProfileActivity_set_avatar_description">Set avatar</string>
 
+    <!-- ChooseBackupFragment -->
+    <string name="ChooseBackupFragment__restore_from_backup">Restore from backup?</string>
+    <string name="ChooseBackupFragment__restore_your_messages_and_media">Restore your messages and media from a local backup. If you don\'t restore now, you won\'t be able to restore later.</string>
+    <string name="ChooseBackupFragment__icon_content_description">Restore from backup icon</string>
+    <string name="ChooseBackupFragment__choose_backup">Choose backup</string>
+    <string name="ChooseBackupFragment__learn_more">Learn more</string>
+    <string name="ChooseBackupFragment__no_file_browser_available">No file browser available</string>
+
+    <!-- RestoreBackupFragment -->
+    <string name="RestoreBackupFragment__restore_complete">Restore complete</string>
+    <string name="RestoreBackupFragment__to_continue_using_backups_please_choose_a_folder">To continue using backups, please choose a folder. New backups will be saved to this location.</string>
+    <string name="RestoreBackupFragment__choose_folder">Choose folder</string>
+    <string name="RestoreBackupFragment__not_now">Not now</string>
+
     <!-- CustomDefaultPreference -->
     <string name="CustomDefaultPreference_using_custom">Using custom: %s</string>
     <string name="CustomDefaultPreference_using_default">Using default: %s</string>
     <string name="CustomDefaultPreference_none">None</string>
+
+    <!-- AvatarSelectionBottomSheetDialogFragment -->
+    <string name="AvatarSelectionBottomSheetDialogFragment__choose_photo">Choose photo</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__take_photo">Take photo</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__choose_from_gallery">Choose from gallery</string>
+    <string name="AvatarSelectionBottomSheetDialogFragment__remove_photo">Remove photo</string>
 
     <!-- DateUtils -->
     <string name="DateUtils_just_now">Now</string>
@@ -549,6 +569,7 @@
     <string name="NotificationBarManager_signal_call_in_progress">&app_name; call in progress</string>
     <string name="NotificationBarManager__establishing_signal_call">Establishing &app_name; call</string>
     <string name="NotificationBarManager__incoming_signal_call">Incoming &app_name; call</string>
+    <string name="NotificationBarManager__stopping_signal_call_service">Stopping &app_name; call service</string>
     <string name="NotificationBarManager__deny_call">Deny call</string>
     <string name="NotificationBarManager__answer_call">Answer call</string>
     <string name="NotificationBarManager__end_call">End call</string>
@@ -733,6 +754,7 @@
     <string name="RegistrationActivity_more_information">More information</string>
     <string name="RegistrationActivity_less_information">Less information</string>
     <string name="RegistrationActivity_signal_needs_access_to_your_contacts_and_media_in_order_to_connect_with_friends">&app_name; needs access to your contacts and media in order to connect with friends, exchange messages, and make secure calls</string>
+    <string name="RegistrationActivity_signal_needs_access_to_your_contacts_in_order_to_connect_with_friends">Signal needs access to your contacts in order to connect with friends, exchange messages, and make secure calls</string>
     <string name="RegistrationActivity_unable_to_connect_to_service">Unable to connect to service. Please check network connection and try again.</string>
     <string name="RegistrationActivity_to_easily_verify_your_phone_number_signal_can_automatically_detect_your_verification_code">To easily verify your phone number, &app_name; can automatically detect your verification code if you allow &app_name; to view SMS messages.</string>
     <plurals name="RegistrationActivity_debug_log_hint">
@@ -819,6 +841,9 @@
     <string name="StickerPackPreviewActivity_remove">Remove</string>
     <string name="StickerPackPreviewActivity_stickers">Stickers</string>
     <string name="StickerPackPreviewActivity_failed_to_load_sticker_pack">Failed to load sticker pack</string>
+
+    <!--StorageUtil-->
+    <string name="StorageUtil__s_s">%1$s/%2$s</string>
 
     <!-- ThreadRecord -->
     <string name="ThreadRecord_group_updated">Group updated</string>
@@ -1718,6 +1743,8 @@
     <string name="ExperienceUpgradeActivity_please_unlock_signal_to_complete_update">Please unlock &app_name; to complete update</string>
     <string name="enter_backup_passphrase_dialog__backup_passphrase">Backup passphrase</string>
     <string name="backup_enable_dialog__backups_will_be_saved_to_external_storage_and_encrypted_with_the_passphrase_below_you_must_have_this_passphrase_in_order_to_restore_a_backup">Backups will be saved to external storage and encrypted with the passphrase below. You must have this passphrase in order to restore a backup.</string>
+    <string name="backup_enable_dialog__you_must_have_this_passphrase">You must have this passphrase in order to restore a backup.</string>
+    <string name="backup_enable_dialog__folder">Folder</string>
     <string name="backup_enable_dialog__i_have_written_down_this_passphrase">I have written down this passphrase. Without it, I will be unable to restore a backup.</string>
     <string name="registration_activity__restore_backup">Restore backup</string>
     <string name="registration_activity__skip">Skip</string>
@@ -1725,6 +1752,7 @@
     <string name="preferences_chats__chat_backups">Chat backups</string>
     <string name="preferences_chats__backup_chats_to_external_storage">Backup chats to external storage</string>
     <string name="preferences_chats__create_backup">Create backup</string>
+    <string name="preferences_chats__backup_folder">Backup folder</string>
     <string name="RegistrationActivity_enter_backup_passphrase">Enter backup passphrase</string>
     <string name="RegistrationActivity_restore">Restore</string>
     <string name="RegistrationActivity_backup_failure_downgrade">Cannot import backups from newer versions of &app_name;</string>
@@ -1741,7 +1769,10 @@
     <string name="BackupDialog_delete_backups">Delete backups?</string>
     <string name="BackupDialog_disable_and_delete_all_local_backups">Disable and delete all local backups?</string>
     <string name="BackupDialog_delete_backups_statement">Delete backups</string>
+    <string name="BackupDialog_to_enable_backups_choose_a_folder">To enable backups, choose a folder. Backups will be saved to this location.</string>
+    <string name="BackupDialog_choose_folder">Choose folder</string>
     <string name="BackupDialog_copied_to_clipboard">Copied to clipboard</string>
+    <string name="BackupDialog_no_file_picker_available">No file picker available.</string>
     <string name="ChatsPreferenceFragment_signal_requires_external_storage_permission_in_order_to_create_backups">&app_name; requires external storage permission in order to create backups, but it has been permanently denied. Please continue to app settings, select \"Permissions\" and enable \"Storage\".</string>
     <string name="ChatsPreferenceFragment_last_backup_s">Last backup: %s</string>
     <string name="ChatsPreferenceFragment_in_progress">In progress</string>

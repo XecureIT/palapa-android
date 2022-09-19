@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
+import androidx.annotation.RequiresApi;
+import androidx.documentfile.provider.DocumentFile;
 import com.annimon.stream.function.Consumer;
 import com.annimon.stream.function.Predicate;
 import com.google.android.collect.Sets;
@@ -21,7 +23,6 @@ import org.thoughtcrime.securesms.crypto.ClassicDecryptingPartInputStream;
 import org.thoughtcrime.securesms.crypto.IdentityKeyUtil;
 import org.thoughtcrime.securesms.crypto.ModernDecryptingPartInputStream;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
-import org.thoughtcrime.securesms.database.DatabaseFactory;
 import org.thoughtcrime.securesms.database.GroupReceiptDatabase;
 import org.thoughtcrime.securesms.database.JobDatabase;
 import org.thoughtcrime.securesms.database.MmsDatabase;
@@ -48,10 +49,7 @@ import java.io.OutputStream;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -77,14 +75,39 @@ public class FullBackupExporter extends FullBackupBase {
     JobDatabase.DEPENDENCIES_TABLE_NAME
   );
 
-public static void export(@NonNull Context context,
-@NonNull AttachmentSecret attachmentSecret,
+  public static void export(@NonNull Context context,
+                            @NonNull AttachmentSecret attachmentSecret,
                             @NonNull SQLiteDatabase input,
                             @NonNull File output,
                             @NonNull String passphrase)
+          throws IOException
+  {
+    try (OutputStream outputStream = new FileOutputStream(output)) {
+      internalExport(context, attachmentSecret, input, outputStream, passphrase);
+    }
+  }
+
+  @RequiresApi(29)
+  public static void export(@NonNull Context context,
+                            @NonNull AttachmentSecret attachmentSecret,
+                            @NonNull SQLiteDatabase input,
+                            @NonNull DocumentFile output,
+                            @NonNull String passphrase)
+          throws IOException
+  {
+    try (OutputStream outputStream = Objects.requireNonNull(context.getContentResolver().openOutputStream(output.getUri()))) {
+      internalExport(context, attachmentSecret, input, outputStream, passphrase);
+    }
+  }
+
+  private static void internalExport(@NonNull Context context,
+                                     @NonNull AttachmentSecret attachmentSecret,
+                                     @NonNull SQLiteDatabase input,
+                                     @NonNull OutputStream fileOutputStream,
+                                     @NonNull String passphrase)
       throws IOException
   {
-    BackupFrameOutputStream outputStream = new BackupFrameOutputStream(output, passphrase);
+    BackupFrameOutputStream outputStream = new BackupFrameOutputStream(fileOutputStream, passphrase);
     outputStream.writeDatabaseVersion(input.getVersion());
 
     List<String> tables = exportSchema(input, outputStream);
@@ -310,7 +333,7 @@ public static void export(@NonNull Context context,
     private byte[] iv;
     private int    counter;
 
-    private BackupFrameOutputStream(@NonNull File output, @NonNull String passphrase) throws IOException {
+    private BackupFrameOutputStream(@NonNull OutputStream output, @NonNull String passphrase) throws IOException {
       try {
         byte[]   salt    = Util.getSecretBytes(32);
         byte[]   key     = getBackupKey(passphrase, salt);
@@ -322,7 +345,7 @@ public static void export(@NonNull Context context,
 
         this.cipher       = Cipher.getInstance("AES/CTR/NoPadding");
         this.mac          = Mac.getInstance("HmacSHA256");
-        this.outputStream = new FileOutputStream(output);
+        this.outputStream = output;
         this.iv           = Util.getSecretBytes(16);
         this.counter      = Conversions.byteArrayToInt(iv);
 

@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.os.Vibrator;
+import android.os.storage.StorageManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -31,6 +32,10 @@ public class ServiceUtil {
 
   public static WindowManager getWindowManager(Context context) {
     return (WindowManager) context.getSystemService(Activity.WINDOW_SERVICE);
+  }
+
+  public static StorageManager getStorageManager(Context context) {
+    return ContextCompat.getSystemService(context, StorageManager.class);
   }
 
   public static ConnectivityManager getConnectivityManager(Context context) {

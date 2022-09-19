@@ -22,14 +22,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -53,7 +50,6 @@ import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
@@ -98,6 +94,7 @@ import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.mms.OutgoingMediaMessage;
 import org.thoughtcrime.securesms.mms.PartAuthority;
 import org.thoughtcrime.securesms.mms.Slide;
+import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.profiles.UnknownSenderView;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.reactions.ReactionsBottomSheetDialogFragment;
@@ -110,13 +107,7 @@ import org.thoughtcrime.securesms.sms.MessageSender;
 import org.thoughtcrime.securesms.sms.OutgoingTextMessage;
 import org.thoughtcrime.securesms.stickers.StickerLocator;
 import org.thoughtcrime.securesms.stickers.StickerPackPreviewActivity;
-import org.thoughtcrime.securesms.util.CommunicationActions;
-import org.thoughtcrime.securesms.util.FeatureFlags;
-import org.thoughtcrime.securesms.util.SaveAttachmentTask;
-import org.thoughtcrime.securesms.util.StickyHeaderDecoration;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
-import org.thoughtcrime.securesms.util.Util;
-import org.thoughtcrime.securesms.util.ViewUtil;
+import org.thoughtcrime.securesms.util.*;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 import org.thoughtcrime.securesms.util.task.ProgressDialogAsyncTask;
@@ -642,37 +633,37 @@ public class ConversationFragment extends Fragment
   }
 
   private void handleSaveAttachment(final MediaMmsMessageRecord message) {
-    SaveAttachmentTask.showWarningDialog(getActivity(), new DialogInterface.OnClickListener() {
-      public void onClick(DialogInterface dialog, int which) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-          ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
-                          Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                          Manifest.permission.MANAGE_EXTERNAL_STORAGE},
-                  1);
-          if(!Environment.isExternalStorageManager()) {
-            Intent intent = new Intent();
-            intent.setAction(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-            Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
-            intent.setData(uri);
-            startActivity(intent);
-          }
-        }
-        List<SaveAttachmentTask.Attachment> attachments = Stream.of(message.getSlideDeck().getSlides())
-                                                                .filter(s -> s.getUri() != null && (s.hasImage() || s.hasVideo() || s.hasAudio() || s.hasDocument()))
-                                                                .map(s -> new SaveAttachmentTask.Attachment(s.getUri(), s.getContentType(), message.getDateReceived(), s.getFileName().orNull()))
-                                                                .toList();
-        if (!Util.isEmpty(attachments)) {
-          SaveAttachmentTask saveTask = new SaveAttachmentTask(getActivity());
-          saveTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, attachments.toArray(new SaveAttachmentTask.Attachment[0]));
-          return;
-        }
-
-        Log.w(TAG, "No slide with attachable media found, failing nicely.");
-        Toast.makeText(getActivity(),
-                       getResources().getQuantityString(R.plurals.ConversationFragment_error_while_saving_attachments_to_sd_card, 1),
-                       Toast.LENGTH_LONG).show();
+    SaveAttachmentTask.showWarningDialog(getActivity(), (dialog, which) -> {
+      if (StorageUtil.canWriteToMediaStore()) {
+        performSave(message);
+        return;
       }
+
+      Permissions.with(this)
+                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                 .ifNecessary()
+                 .withPermanentDenialDialog(getString(R.string.MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied))
+                 .onAnyDenied(() -> Toast.makeText(requireContext(), R.string.MediaPreviewActivity_unable_to_write_to_external_storage_without_permission, Toast.LENGTH_LONG).show())
+                 .onAllGranted(() -> performSave(message))
+                 .execute();
     });
+  }
+
+  private void performSave(final MediaMmsMessageRecord message) {
+    List<SaveAttachmentTask.Attachment> attachments = Stream.of(message.getSlideDeck().getSlides())
+                                                            .filter(s -> s.getUri() != null && (s.hasImage() || s.hasVideo() || s.hasAudio() || s.hasDocument()))
+                                                            .map(s -> new SaveAttachmentTask.Attachment(s.getUri(), s.getContentType(), message.getDateReceived(), s.getFileName().orNull()))
+                                                            .toList();
+    if (!Util.isEmpty(attachments)) {
+      SaveAttachmentTask saveTask = new SaveAttachmentTask(getActivity());
+      saveTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, attachments.toArray(new SaveAttachmentTask.Attachment[0]));
+      return;
+    }
+
+    Log.w(TAG, "No slide with attachable media found, failing nicely.");
+    Toast.makeText(getActivity(),
+                   getResources().getQuantityString(R.plurals.ConversationFragment_error_while_saving_attachments_to_sd_card, 1),
+                   Toast.LENGTH_LONG).show();
   }
 
   @Override

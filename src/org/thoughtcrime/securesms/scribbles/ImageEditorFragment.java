@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import org.thoughtcrime.securesms.BuildConfig;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.imageeditor.ColorableRenderer;
 import org.thoughtcrime.securesms.imageeditor.ImageEditorView;
@@ -31,10 +32,7 @@ import org.thoughtcrime.securesms.permissions.Permissions;
 import org.thoughtcrime.securesms.providers.BlobProvider;
 import org.thoughtcrime.securesms.scribbles.widget.VerticalSlideColorPicker;
 import org.thoughtcrime.securesms.stickers.StickerSearchRepository;
-import org.thoughtcrime.securesms.util.MediaUtil;
-import org.thoughtcrime.securesms.util.ParcelUtil;
-import org.thoughtcrime.securesms.util.SaveAttachmentTask;
-import org.thoughtcrime.securesms.util.TextSecurePreferences;
+import org.thoughtcrime.securesms.util.*;
 import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 
@@ -48,7 +46,8 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
 
   private static final String TAG = Log.tag(ImageEditorFragment.class);
 
-  private static final String KEY_IMAGE_URI = "image_uri";
+  private static final String KEY_IMAGE_URI      = "image_uri";
+  private static final String KEY_IS_AVATAR_MODE = "avatar_mode";
 
   private static final int SELECT_OLD_STICKER_REQUEST_CODE = 123;
   private static final int SELECT_NEW_STICKER_REQUEST_CODE = 124;
@@ -91,6 +90,12 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
   private ImageEditorHud  imageEditorHud;
   private ImageEditorView imageEditorView;
 
+  public static ImageEditorFragment newInstanceForAvatar(@NonNull Uri imageUri) {
+    ImageEditorFragment fragment = newInstance(imageUri);
+    fragment.requireArguments().putBoolean(KEY_IS_AVATAR_MODE, true);
+    return fragment;
+  }
+
   public static ImageEditorFragment newInstance(@NonNull Uri imageUri) {
     Bundle args = new Bundle();
     args.putParcelable(KEY_IMAGE_URI, imageUri);
@@ -122,12 +127,14 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
     imageMaxWidth  = mediaConstraints.getImageMaxWidth(requireContext());
     imageMaxHeight = mediaConstraints.getImageMaxHeight(requireContext());
 
-    StickerSearchRepository repository = new StickerSearchRepository(requireContext());
+    if (!BuildConfig.SIGNAL_CDN.isEmpty()) {
+      StickerSearchRepository repository = new StickerSearchRepository(requireContext());
 
-    viewModel = ViewModelProviders.of(this, new ImageEditorFragmentViewModel.Factory(requireActivity().getApplication(), repository))
-                                  .get(ImageEditorFragmentViewModel.class);
+      viewModel = ViewModelProviders.of(this, new ImageEditorFragmentViewModel.Factory(requireActivity().getApplication(), repository))
+              .get(ImageEditorFragmentViewModel.class);
 
-    viewModel.getStickersAvailability().observe(this, isAvailable -> imageEditorHud.setStickersAvailable(isAvailable));
+      viewModel.getStickersAvailability().observe(this, isAvailable -> imageEditorHud.setStickersAvailable(isAvailable));
+    }
   }
 
   @Nullable
@@ -139,6 +146,8 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
+    boolean isAvatarMode = requireArguments().getBoolean(KEY_IS_AVATAR_MODE, false);
 
     imageEditorHud  = view.findViewById(R.id.scribble_hud);
     imageEditorView = view.findViewById(R.id.image_editor_view);
@@ -157,10 +166,15 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
     }
 
     if (editorModel == null) {
-      editorModel = new EditorModel();
+      editorModel = isAvatarMode ? EditorModel.createForCircleEditing() : EditorModel.create();
       EditorElement image = new EditorElement(new UriGlideRenderer(imageUri, true, imageMaxWidth, imageMaxHeight));
       image.getFlags().setSelectable(false).persist();
       editorModel.addElement(image);
+    }
+
+    if (isAvatarMode) {
+      imageEditorHud.setUpForAvatarEditing();
+      imageEditorHud.enterMode(ImageEditorHud.Mode.CROP);
     }
 
     imageEditorView.setModel(editorModel);
@@ -342,29 +356,17 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
   @Override
   public void onSave() {
     SaveAttachmentTask.showWarningDialog(requireContext(), (dialogInterface, i) -> {
+      if (StorageUtil.canWriteToMediaStore()) {
+        performSaveToDisk();
+        return;
+      }
+
       Permissions.with(this)
-                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                 .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                  .ifNecessary()
                  .withPermanentDenialDialog(getString(R.string.MediaPreviewActivity_signal_needs_the_storage_permission_in_order_to_write_to_external_storage_but_it_has_been_permanently_denied))
                  .onAnyDenied(() -> Toast.makeText(requireContext(), R.string.MediaPreviewActivity_unable_to_write_to_external_storage_without_permission, Toast.LENGTH_LONG).show())
-                 .onAllGranted(() -> {
-                   SimpleTask.run(() -> {
-                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                     Bitmap                image        = imageEditorView.getModel().render(requireContext());
-
-                     image.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
-
-                     return BlobProvider.getInstance()
-                                        .forData(outputStream.toByteArray())
-                                        .withMimeType(MediaUtil.IMAGE_JPEG)
-                                        .createForSingleUseInMemory();
-
-                   }, uri -> {
-                     SaveAttachmentTask saveTask = new SaveAttachmentTask(requireContext());
-                     SaveAttachmentTask.Attachment attachment = new SaveAttachmentTask.Attachment(uri, MediaUtil.IMAGE_JPEG, System.currentTimeMillis(), null);
-                     saveTask.executeOnExecutor(SignalExecutors.BOUNDED, attachment);
-                   });
-                 })
+                 .onAllGranted(this::performSaveToDisk)
                  .execute();
     });
   }
@@ -392,6 +394,30 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
   @Override
   public void onRequestFullScreen(boolean fullScreen, boolean hideKeyboard) {
     controller.onRequestFullScreen(fullScreen, hideKeyboard);
+  }
+
+  @Override
+  public void onDone() {
+    controller.onDoneEditing();
+  }
+
+  private void performSaveToDisk() {
+    SimpleTask.run(() -> {
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      Bitmap                image        = imageEditorView.getModel().render(requireContext());
+
+      image.compress(Bitmap.CompressFormat.JPEG, 80, outputStream);
+
+      return BlobProvider.getInstance()
+                         .forData(outputStream.toByteArray())
+                         .withMimeType(MediaUtil.IMAGE_JPEG)
+                         .createForSingleUseInMemory();
+
+    }, uri -> {
+      SaveAttachmentTask saveTask = new SaveAttachmentTask(requireContext());
+      SaveAttachmentTask.Attachment attachment = new SaveAttachmentTask.Attachment(uri, MediaUtil.IMAGE_JPEG, System.currentTimeMillis(), null);
+      saveTask.executeOnExecutor(SignalExecutors.BOUNDED, attachment);
+    });
   }
 
   private void refreshUniqueColors() {
@@ -452,5 +478,7 @@ public final class ImageEditorFragment extends Fragment implements ImageEditorHu
     void onTouchEventsNeeded(boolean needed);
 
     void onRequestFullScreen(boolean fullScreen, boolean hideKeyboard);
+
+    void onDoneEditing();
   }
 }

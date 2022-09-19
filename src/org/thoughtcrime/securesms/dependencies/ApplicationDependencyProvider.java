@@ -23,7 +23,9 @@ import org.thoughtcrime.securesms.push.SecurityEventListener;
 import org.thoughtcrime.securesms.push.SignalServiceNetworkAccess;
 import org.thoughtcrime.securesms.recipients.LiveRecipientCache;
 import org.thoughtcrime.securesms.service.IncomingMessageObserver;
+import org.thoughtcrime.securesms.service.webrtc.SignalCallManager;
 import org.thoughtcrime.securesms.util.AlarmSleepTimer;
+import org.thoughtcrime.securesms.util.AppForegroundObserver;
 import org.thoughtcrime.securesms.util.FrameRateTracker;
 import org.thoughtcrime.securesms.util.TextSecurePreferences;
 import org.whispersystems.libsignal.util.guava.Optional;
@@ -117,6 +119,16 @@ public class ApplicationDependencyProvider implements ApplicationDependencies.Pr
   @Override
   public @NonNull FrameRateTracker provideFrameRateTracker() {
     return new FrameRateTracker(context);
+  }
+
+  @Override
+  public @NonNull AppForegroundObserver provideAppForegroundObserver() {
+    return new AppForegroundObserver();
+  }
+
+  @Override
+  public SignalCallManager provideSignalCallManager() {
+    return new SignalCallManager(context);
   }
 
   private static class DynamicCredentialsProvider implements CredentialsProvider {

@@ -34,13 +34,11 @@
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.WRITE_SMS"/-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"
-        android:maxSdkVersion="29" />
-    <uses-permission android:name="READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"   tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+                     android:maxSdkVersion="28" />
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -101,8 +99,7 @@
                  tools:replace="android:allowBackup"
                  android:allowBackup="false"
                  android:theme="@style/TextSecure.LightTheme"
-                 android:largeHeap="true"
-                 android:requestLegacyExternalStorage="true">
+                 android:largeHeap="true">
 
     <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -403,6 +400,10 @@
               android:theme="@style/TextSecure.LightNoActionBar"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
 
+    <activity android:name=".mediasend.AvatarSelectionActivity"
+              android:theme="@style/TextSecure.FullScreenMedia"
+              android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
+
     <activity android:name=".BlockedContactsActivity"
               android:theme="@style/TextSecure.LightTheme"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize"/>
@@ -468,7 +469,9 @@
               android:launchMode="singleTask"
               android:configChanges="touchscreen|keyboard|keyboardHidden|orientation|screenLayout|screenSize" />
 
-    <service android:enabled="true" android:name="org.thoughtcrime.securesms.service.WebRtcCallService"/>
+    <service android:enabled="true"
+             android:name="org.thoughtcrime.securesms.service.webrtc.WebRtcCallService"
+             android:foregroundServiceType="camera|microphone" />
     <service android:enabled="true" android:name=".service.ApplicationMigrationService"/>
     <service android:enabled="true" android:exported="false" android:name=".service.KeyCachingService"/>
     <service android:enabled="true" android:name=".service.IncomingMessageObserver$ForegroundService"/>

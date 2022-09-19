@@ -30,6 +30,10 @@
     <attr name="conversation_list_vicon_icon_tint" format="color"/>
     <attr name="conversation_list_vicon_button_background" format="color"/>
 
+    <attr name="avatar_selection_take_photo" format="reference" />
+    <attr name="avatar_selection_pick_photo" format="reference" />
+    <attr name="avatar_selection_remove_photo" format="reference" />
+
     <attr name="conversation_sent_card_background" format="reference|color"/>
     <attr name="conversation_group_member_name" format="reference|color"/>
     <attr name="conversation_received_card_background" format="reference|color"/>

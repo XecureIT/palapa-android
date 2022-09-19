@@ -8,6 +8,7 @@ import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 
 import org.thoughtcrime.securesms.jobmanager.ConstraintObserver;
+import org.thoughtcrime.securesms.util.concurrent.SignalExecutors;
 
 public class CellServiceConstraintObserver implements ConstraintObserver {
 
@@ -18,9 +19,13 @@ public class CellServiceConstraintObserver implements ConstraintObserver {
 
   private static CellServiceConstraintObserver instance;
 
-  public static synchronized CellServiceConstraintObserver getInstance(@NonNull Application application) {
+  public static CellServiceConstraintObserver getInstance(@NonNull Application application) {
     if (instance == null) {
-      instance = new CellServiceConstraintObserver(application);
+      synchronized (CellServiceConstraintObserver.class) {
+        if (instance == null) {
+          instance = new CellServiceConstraintObserver(application);
+        }
+      }
     }
     return instance;
   }
@@ -29,7 +34,9 @@ public class CellServiceConstraintObserver implements ConstraintObserver {
     TelephonyManager     telephonyManager     = (TelephonyManager) application.getSystemService(Context.TELEPHONY_SERVICE);
     ServiceStateListener serviceStateListener = new ServiceStateListener();
 
-    telephonyManager.listen(serviceStateListener, PhoneStateListener.LISTEN_SERVICE_STATE);
+    SignalExecutors.BOUNDED.execute(() -> {
+      telephonyManager.listen(serviceStateListener, PhoneStateListener.LISTEN_SERVICE_STATE);
+    });
   }
 
   @Override

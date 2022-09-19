@@ -8,8 +8,8 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 
 import org.thoughtcrime.securesms.WebRtcCallActivity;
+import org.thoughtcrime.securesms.dependencies.ApplicationDependencies;
 import org.thoughtcrime.securesms.recipients.Recipient;
-import org.thoughtcrime.securesms.service.WebRtcCallService;
 import org.thoughtcrime.securesms.util.concurrent.SimpleTask;
 
 public class VoiceCallShare extends Activity {
@@ -31,10 +31,7 @@ public class VoiceCallShare extends Activity {
 
           SimpleTask.run(() -> Recipient.external(this, destination), recipient -> {
             if (!TextUtils.isEmpty(destination)) {
-              Intent serviceIntent = new Intent(this, WebRtcCallService.class);
-              serviceIntent.setAction(WebRtcCallService.ACTION_OUTGOING_CALL);
-              serviceIntent.putExtra(WebRtcCallService.EXTRA_REMOTE_RECIPIENT, recipient.getId());
-              startService(serviceIntent);
+              ApplicationDependencies.getSignalCallManager().startOutgoingAudioCall(recipient);
 
               Intent activityIntent = new Intent(this, WebRtcCallActivity.class);
               activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
